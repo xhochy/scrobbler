@@ -13,15 +13,25 @@ module Scrobbler
 
     def execute
       doc = self.class.fetch_and_parse(api_path)
-      puts doc
-      albums = []
-      (doc/"//album/url").each do |url|
-        pieces = url.inner_html.split("/")
-        artist_name = CGI.unescape(pieces[pieces.size - 2])
-        album_name = CGI.unescape(pieces.last)
-        albums << Album.new(artist_name, album_name)
+      results = []
+      if type == 'album'
+        (doc/"//album").each do |album|
+          artist = album/"artist"
+          name = album/"name"
+          results << Album.new(artist.inner_html, name.inner_html)
+        end
+      elsif type == 'artist'
+        (doc/"//artist/name").each do |name|
+          results << Artist.new(name.inner_html)
+        end
+      elsif type == 'track'
+        (doc/"//track").each do |track|
+          artist = track/"artist"
+          name = track/"name"
+          results << Track.new(artist.inner_html, name.inner_html)
+        end
       end
-      albums
+      results
     end
 
     def by_album(album_name)
@@ -30,8 +40,20 @@ module Scrobbler
       execute
     end
 
+    def by_artist(artist_name)
+      @type = 'artist'
+      @query = artist_name
+      execute
+    end
+
+    def by_track(track_name)
+      @type = 'track'
+      @query = track_name
+      execute
+    end
+
     def api_path
-      "/2.0/?method=#{type}.search&album=#{CGI::escape(query)}&api_key=#{api_key}"
+      "/2.0/?method=#{type}.search&#{type}=#{CGI::escape(query)}&api_key=#{api_key}"
     end
 
   end

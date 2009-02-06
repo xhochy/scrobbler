@@ -28,7 +28,17 @@ module Scrobbler
 
             File.read(File.dirname(__FILE__) + "/../fixtures/xml/#{folder}/#{file}.xml")
           elsif api_version == "2.0"
-            File.read(File.dirname(__FILE__) + "/../fixtures/xml/search/album.xml")
+            method_pieces = pieces.last.split('&')
+            api_method = method_pieces.shift
+            if api_method == '?method=artist.search'
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/search/artist.xml")
+            elsif api_method == '?method=album.search'
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/search/album.xml")
+            elsif api_method == '?method=track.search'
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/search/track.xml")
+            else
+              throw Exception.new("Illegal or unsupported Last.FM method called")
+            end
           end
   	    elsif @base_url == Scrobbler::AUTH_URL
           if args[:hs] == "true" && args[:p] == Scrobbler::AUTH_VER.to_s && args[:c] == 'rbs' &&
