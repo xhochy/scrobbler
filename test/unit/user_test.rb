@@ -36,25 +36,25 @@ class TestUser < Test::Unit::TestCase
   end
   
   test 'should have api path' do
-    assert_equal('/2.0/user/jnunemaker', @user.api_path)
+    assert_equal('/1.0/user/jnunemaker', @user.api_path)
   end
   
   test 'should know the correct current events addresses' do
-    assert_equal('http://ws.audioscrobbler.com/2.0/user/jnunemaker/events.ics', @user.current_events(:ical))
-    assert_equal('http://ws.audioscrobbler.com/2.0/user/jnunemaker/events.ics', @user.current_events(:ics))
-    assert_equal('http://ws.audioscrobbler.com/2.0/user/jnunemaker/events.rss', @user.current_events(:rss))
+    assert_equal('http://ws.audioscrobbler.com/1.0/user/jnunemaker/events.ics', @user.current_events(:ical))
+    assert_equal('http://ws.audioscrobbler.com/1.0/user/jnunemaker/events.ics', @user.current_events(:ics))
+    assert_equal('http://ws.audioscrobbler.com/1.0/user/jnunemaker/events.rss', @user.current_events(:rss))
   end
   
   test 'should know the correct friends events addresses' do
-    assert_equal('http://ws.audioscrobbler.com/2.0/user/jnunemaker/friendevents.ics', @user.friends_events(:ical))
-    assert_equal('http://ws.audioscrobbler.com/2.0/user/jnunemaker/friendevents.ics', @user.friends_events(:ics))
-    assert_equal('http://ws.audioscrobbler.com/2.0/user/jnunemaker/friendevents.rss', @user.friends_events(:rss))
+    assert_equal('http://ws.audioscrobbler.com/1.0/user/jnunemaker/friendevents.ics', @user.friends_events(:ical))
+    assert_equal('http://ws.audioscrobbler.com/1.0/user/jnunemaker/friendevents.ics', @user.friends_events(:ics))
+    assert_equal('http://ws.audioscrobbler.com/1.0/user/jnunemaker/friendevents.rss', @user.friends_events(:rss))
   end
   
   test 'should know the correct recommended events addresses' do
-    assert_equal('http://ws.audioscrobbler.com/2.0/user/jnunemaker/eventsysrecs.ics', @user.recommended_events(:ical))
-    assert_equal('http://ws.audioscrobbler.com/2.0/user/jnunemaker/eventsysrecs.ics', @user.recommended_events(:ics))
-    assert_equal('http://ws.audioscrobbler.com/2.0/user/jnunemaker/eventsysrecs.rss', @user.recommended_events(:rss))
+    assert_equal('http://ws.audioscrobbler.com/1.0/user/jnunemaker/eventsysrecs.ics', @user.recommended_events(:ical))
+    assert_equal('http://ws.audioscrobbler.com/1.0/user/jnunemaker/eventsysrecs.ics', @user.recommended_events(:ics))
+    assert_equal('http://ws.audioscrobbler.com/1.0/user/jnunemaker/eventsysrecs.rss', @user.recommended_events(:rss))
   end
   
   test 'should be able to include profile during initialization' do

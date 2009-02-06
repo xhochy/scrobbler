@@ -22,7 +22,7 @@ class TestTrack < Test::Unit::TestCase
   end
   
   test 'should have api path' do
-    assert_equal('/2.0/track/Carrie+Underwood/Before+He+Cheats', @track.api_path)
+    assert_equal('/1.0/track/Carrie+Underwood/Before+He+Cheats', @track.api_path)
   end
   
   test 'should have fans' do
