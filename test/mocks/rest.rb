@@ -12,20 +12,24 @@ module Scrobbler
   	    
   	    if @base_url == Scrobbler::API_URL
     	    pieces = resource.split('/')
-    	    pieces.shift
-    	    pieces.shift
-    	    folder = pieces.shift
-    	    file   = pieces.last[0, pieces.last.index('.xml')]
-    	    base_pieces = pieces.last.split('?')
-  	    
-    	    file = if base_pieces.size > 1
-    	      # if query string params are in resource they are underscore separated for filenames
-    	      base_pieces.last.split('&').inject("#{file}_") { |str, pair| str << pair.split('=').join('_') + '_'; str }.chop!
-  	      else
-  	        file
+          pieces.shift
+    	    api_version = pieces.shift
+          if api_version == "1.0"
+            folder = pieces.shift
+            file   = pieces.last[0, pieces.last.index('.xml')]
+            base_pieces = pieces.last.split('?')
+
+            file = if base_pieces.size > 1
+              # if query string params are in resource they are underscore separated for filenames
+              base_pieces.last.split('&').inject("#{file}_") { |str, pair| str << pair.split('=').join('_') + '_'; str }.chop!
+            else
+              file
+            end
+
+            File.read(File.dirname(__FILE__) + "/../fixtures/xml/#{folder}/#{file}.xml")
+          elsif api_version == "2.0"
+            File.read(File.dirname(__FILE__) + "/../fixtures/xml/search/album.xml")
           end
-  	    
-    	    File.read(File.dirname(__FILE__) + "/../fixtures/xml/#{folder}/#{file}.xml")
   	    elsif @base_url == Scrobbler::AUTH_URL
           if args[:hs] == "true" && args[:p] == Scrobbler::AUTH_VER.to_s && args[:c] == 'rbs' &&
              args[:v] == Scrobbler::Version.to_s && args[:u] == 'chunky' && !args[:t].blank? &&
@@ -42,6 +46,8 @@ module Scrobbler
              ![args['a[0]'], args['t[0]'], args['i[0]'], args['o[0]'], args['l[0]'], args['b[0]']].any?(&:blank?)
             'OK'
           end
+        elsif @base_url == @scrobbler_api_url_v2
+          File.read(File.dirname(__FILE__) + "/../fixtures/xml/search/album.xml")
 	      end
 	      
 	    end
