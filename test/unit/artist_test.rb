@@ -15,19 +15,19 @@ class TestArtist < Test::Unit::TestCase
   end
   
   test 'should have the correct api_path' do
-    assert_equal('/1.0/artist/Metallica', @artist.api_path)
+    assert_equal('/2.0/artist/Metallica', @artist.api_path)
   end
   
   test 'should escape api path' do
-    assert_equal('/1.0/artist/Carrie+Underwood', Scrobbler::Artist.new('Carrie Underwood').api_path)
+    assert_equal('/2.0/artist/Carrie+Underwood', Scrobbler::Artist.new('Carrie Underwood').api_path)
   end
   
   test 'should have the correct ical path to current events' do
-    assert_equal('http://ws.audioscrobbler.com/1.0/artist/Metallica/events.ics', @artist.current_events(:ical))
+    assert_equal('http://ws.audioscrobbler.com/2.0/artist/Metallica/events.ics', @artist.current_events(:ical))
   end
 
   test 'should have the correct rss path to current events' do
-    assert_equal('http://ws.audioscrobbler.com/1.0/artist/Metallica/events.rss', @artist.current_events(:rss))
+    assert_equal('http://ws.audioscrobbler.com/2.0/artist/Metallica/events.rss', @artist.current_events(:rss))
   end
   
   test 'should be able to find similar artists' do

@@ -1,7 +1,7 @@
 module Scrobbler
   
   API_URL     = 'http://ws.audioscrobbler.com/'
-  API_VERSION = '1.0'
+  API_VERSION = '2.0'
   
   class Base
     class << self

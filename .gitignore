@@ -1,2 +1,4 @@
 doc/*
 pkg/*
+nbproject
+scrobbler-*.gem

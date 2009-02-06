@@ -23,7 +23,7 @@ class TestAlbum < Test::Unit::TestCase
   end
   
   test 'should have correct api path' do
-    assert_equal("/1.0/album/Carrie+Underwood/Some+Hearts", @album.api_path)
+    assert_equal("/2.0/album/Carrie+Underwood/Some+Hearts", @album.api_path)
   end
   
   test 'should be able to load album info' do

@@ -21,11 +21,11 @@ class TestTag < Test::Unit::TestCase
   end
   
   test 'should have api path' do
-    assert_equal('/1.0/tag/rock', @tag.api_path)
+    assert_equal('/2.0/tag/rock', @tag.api_path)
   end
   
   test 'should escape api path' do
-    assert_equal('/1.0/tag/rock+and+roll', Scrobbler::Tag.new('rock and roll').api_path)
+    assert_equal('/2.0/tag/rock+and+roll', Scrobbler::Tag.new('rock and roll').api_path)
   end
   
   test 'should be able to find top artists for a tag' do
