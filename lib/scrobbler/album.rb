@@ -105,7 +105,7 @@ module Scrobbler
     
     def load_info
       doc           = self.class.fetch_and_parse("#{api_path}/info.xml")
-      @reach        = (doc).at(:reach).inner_html
+      #@reach        = (doc).at(:reach).inner_html
       @url          = (doc).at(:url).inner_html
       @release_date = Time.parse((doc).at(:releasedate).inner_html.strip)
       @image_large  = (doc).at(:coverart).at(:large).inner_html
