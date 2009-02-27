@@ -105,22 +105,24 @@ module Scrobbler
     
     def load_info
       doc           = self.class.fetch_and_parse("#{api_path}/info.xml")
-      #@reach        = (doc).at(:reach).inner_html
-      @url          = (doc).at(:url).inner_html
-      @release_date = Time.parse((doc).at(:releasedate).inner_html.strip)
-      @image_large  = (doc).at(:coverart).at(:large).inner_html
-      @image_medium = (doc).at(:coverart).at(:medium).inner_html
-      @image_small  = (doc).at(:coverart).at(:small).inner_html
-      @mbid         = (doc).at(:mbid).inner_html
-      @tracks       = (doc/:track).inject([]) do |tracks, track|
-        t             = Track.new(artist, track['title'])
-        t.artist_mbid = artist_mbid
-        t.album       = name
-        t.album_mbid  = mbid
-        t.url         = (track).at(:url).inner_html
-        t.reach       = (track).at(:reach).inner_html
-        tracks << t
-        tracks
+      unless doc.to_s == "No such album for this artist"
+        @reach        = (doc).at(:reach).inner_html
+        @url          = (doc).at(:url).inner_html
+        @release_date = Time.parse((doc).at(:releasedate).inner_html.strip)
+        @image_large  = (doc).at(:coverart).at(:large).inner_html
+        @image_medium = (doc).at(:coverart).at(:medium).inner_html
+        @image_small  = (doc).at(:coverart).at(:small).inner_html
+        @mbid         = (doc).at(:mbid).inner_html
+        @tracks       = (doc/:track).inject([]) do |tracks, track|
+          t             = Track.new(artist, track['title'])
+          t.artist_mbid = artist_mbid
+          t.album       = name
+          t.album_mbid  = mbid
+          t.url         = (track).at(:url).inner_html
+          t.reach       = (track).at(:reach).inner_html
+          tracks << t
+          tracks
+        end
       end
     end
     
