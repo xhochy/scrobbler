@@ -105,7 +105,7 @@ module Scrobbler
     
     def load_info
       doc           = self.class.fetch_and_parse("#{api_path}/info.xml")
-      unless doc.to_s == "No such album for this artist"
+      unless doc.to_s.include?("No such album for this artist") || doc.to_s.include?("not found on this server")
         @reach        = (doc).at(:reach).inner_html
         @url          = (doc).at(:url).inner_html
         @release_date = Time.parse((doc).at(:releasedate).inner_html.strip)
