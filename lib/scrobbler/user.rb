@@ -122,8 +122,8 @@ module Scrobbler
       @avatar              = (doc).at(:avatar).inner_html
     end
     
-    def top_artists(force=false)
-      get_instance(:topartists, :top_artists, :artist, force)
+    def top_artists(force=false, period='overall')
+      get_instance2('user.gettopartists', :top_artists, :artist, {'user' => @username, 'period' => period}, force)
     end
     
     def top_albums(force=false)
