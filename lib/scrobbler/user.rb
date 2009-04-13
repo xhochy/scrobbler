@@ -130,8 +130,8 @@ module Scrobbler
       get_instance2('user.gettopalbums', :top_albums, :album, {'user'=>@username, 'period'=>period}, force)
     end
     
-    def top_tracks(force=false)
-      get_instance(:toptracks, :top_tracks, :track, force)
+    def top_tracks(force=false, period='overall')
+      get_instance2('user.gettoptracks', :top_tracks, :track, {'user'=>@username, 'period'=>period}, force)
     end
     
     def top_tags(force=false)
