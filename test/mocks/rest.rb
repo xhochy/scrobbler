@@ -38,12 +38,22 @@ module Scrobbler
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/search/track.xml")
             elsif pieces.last =~ /[?&]method=artist\.gettoptags/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/artist/toptags.xml")
-            elsif pieces.last =~ /[?&]method=user.gettopartists/
+            elsif pieces.last =~ /[?&]method=user\.gettopartists/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/topartists.xml")
-            elsif pieces.last =~ /[?&]method=user.gettopalbums/
+            elsif pieces.last =~ /[?&]method=user\.gettopalbums/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/topalbums.xml")
-            elsif pieces.last =~ /[?&]method=user.gettoptracks/
+            elsif pieces.last =~ /[?&]method=user\.gettoptracks/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/toptracks.xml")
+            elsif pieces.last =~ /[?&]method=user\.getfriends/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/friends.xml")
+            elsif pieces.last =~ /[?&]method=user\.gettoptags/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/toptags.xml")
+            elsif pieces.last =~ /[?&]method=user\.getneighbours/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/neighbours.xml")
+            elsif pieces.last =~ /[?&]method=user\.getrecenttracks/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/recenttracks.xml")
+            elsif pieces.last =~ /[?&]method=user\.getweeklychartlist/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/weeklychartlist.xml")
             else
               throw Exception.new("Illegal or unsupported Last.FM method called")
             end

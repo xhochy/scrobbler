@@ -135,35 +135,38 @@ module Scrobbler
     end
     
     def top_tags(force=false)
-      get_instance(:toptags, :top_tags, :tag, force)
+      get_instance2('user.gettoptags', :top_tags, :tag, {'user'=>@username}, force)
     end
     
-    def friends(force=false)
-      get_instance(:friends, :friends, :user, force)
+    def friends(force=false, page=1, limit=50)
+      get_instance2('user.getfriends', :friends, :user, {'user'=>@username, 'page'=>page.to_s, 'limit'=>limit.to_s}, force)
     end
     
     def neighbours(force=false)
-      get_instance(:neighbours, :neighbours, :user, force)
+      get_instance2('user.getneighbours', :neighbours, :user, {'user'=>@username}, force)
     end
     
     def recent_tracks(force=false)
-      get_instance(:recenttracks, :recent_tracks, :track, force)
+      get_instance2('user.getrecenttracks', :recent_tracks, :track, {'user'=>@username}, force)
     end
     
     def recent_banned_tracks(force=false)
+      #warn "#{file}:#{lineno}:Warning: Scrobbler::User#recent_banned_tracks is deprecated (not supported by the Last.fm 2.0 API)"
       get_instance(:recentbannedtracks, :recent_banned_tracks, :track, force)
     end
     
     def recent_loved_tracks(force=false)
+      #warn "#{file}:#{lineno}:Warning: Scrobbler::User#recent_loved_tracks is deprecated (not supported by the Last.fm 2.0 API)"
       get_instance(:recentlovedtracks, :recent_loved_tracks, :track, force)
     end
     
     def recommendations(force=false)
+      #warn "#{file}:#{lineno}:Warning: Scrobbler::User#recommendations is deprecated (not supported by the Last.fm 2.0 API)"
       get_instance(:systemrecs, :recommendations, :artist, force)
     end
     
     def charts(force=false)
-      get_instance(:weeklychartlist, :charts, :chart, force)
+      get_instance2('user.getweeklychartlist', :charts, :chart, {'user'=>@username}, force)
     end
     
     def weekly_artist_chart(from=nil, to=nil)
