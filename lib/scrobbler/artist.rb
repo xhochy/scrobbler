@@ -121,7 +121,7 @@ module Scrobbler
     end
     
     def top_tags(force=false)
-      get_instance(:toptags, :top_tags, :tag, force)
+      get_instance2('artist.gettoptags', :top_tags, :tag, {'artist' => @name}, force)
     end
   end
 end
