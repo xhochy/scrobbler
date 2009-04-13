@@ -1,6 +1,8 @@
 require 'test/unit'
 require File.dirname(__FILE__) + '/../lib/scrobbler'
 require File.dirname(__FILE__) + '/mocks/rest'
+# To test the 2.0 API, we need a valid key
+require File.dirname(__FILE__) + '/../api-key.rb'
 
 class << Test::Unit::TestCase
   def test(name, &block)
