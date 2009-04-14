@@ -52,6 +52,10 @@ module Scrobbler
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/tag/topartists.xml")
             elsif pieces.last =~ /[?&]method=tag\.gettopalbums/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/tag/topalbums.xml")
+            elsif pieces.last =~ /[?&]method=track\.gettoptags/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/track/toptags.xml")
+            elsif pieces.last =~ /[?&]method=track\.gettopfans/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/track/fans.xml")
             elsif pieces.last =~ /[?&]method=user\.gettopartists/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/topartists.xml")
             elsif pieces.last =~ /[?&]method=user\.gettopalbums/

@@ -86,11 +86,11 @@ module Scrobbler
     end
     
     def fans(force=false)
-      get_instance(:fans, :fans, :user, force)
+      get_instance2('track.gettopfans', :fans, :user, {'artist'=>@artist, 'track'=>@name}, force)
     end
     
     def tags(force=false)
-      get_instance(:toptags, :tags, :tag, force)
+      get_instance2('track.gettoptags', :tags, :tag, {'artist'=>@artist, 'track'=>@name}, force)
     end
   end
 end
