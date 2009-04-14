@@ -105,23 +105,23 @@ module Scrobbler
     end
     
     def similar(force=false)
-      get_instance(:similar, :similar, :artist, force)
+      get_instance2('artist.getsimilar', :similar, :artist, {'artist'=>@name}, force)
     end
     
     def top_fans(force=false)
-      get_instance(:fans, :top_fans, :user, force)
+      get_instance2('artist.gettopfans', :top_fans, :user, {'artist'=>@name}, force)
     end
     
     def top_tracks(force=false)
-      get_instance(:toptracks, :top_tracks, :track, force)
+      get_instance2('artist.gettoptracks', :top_tracks, :track, {'artist'=>@name}, force)
     end
     
     def top_albums(force=false)
-      get_instance(:topalbums, :top_albums, :album, force)
+      get_instance2('artist.gettopalbums', :top_albums, :album, {'artist'=>@name}, force)
     end
     
     def top_tags(force=false)
-      get_instance2('artist.gettoptags', :top_tags, :tag, {'artist' => @name}, force)
+      get_instance2('artist.gettoptags', :top_tags, :tag, {'artist'=>@name}, force)
     end
   end
 end
