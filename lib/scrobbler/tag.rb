@@ -90,15 +90,15 @@ module Scrobbler
     end
     
     def top_artists(force=false)
-      get_instance(:topartists, :top_artists, :artist, force)
+      get_instance2('tag.gettopartists', :top_artists, :artist, {'tag'=>@name}, force)
     end
     
     def top_albums(force=false)
-      get_instance(:topalbums, :top_albums, :album, force)
+      get_instance2('tag.gettopalbums', :top_albums, :album, {'tag'=>@name}, force)
     end
 
     def top_tracks(force=false)
-      get_instance(:toptracks, :top_tracks, :track, force)
+      get_instance2('tag.gettoptracks', :top_tracks, :track, {'tag'=>@name}, force)
     end
   end
 end
