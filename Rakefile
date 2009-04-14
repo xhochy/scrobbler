@@ -9,7 +9,7 @@ WEBSITE_PATH = 'jnunemaker@rubyforge.org:/var/www/gforge-projects/scrobbler'
 Echoe.new('scrobbler', Scrobbler::Version) do |p|
   p.description     = "wrapper for audioscrobbler (last.fm) web services"
   p.url             = "http://scrobbler.rubyforge.org"
-  p.author          = ['John Nunemaker', 'Jonathan Rudenberg']
+  p.author          = ['John Nunemaker', 'Jonathan Rudenberg', 'Uwe L. Korn']
   p.email           = "nunemaker@gmail.com"
   p.extra_deps      = [['hpricot', '>=0.4.86'], ['activesupport', '>=1.4.2']]
   p.need_tar_gz     = false
