@@ -61,7 +61,7 @@ module Scrobbler
     
     class << self
       def new_from_xml(xml, doc=nil)
-        u        = User.new((xml)['username'])
+        u        = User.new(xml.at(:name).inner_html)
         u.url    = (xml).at(:url).inner_html    if (xml).at(:url)
         u.avatar = (xml).at(:image).inner_html  if (xml).at(:image)
         u.weight = (xml).at(:weight).inner_html if (xml).at(:weight)
