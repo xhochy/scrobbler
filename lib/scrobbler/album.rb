@@ -71,18 +71,11 @@ module Scrobbler
         a.playcount      = (xml).at(:playcount).inner_html              if (xml).at(:playcount)
         a.chartposition = (xml).at(:chartposition).inner_html          if (xml).at(:chartposition)
         a.rank           = (xml).at(:rank).inner_html                   if (xml).at(:rank)
-        a.url            = (xml/:url).last.inner_html                   if (xml/:url).size > 1
-        a.url            = (xml).at(:url).inner_html                    if a.url.nil? && (xml).at(:url)
-        a.reach          = (xml).at(:reach).inner_html                  if (xml).at(:reach)
-        a.image_large    = (xml).at(:image).at(:large).inner_html       if (xml).at(:image) && (xml).at(:image).at(:large)
-        a.image_medium   = (xml).at(:image).at(:medium).inner_html      if (xml).at(:image) && (xml).at(:image).at(:medium)
-        a.image_small    = (xml).at(:image).at(:small).inner_html       if (xml).at(:image) && (xml).at(:image).at(:small)
-        
-        # coverart element used on top albums for tag
-        a.image_large    = (xml).at(:coverart).at(:large).inner_html    if a.image_large.nil? && (xml).at(:coverart) && (xml).at(:coverart).at(:large)
-        a.image_medium   = (xml).at(:coverart).at(:medium).inner_html   if a.image_medium.nil? && (xml).at(:coverart) && (xml).at(:coverart).at(:medium)
-        a.image_small    = (xml).at(:coverart).at(:small).inner_html    if a.image_small.nil? && (xml).at(:coverart) && (xml).at(:coverart).at(:small)
-        
+        a.url            = xml.at('/url').inner_html                   if xml.at('/url')
+        a.image_large    = xml.at("/image[@size='large']").inner_html if xml.at("/image[@size='large']")
+        a.image_medium   = xml.at("/image[@size='medium']").inner_html if xml.at("/image[@size='medium']")
+        a.image_small    = xml.at("/image[@size='small']").inner_html if xml.at("/image[@size='small']")
+                
         # needed on top albums for tag
         a.count          = xml['count'] if xml['count']
         a.streamable     = xml['streamable'] if xml['streamable']
