@@ -56,7 +56,6 @@ user.top_tracks.each { |t| puts "(#{t.playcount}) #{t.name}" }</code></pre>
 
 puts "Album: #{album.name}"
 puts "Artist: #{album.artist}"
-puts "Reach: #{album.reach}"
 puts "URL: #{album.url}"
 puts "Release Date: #{album.release_date.strftime('%m/%d/%Y')}"
 
@@ -74,7 +73,6 @@ album.tracks.each { |t| puts t.name }</code></pre>
 
 puts 'Top Tracks'
 puts "=" * 10
-artist.top_tracks.each { |t| puts "(#{t.reach}) #{t.name}" }
 
 puts
 
