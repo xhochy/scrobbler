@@ -97,15 +97,17 @@ module Scrobbler
     end
     
     def load_info
-      doc           = self.class.fetch_and_parse("#{api_path}/info.xml")
+      doc = self.class.fetch_and_parse("/2.0/?method=album.getinfo" + 
+        "&api_key=#{@@api_key}&artist=" + 
+        CGI::escape(@artist) + '&album=' + CGI::escape(@name))
       unless doc.to_s.include?("No such album for this artist") || doc.to_s.include?("not found on this server") || doc.to_s.include?("ERROR")
-        @reach        = (doc).at(:reach).inner_html
+        xml = doc.at(:album)
         @url          = (doc).at(:url).inner_html
         @release_date = Time.parse((doc).at(:releasedate).inner_html.strip)
-        @image_large  = (doc).at(:coverart).at(:large).inner_html
-        @image_medium = (doc).at(:coverart).at(:medium).inner_html
-        @image_small  = (doc).at(:coverart).at(:small).inner_html
-        @mbid         = (doc).at(:mbid).inner_html
+        @image_large  = xml.at("/image[@size='large']").inner_html
+        @image_medium = xml.at("/image[@size='medium']").inner_html
+        @image_small  = xml.at("/image[@size='small']").inner_html
+        @mbid         = doc.at(:mbid).inner_html
         @tracks       = (doc/:track).inject([]) do |tracks, track|
           t             = Track.new(artist, track['title'])
           t.artist_mbid = artist_mbid
