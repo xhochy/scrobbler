@@ -4,7 +4,8 @@ Scrobbler is a wrapper for the audioscrobbler web services (http://www.audioscro
 
 Currently updating to use the 2.0 API. It is very much a work in progress.
 
-Below is just a sampling of how easy this lib is to use.
+Below is just a sampling of how easy this lib is to use, full documentation of
+all functions is available at http://rdoc.info/projects/xhochy/scrobbler
 
 == Initialization
 
