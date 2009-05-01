@@ -196,11 +196,4 @@ class TestUser < Test::Unit::TestCase
     assert_equal('http://www.last.fm/music/Kaiser+Chiefs', first.url)
   end
   
-  test 'should have charts' do
-    assert_equal(71, @user.charts.size)
-    first = @user.charts.first
-    assert_equal(1134302403, first.from)
-    assert_equal(1134907203, first.to)
-  end
-  
 end

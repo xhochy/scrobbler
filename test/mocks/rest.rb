@@ -72,8 +72,6 @@ module Scrobbler
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/neighbours.xml")
             elsif pieces.last =~ /[?&]method=user\.getrecenttracks/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/recenttracks.xml")
-            elsif pieces.last =~ /[?&]method=user\.getweeklychartlist/
-              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/weeklychartlist.xml")
             else
               throw Exception.new("Illegal or unsupported Last.FM method called")
             end
