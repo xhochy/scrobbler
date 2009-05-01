@@ -46,7 +46,7 @@ module Scrobbler
     
     class << self
       def new_from_xml(xml, doc=nil)
-        artist          = (xml).at(:artist)['name']               if (xml).at(:artist) && (xml).at(:artist)['name']
+        artist          = (xml).at(:artist).at('/name').inner_html if (xml).at(:artist) && (xml).at(:artist).at('/name')
         artist          = (xml).at(:artist).inner_html            if artist.nil? && (xml).at(:artist)
         artist          = doc.root['artist']                      if artist.nil? && doc.root['artist']
         name            = (xml).at(:name).inner_html              if (xml).at(:name)
@@ -57,18 +57,17 @@ module Scrobbler
         t.mbid          = (xml).at(:mbid).inner_html              if (xml).at(:mbid)
         t.playcount     = (xml).at(:playcount).inner_html         if (xml).at(:playcount)
         t.chartposition = (xml).at(:chartposition).inner_html     if (xml).at(:chartposition)
-        t.rank          = (xml).at(:rank).inner_html              if (xml).at(:rank)
+        t.rank          = xml['rank'] if xml['rank']
         t.url           = xml.at('/url').inner_html               if xml.at('/url')
         t.streamable    = (xml).at(:track)['streamable']          if (xml).at(:track) && (xml).at(:track)['streamable']
-        t.streamable    = xml['streamable']                       if t.streamable.nil? && xml['streamable']
-        t.count         = xml['count']                            if xml['count']
+        t.streamable    = xml.at('/streamable').inner_html        if t.streamable.nil? && xml.at('/streamable')
+        t.count         = xml.at('/tagcount').inner_html          if xml.at('/tagcount')
         t.album         = (xml).at(:album).inner_html             if (xml).at(:album)
         t.album_mbid    = (xml).at(:album)['mbid']                if (xml).at(:album) && (xml).at(:album)['mbid']
         t.date          = Time.parse((xml).at(:date).inner_html)  if (xml).at(:date)
         t.date_uts      = (xml).at(:date)['uts']                  if (xml).at(:date) && (xml).at(:date)['uts']
-        t.thumbnail     = (xml).at(:thumbnail).inner_html         if (xml).at(:thumbnail)
-        t.image         = (xml).at(:image).inner_html             if (xml).at(:image)
-        t.reach         = (xml).at(:reach).inner_html             if (xml).at(:reach)
+        t.thumbnail = (xml).at('/image[@size="small"]').inner_html if (xml).at('/image[@size="small"]')
+        t.image = (xml).at('/image[@size="medium"]').inner_html   if (xml).at('/image[@size="medium"]')
         t
       end
     end

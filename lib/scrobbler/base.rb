@@ -1,4 +1,8 @@
+require 'rubygems'
 require 'cgi'
+require 'htmlentities'
+
+$KCODE = 'u'
 
 module Scrobbler
   
@@ -8,6 +12,11 @@ module Scrobbler
   class Base
     def Base.api_key=(api_key)
         @@api_key = api_key
+    end
+
+    @@coder = HTMLEntities.new
+    def Base.sanitize(string)
+       @@coder.decode(string)
     end
 
     class << self

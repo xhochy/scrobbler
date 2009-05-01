@@ -1,27 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<recenttracks user="oaknd1">
-	<track streamable="true">
-		<artist mbid="a0327dc2-dc76-44d5-aec6-47cd2dff1469">Counting Crows</artist>
-		<name>Recovering the Satellites</name>
-		<mbid></mbid>
-		<album mbid="328bc43b-a81a-4dc0-844f-1a27880e5fb2">Recovering the Satellites</album>
-		<url>http://www.last.fm/music/Counting+Crows/_/Recovering+the+Satellites</url>
-		<date uts="1178312462">4 May 2007, 9:01pm</date>
-	</track>
-	<track streamable="true">
-		<artist mbid="144ef525-85e9-40c3-8335-02c32d0861f3">John Mayer</artist>
-		<name>Clarity</name>
-		<mbid></mbid>
-		<album mbid="3b5f65d8-e4c9-4c0b-b932-529f0b191d5b">Heavier Things</album>
-		<url>http://www.last.fm/music/John+Mayer/_/Clarity</url>
-		<date uts="1178312188">4 May 2007, 8:56pm</date>
-	</track>
-	<track streamable="false">
-		<artist mbid="07e748f1-075e-428d-85dc-ce3be434e906">Dave Matthews Band</artist>
-		<name>Grace Is Gone (Lillywhite)</name>
-		<mbid></mbid>
-		<album mbid=""></album>
-		<url>http://www.last.fm/music/Dave+Matthews+Band/_/Grace+Is+Gone+%28Lillywhite%29</url>
-		<date uts="1178311876">4 May 2007, 8:51pm</date>
-	</track>
-</recenttracks>
+<?xml version="1.0" encoding="utf-8"?>
+<lfm status="ok">
+<recenttracks user="RJ">
+<track > 
+                    <artist mbid="bc641be9-ca36-4c61-9394-5230433f6646">Liquid Tension Experiment</artist>
+        <name>Liquid Dreams</name>
+    <streamable>1</streamable>
+    <mbid></mbid>
+    <album mbid="6c20d297-121e-47d0-aa3a-8f27c7a06553">Liquid Tension Experiment 2</album>
+
+    <url>http://www.last.fm/music/Liquid+Tension+Experiment/_/Liquid+Dreams</url>
+            <image size="small">http://userserve-ak.last.fm/serve/34s/16592807.jpg</image>
+        <image size="medium">http://userserve-ak.last.fm/serve/64s/16592807.jpg</image>
+        <image size="large">http://userserve-ak.last.fm/serve/126/16592807.jpg</image>
+                    <date uts="1240941262">28 Apr 2009, 17:54</date>
+</track>
+<track > 
+                    <artist mbid="bc641be9-ca36-4c61-9394-5230433f6646">Liquid Tension Experiment</artist>
+
+        <name>Liquid Dreams</name>
+    <streamable>1</streamable>
+    <mbid></mbid>
+    <album mbid="6c20d297-121e-47d0-aa3a-8f27c7a06553">Liquid Tension Experiment 2</album>
+    <url>http://www.last.fm/music/Liquid+Tension+Experiment/_/Liquid+Dreams</url>
+            <image size="small">http://userserve-ak.last.fm/serve/34s/16592807.jpg</image>
+
+        <image size="medium">http://userserve-ak.last.fm/serve/64s/16592807.jpg</image>
+        <image size="large">http://userserve-ak.last.fm/serve/126/16592807.jpg</image>
+                    <date uts="1240939210">28 Apr 2009, 17:20</date>
+</track>
+<track > 
+                    <artist mbid="bc641be9-ca36-4c61-9394-5230433f6646">Liquid Tension Experiment</artist>
+        <name>Liquid Dreams</name>
+    <streamable>1</streamable>
+
+    <mbid></mbid>
+    <album mbid="6c20d297-121e-47d0-aa3a-8f27c7a06553">Liquid Tension Experiment 2</album>
+    <url>http://www.last.fm/music/Liquid+Tension+Experiment/_/Liquid+Dreams</url>
+            <image size="small">http://userserve-ak.last.fm/serve/34s/16592807.jpg</image>
+        <image size="medium">http://userserve-ak.last.fm/serve/64s/16592807.jpg</image>
+        <image size="large">http://userserve-ak.last.fm/serve/126/16592807.jpg</image>
+
+                    <date uts="1240934120">28 Apr 2009, 15:55</date>
+</track>
+</recenttracks></lfm>
+
+

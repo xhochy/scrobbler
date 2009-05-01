@@ -26,11 +26,10 @@ class TestTrack < Test::Unit::TestCase
   end
   
   test 'should have fans' do
-    assert_equal(5, @track.fans.size)
-    assert_equal('frozenice', @track.fans.first.username)
-    assert_equal('http://www.last.fm/user/frozenice/', @track.fans.first.url)
-    assert_equal('http://panther1.last.fm/avatar/54e8d2cafc363336e15fef0a48d30706.jpg', @track.fans.first.avatar)
-    assert_equal('909', @track.fans.first.weight)
+    assert_equal(3, @track.fans.size)
+    assert_equal('ccaron0', @track.fans.first.username)
+    assert_equal('http://www.last.fm/user/ccaron0', @track.fans.first.url)
+    assert_equal('335873', @track.fans.first.weight)
   end
   
   test 'should have top tags' do

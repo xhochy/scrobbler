@@ -169,27 +169,5 @@ module Scrobbler
       get_instance2('user.getweeklychartlist', :charts, :chart, {'user'=>@username}, force)
     end
     
-    def weekly_artist_chart(from=nil, to=nil)
-      qs  = create_query_string_from_timestamps(from, to)
-      doc = self.class.fetch_and_parse("#{api_path}/weeklyartistchart.xml#{qs}")
-      (doc/:artist).inject([]) { |elements, el| elements << Artist.new_from_xml(el); elements }
-    end
-    
-    def weekly_album_chart(from=nil, to=nil)
-      qs  = create_query_string_from_timestamps(from, to)
-      doc = self.class.fetch_and_parse("#{api_path}/weeklyalbumchart.xml#{qs}")
-      (doc/:album).inject([]) { |elements, el| elements << Album.new_from_xml(el); elements }
-    end
-    
-    def weekly_track_chart(from=nil, to=nil)
-      qs  = create_query_string_from_timestamps(from, to)
-      doc = self.class.fetch_and_parse("#{api_path}/weeklytrackchart.xml#{qs}")
-      (doc/:track).inject([]) { |elements, el| elements << Track.new_from_xml(el); elements }
-    end
-    
-    private
-      def create_query_string_from_timestamps(from, to)
-        (from && to) ? "?from=#{from.to_i}&to=#{to.to_i}" : ''
-      end
   end
 end

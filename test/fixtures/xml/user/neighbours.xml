@@ -1,18 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<neighbours user="jnunemaker">
-	<user username="xBluejeanbabyx">
-		<url>http://www.last.fm/user/xBluejeanbabyx/</url>
-		<image>http://panther1.last.fm/avatar/d4de2144dc9b651b02d5d633124f0205.jpg</image>
-		<match>100</match>
-	</user>
-	<user username="shakemegadisco">
-		<url>http://www.last.fm/user/shakemegadisco/</url>
-		<image>http://panther1.last.fm/avatar/82b932a6e646fa78f7f0a01fec258e43.jpg</image>
-		<match>93.17</match>
-	</user>
-	<user username="someheartsxx">
-		<url>http://www.last.fm/user/someheartsxx/</url>
-		<image>http://panther1.last.fm/avatar/1d9ef2ef357c0e36b98be845021378c9.jpg</image>
-		<match>91.5</match>
-	</user>
-</neighbours>
+<?xml version="1.0" encoding="utf-8"?>
+<lfm status="ok">
+<neighbours user="RJ">
+<user>
+    <name>Driotheri</name>
+    <url>http://www.last.fm/user/Driotheri</url>
+    <image size="small">http://userserve-ak.last.fm/serve/34/6070771.jpg</image>
+    <image size="medium">http://userserve-ak.last.fm/serve/64/6070771.jpg</image>
+    <image size="large">http://userserve-ak.last.fm/serve/126/6070771.jpg</image>
+
+    <match>0.00027966260677204</match>
+</user>
+<user>
+    <name>frood73</name>
+    <url>http://www.last.fm/user/frood73</url>
+    <image size="small">http://userserve-ak.last.fm/serve/34/1279453.jpg</image>
+    <image size="medium">http://userserve-ak.last.fm/serve/64/1279453.jpg</image>
+
+    <image size="large">http://userserve-ak.last.fm/serve/126/1279453.jpg</image>
+    <match>0.0017569661140442</match>
+</user>
+</neighbours></lfm>
+

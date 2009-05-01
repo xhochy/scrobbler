@@ -36,6 +36,8 @@ module Scrobbler
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/search/album.xml")
             elsif api_method == '?method=track.search'
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/search/track.xml")
+            elsif pieces.last =~ /[?&]method=album\.getinfo/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/album/info.xml")
             elsif pieces.last =~ /[?&]method=artist\.gettoptags/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/artist/toptags.xml")
             elsif pieces.last =~ /[?&]method=artist\.gettopfans/

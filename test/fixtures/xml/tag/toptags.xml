@@ -1,252 +1,1254 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<lfm status="ok">
 <toptags>
-	<tag name="rock" count="878660" url="http://www.last.fm/tag/rock"/>
-	<tag name="indie" count="494827" url="http://www.last.fm/tag/indie"/>
-	<tag name="seen live" count="486766" url="http://www.last.fm/tag/seen%20live"/>
-	<tag name="alternative" count="459958" url="http://www.last.fm/tag/alternative"/>
-	<tag name="electronic" count="352409" url="http://www.last.fm/tag/electronic"/>
-	<tag name="metal" count="315552" url="http://www.last.fm/tag/metal"/>
-	<tag name="pop" count="304373" url="http://www.last.fm/tag/pop"/>
-	<tag name="punk" count="250531" url="http://www.last.fm/tag/punk"/>
-	<tag name="indie rock" count="209793" url="http://www.last.fm/tag/indie%20rock"/>
-	<tag name="classic rock" count="209396" url="http://www.last.fm/tag/classic%20rock"/>
-	<tag name="female vocalists" count="187671" url="http://www.last.fm/tag/female%20vocalists"/>
-	<tag name="alternative rock" count="183227" url="http://www.last.fm/tag/alternative%20rock"/>
-	<tag name="jazz" count="177893" url="http://www.last.fm/tag/jazz"/>
-	<tag name="electronica" count="170488" url="http://www.last.fm/tag/electronica"/>
-	<tag name="hip-hop" count="160944" url="http://www.last.fm/tag/hip-hop"/>
-	<tag name="singer-songwriter" count="141102" url="http://www.last.fm/tag/singer-songwriter"/>
-	<tag name="folk" count="139922" url="http://www.last.fm/tag/folk"/>
-	<tag name="hardcore" count="135138" url="http://www.last.fm/tag/hardcore"/>
-	<tag name="emo" count="132079" url="http://www.last.fm/tag/emo"/>
-	<tag name="death metal" count="131641" url="http://www.last.fm/tag/death%20metal"/>
-	<tag name="dance" count="129403" url="http://www.last.fm/tag/dance"/>
-	<tag name="80s" count="124896" url="http://www.last.fm/tag/80s"/>
-	<tag name="ambient" count="121843" url="http://www.last.fm/tag/ambient"/>
-	<tag name="black metal" count="121213" url="http://www.last.fm/tag/black%20metal"/>
-	<tag name="progressive rock" count="117671" url="http://www.last.fm/tag/progressive%20rock"/>
-	<tag name="hard rock" count="116781" url="http://www.last.fm/tag/hard%20rock"/>
-	<tag name="industrial" count="112003" url="http://www.last.fm/tag/industrial"/>
-	<tag name="punk rock" count="110079" url="http://www.last.fm/tag/punk%20rock"/>
-	<tag name="heavy metal" count="109216" url="http://www.last.fm/tag/heavy%20metal"/>
-	<tag name="japanese" count="107067" url="http://www.last.fm/tag/japanese"/>
-	<tag name="experimental" count="106006" url="http://www.last.fm/tag/experimental"/>
-	<tag name="favorites" count="103884" url="http://www.last.fm/tag/favorites"/>
-	<tag name="chillout" count="100323" url="http://www.last.fm/tag/chillout"/>
-	<tag name="rap" count="98483" url="http://www.last.fm/tag/rap"/>
-	<tag name="soundtrack" count="91943" url="http://www.last.fm/tag/soundtrack"/>
-	<tag name="instrumental" count="88300" url="http://www.last.fm/tag/instrumental"/>
-	<tag name="hip hop" count="82963" url="http://www.last.fm/tag/hip%20hop"/>
-	<tag name="british" count="78134" url="http://www.last.fm/tag/british"/>
-	<tag name="trance" count="77611" url="http://www.last.fm/tag/trance"/>
-	<tag name="soul" count="77049" url="http://www.last.fm/tag/soul"/>
-	<tag name="indie pop" count="76910" url="http://www.last.fm/tag/indie%20pop"/>
-	<tag name="metalcore" count="76104" url="http://www.last.fm/tag/metalcore"/>
-	<tag name="thrash metal" count="75916" url="http://www.last.fm/tag/thrash%20metal"/>
-	<tag name="progressive metal" count="74898" url="http://www.last.fm/tag/progressive%20metal"/>
-	<tag name="power metal" count="74809" url="http://www.last.fm/tag/power%20metal"/>
-	<tag name="90s" count="73903" url="http://www.last.fm/tag/90s"/>
-	<tag name="blues" count="69987" url="http://www.last.fm/tag/blues"/>
-	<tag name="reggae" count="66788" url="http://www.last.fm/tag/reggae"/>
-	<tag name="acoustic" count="66595" url="http://www.last.fm/tag/acoustic"/>
-	<tag name="post-rock" count="65059" url="http://www.last.fm/tag/post-rock"/>
-	<tag name="classical" count="65038" url="http://www.last.fm/tag/classical"/>
-	<tag name="britpop" count="63815" url="http://www.last.fm/tag/britpop"/>
-	<tag name="new wave" count="63087" url="http://www.last.fm/tag/new%20wave"/>
-	<tag name="techno" count="62535" url="http://www.last.fm/tag/techno"/>
-	<tag name="ska" count="62517" url="http://www.last.fm/tag/ska"/>
-	<tag name="trip-hop" count="62469" url="http://www.last.fm/tag/trip-hop"/>
-	<tag name="melodic death metal" count="62163" url="http://www.last.fm/tag/melodic%20death%20metal"/>
-	<tag name="funk" count="59796" url="http://www.last.fm/tag/funk"/>
-	<tag name="psychedelic" count="58401" url="http://www.last.fm/tag/psychedelic"/>
-	<tag name="mellow" count="57249" url="http://www.last.fm/tag/mellow"/>
-	<tag name="electro" count="57089" url="http://www.last.fm/tag/electro"/>
-	<tag name="house" count="55856" url="http://www.last.fm/tag/house"/>
-	<tag name="german" count="54171" url="http://www.last.fm/tag/german"/>
-	<tag name="screamo" count="53709" url="http://www.last.fm/tag/screamo"/>
-	<tag name="grunge" count="52502" url="http://www.last.fm/tag/grunge"/>
-	<tag name="chill" count="51786" url="http://www.last.fm/tag/chill"/>
-	<tag name="country" count="51643" url="http://www.last.fm/tag/country"/>
-	<tag name="gothic metal" count="50083" url="http://www.last.fm/tag/gothic%20metal"/>
-	<tag name="rnb" count="49554" url="http://www.last.fm/tag/rnb"/>
-	<tag name="j-rock" count="49416" url="http://www.last.fm/tag/j-rock"/>
-	<tag name="gothic" count="49285" url="http://www.last.fm/tag/gothic"/>
-	<tag name="love" count="48861" url="http://www.last.fm/tag/love"/>
-	<tag name="post-punk" count="48733" url="http://www.last.fm/tag/post-punk"/>
-	<tag name="downtempo" count="47465" url="http://www.last.fm/tag/downtempo"/>
-	<tag name="albums i own" count="46761" url="http://www.last.fm/tag/albums%20i%20own"/>
-	<tag name="finnish" count="46414" url="http://www.last.fm/tag/finnish"/>
-	<tag name="doom metal" count="44009" url="http://www.last.fm/tag/doom%20metal"/>
-	<tag name="j-pop" count="43987" url="http://www.last.fm/tag/j-pop"/>
-	<tag name="favourites" count="43349" url="http://www.last.fm/tag/favourites"/>
-	<tag name="idm" count="43272" url="http://www.last.fm/tag/idm"/>
-	<tag name="beautiful" count="41356" url="http://www.last.fm/tag/beautiful"/>
-	<tag name="canadian" count="41016" url="http://www.last.fm/tag/canadian"/>
-	<tag name="piano" count="39737" url="http://www.last.fm/tag/piano"/>
-	<tag name="awesome" count="39554" url="http://www.last.fm/tag/awesome"/>
-	<tag name="swedish" count="39352" url="http://www.last.fm/tag/swedish"/>
-	<tag name="60s" count="38962" url="http://www.last.fm/tag/60s"/>
-	<tag name="favorite" count="38605" url="http://www.last.fm/tag/favorite"/>
-	<tag name="oldies" count="38299" url="http://www.last.fm/tag/oldies"/>
-	<tag name="french" count="38011" url="http://www.last.fm/tag/french"/>
-	<tag name="progressive" count="37953" url="http://www.last.fm/tag/progressive"/>
-	<tag name="70s" count="37774" url="http://www.last.fm/tag/70s"/>
-	<tag name="female" count="37767" url="http://www.last.fm/tag/female"/>
-	<tag name="anime" count="36628" url="http://www.last.fm/tag/anime"/>
-	<tag name="grindcore" count="36247" url="http://www.last.fm/tag/grindcore"/>
-	<tag name="american" count="36167" url="http://www.last.fm/tag/american"/>
-	<tag name="ebm" count="34355" url="http://www.last.fm/tag/ebm"/>
-	<tag name="jpop" count="33603" url="http://www.last.fm/tag/jpop"/>
-	<tag name="folk metal" count="33078" url="http://www.last.fm/tag/folk%20metal"/>
-	<tag name="guitar" count="32984" url="http://www.last.fm/tag/guitar"/>
-	<tag name="drum and bass" count="32897" url="http://www.last.fm/tag/drum%20and%20bass"/>
-	<tag name="nu metal" count="31658" url="http://www.last.fm/tag/nu%20metal"/>
-	<tag name="symphonic metal" count="30975" url="http://www.last.fm/tag/symphonic%20metal"/>
-	<tag name="synthpop" count="30969" url="http://www.last.fm/tag/synthpop"/>
-	<tag name="lounge" count="30950" url="http://www.last.fm/tag/lounge"/>
-	<tag name="favourite" count="30029" url="http://www.last.fm/tag/favourite"/>
-	<tag name="00s" count="29449" url="http://www.last.fm/tag/00s"/>
-	<tag name="pop punk" count="29078" url="http://www.last.fm/tag/pop%20punk"/>
-	<tag name="favorite songs" count="28808" url="http://www.last.fm/tag/favorite%20songs"/>
-	<tag name="cover" count="28092" url="http://www.last.fm/tag/cover"/>
-	<tag name="latin" count="26950" url="http://www.last.fm/tag/latin"/>
-	<tag name="female vocalist" count="26912" url="http://www.last.fm/tag/female%20vocalist"/>
-	<tag name="world" count="26862" url="http://www.last.fm/tag/world"/>
-	<tag name="fun" count="26183" url="http://www.last.fm/tag/fun"/>
-	<tag name="comedy" count="26020" url="http://www.last.fm/tag/comedy"/>
-	<tag name="noise" count="25340" url="http://www.last.fm/tag/noise"/>
-	<tag name="christian" count="24549" url="http://www.last.fm/tag/christian"/>
-	<tag name="darkwave" count="24210" url="http://www.last.fm/tag/darkwave"/>
-	<tag name="psytrance" count="24109" url="http://www.last.fm/tag/psytrance"/>
-	<tag name="celtic" count="23921" url="http://www.last.fm/tag/celtic"/>
-	<tag name="jrock" count="23816" url="http://www.last.fm/tag/jrock"/>
-	<tag name="new age" count="23787" url="http://www.last.fm/tag/new%20age"/>
-	<tag name="polish" count="23709" url="http://www.last.fm/tag/polish"/>
-	<tag name="industrial metal" count="23620" url="http://www.last.fm/tag/industrial%20metal"/>
-	<tag name="stoner rock" count="23160" url="http://www.last.fm/tag/stoner%20rock"/>
-	<tag name="covers" count="23060" url="http://www.last.fm/tag/covers"/>
-	<tag name="alt-country" count="22823" url="http://www.last.fm/tag/alt-country"/>
-	<tag name="goth" count="22679" url="http://www.last.fm/tag/goth"/>
-	<tag name="sad" count="22550" url="http://www.last.fm/tag/sad"/>
-	<tag name="pop rock" count="22277" url="http://www.last.fm/tag/pop%20rock"/>
-	<tag name="dub" count="22149" url="http://www.last.fm/tag/dub"/>
-	<tag name="post-hardcore" count="21532" url="http://www.last.fm/tag/post-hardcore"/>
-	<tag name="visual kei" count="21323" url="http://www.last.fm/tag/visual%20kei"/>
-	<tag name="shoegaze" count="21131" url="http://www.last.fm/tag/shoegaze"/>
-	<tag name="gothic rock" count="20689" url="http://www.last.fm/tag/gothic%20rock"/>
-	<tag name="hiphop" count="20677" url="http://www.last.fm/tag/hiphop"/>
-	<tag name="classic" count="20520" url="http://www.last.fm/tag/classic"/>
-	<tag name="dark ambient" count="19816" url="http://www.last.fm/tag/dark%20ambient"/>
-	<tag name="cool" count="19720" url="http://www.last.fm/tag/cool"/>
-	<tag name="minimal" count="19591" url="http://www.last.fm/tag/minimal"/>
-	<tag name="good" count="19546" url="http://www.last.fm/tag/good"/>
-	<tag name="avant-garde" count="19434" url="http://www.last.fm/tag/avant-garde"/>
-	<tag name="uk" count="19127" url="http://www.last.fm/tag/uk"/>
-	<tag name="brutal death metal" count="18917" url="http://www.last.fm/tag/brutal%20death%20metal"/>
-	<tag name="disco" count="18821" url="http://www.last.fm/tag/disco"/>
-	<tag name="russian" count="18661" url="http://www.last.fm/tag/russian"/>
-	<tag name="christmas" count="18639" url="http://www.last.fm/tag/christmas"/>
-	<tag name="favourite songs" count="18633" url="http://www.last.fm/tag/favourite%20songs"/>
-	<tag name="sexy" count="18619" url="http://www.last.fm/tag/sexy"/>
-	<tag name="easy listening" count="18546" url="http://www.last.fm/tag/easy%20listening"/>
-	<tag name="irish" count="18489" url="http://www.last.fm/tag/irish"/>
-	<tag name="viking metal" count="18314" url="http://www.last.fm/tag/viking%20metal"/>
-	<tag name="post rock" count="18077" url="http://www.last.fm/tag/post%20rock"/>
-	<tag name="amazing" count="17784" url="http://www.last.fm/tag/amazing"/>
-	<tag name="psychedelic rock" count="17458" url="http://www.last.fm/tag/psychedelic%20rock"/>
-	<tag name="happy" count="17355" url="http://www.last.fm/tag/happy"/>
-	<tag name="lo-fi" count="17347" url="http://www.last.fm/tag/lo-fi"/>
-	<tag name="australian" count="17305" url="http://www.last.fm/tag/australian"/>
-	<tag name="synth pop" count="17280" url="http://www.last.fm/tag/synth%20pop"/>
-	<tag name="male vocalists" count="17124" url="http://www.last.fm/tag/male%20vocalists"/>
-	<tag name="norwegian" count="16964" url="http://www.last.fm/tag/norwegian"/>
-	<tag name="emocore" count="16949" url="http://www.last.fm/tag/emocore"/>
-	<tag name="garage rock" count="16927" url="http://www.last.fm/tag/garage%20rock"/>
-	<tag name="glam rock" count="16881" url="http://www.last.fm/tag/glam%20rock"/>
-	<tag name="rockabilly" count="16684" url="http://www.last.fm/tag/rockabilly"/>
-	<tag name="folk rock" count="16667" url="http://www.last.fm/tag/folk%20rock"/>
-	<tag name="live" count="16569" url="http://www.last.fm/tag/live"/>
-	<tag name="alternative metal" count="16254" url="http://www.last.fm/tag/alternative%20metal"/>
-	<tag name="americana" count="16206" url="http://www.last.fm/tag/americana"/>
-	<tag name="deutsch" count="16201" url="http://www.last.fm/tag/deutsch"/>
-	<tag name="political" count="15844" url="http://www.last.fm/tag/political"/>
-	<tag name="dark" count="15839" url="http://www.last.fm/tag/dark"/>
-	<tag name="melancholy" count="15640" url="http://www.last.fm/tag/melancholy"/>
-	<tag name="spanish" count="15367" url="http://www.last.fm/tag/spanish"/>
-	<tag name="relax" count="15350" url="http://www.last.fm/tag/relax"/>
-	<tag name="video game music" count="15321" url="http://www.last.fm/tag/video%20game%20music"/>
-	<tag name="acid jazz" count="15127" url="http://www.last.fm/tag/acid%20jazz"/>
-	<tag name="fusion" count="14816" url="http://www.last.fm/tag/fusion"/>
-	<tag name="relaxing" count="14731" url="http://www.last.fm/tag/relaxing"/>
-	<tag name="female fronted metal" count="14725" url="http://www.last.fm/tag/female%20fronted%20metal"/>
-	<tag name="thrash" count="14712" url="http://www.last.fm/tag/thrash"/>
-	<tag name="ethereal" count="14279" url="http://www.last.fm/tag/ethereal"/>
-	<tag name="gotanygoodmusic" count="14092" url="http://www.last.fm/tag/gotanygoodmusic"/>
-	<tag name="favorite albums" count="13971" url="http://www.last.fm/tag/favorite%20albums"/>
-	<tag name="hardcore punk" count="13926" url="http://www.last.fm/tag/hardcore%20punk"/>
-	<tag name="tracks" count="13922" url="http://www.last.fm/tag/tracks"/>
-	<tag name="rock n roll" count="13658" url="http://www.last.fm/tag/rock%20n%20roll"/>
-	<tag name="nu-metal" count="13586" url="http://www.last.fm/tag/nu-metal"/>
-	<tag name="remix" count="13482" url="http://www.last.fm/tag/remix"/>
-	<tag name="favorite artists" count="13134" url="http://www.last.fm/tag/favorite%20artists"/>
-	<tag name="soundtracks" count="12890" url="http://www.last.fm/tag/soundtracks"/>
-	<tag name="melancholic" count="12816" url="http://www.last.fm/tag/melancholic"/>
-	<tag name="brazilian" count="12806" url="http://www.last.fm/tag/brazilian"/>
-	<tag name="swing" count="12574" url="http://www.last.fm/tag/swing"/>
-	<tag name="vocal" count="12554" url="http://www.last.fm/tag/vocal"/>
-	<tag name="psychobilly" count="12456" url="http://www.last.fm/tag/psychobilly"/>
-	<tag name="party" count="12442" url="http://www.last.fm/tag/party"/>
-	<tag name="ballad" count="12353" url="http://www.last.fm/tag/ballad"/>
-	<tag name="rhythm and blues" count="12333" url="http://www.last.fm/tag/rhythm%20and%20blues"/>
-	<tag name="drum n bass" count="11842" url="http://www.last.fm/tag/drum%20n%20bass"/>
-	<tag name="trip hop" count="11838" url="http://www.last.fm/tag/trip%20hop"/>
-	<tag name="ska punk" count="11750" url="http://www.last.fm/tag/ska%20punk"/>
-	<tag name="electroclash" count="11708" url="http://www.last.fm/tag/electroclash"/>
-	<tag name="atmospheric" count="11681" url="http://www.last.fm/tag/atmospheric"/>
-	<tag name="melodic metal" count="11540" url="http://www.last.fm/tag/melodic%20metal"/>
-	<tag name="industrial rock" count="11306" url="http://www.last.fm/tag/industrial%20rock"/>
-	<tag name="italian" count="11303" url="http://www.last.fm/tag/italian"/>
-	<tag name="speed metal" count="11261" url="http://www.last.fm/tag/speed%20metal"/>
-	<tag name="christian rock" count="11226" url="http://www.last.fm/tag/christian%20rock"/>
-	<tag name="favourite albums" count="11156" url="http://www.last.fm/tag/favourite%20albums"/>
-	<tag name="power pop" count="11136" url="http://www.last.fm/tag/power%20pop"/>
-	<tag name="funky" count="11108" url="http://www.last.fm/tag/funky"/>
-	<tag name="soft rock" count="10955" url="http://www.last.fm/tag/soft%20rock"/>
-	<tag name="twee" count="10920" url="http://www.last.fm/tag/twee"/>
-	<tag name="english" count="10893" url="http://www.last.fm/tag/english"/>
-	<tag name="funny" count="10891" url="http://www.last.fm/tag/funny"/>
-	<tag name="blues rock" count="10768" url="http://www.last.fm/tag/blues%20rock"/>
-	<tag name="good stuff" count="10755" url="http://www.last.fm/tag/good%20stuff"/>
-	<tag name="catchy" count="10662" url="http://www.last.fm/tag/catchy"/>
-	<tag name="rock and roll" count="10652" url="http://www.last.fm/tag/rock%20and%20roll"/>
-	<tag name="female vocals" count="10574" url="http://www.last.fm/tag/female%20vocals"/>
-	<tag name="upbeat" count="10421" url="http://www.last.fm/tag/upbeat"/>
-	<tag name="officially shit" count="10313" url="http://www.last.fm/tag/officially%20shit"/>
-	<tag name="epic" count="10297" url="http://www.last.fm/tag/epic"/>
-	<tag name="technical death metal" count="10252" url="http://www.last.fm/tag/technical%20death%20metal"/>
-	<tag name="dnb" count="10173" url="http://www.last.fm/tag/dnb"/>
-	<tag name="sludge" count="10134" url="http://www.last.fm/tag/sludge"/>
-	<tag name="breakbeat" count="10083" url="http://www.last.fm/tag/breakbeat"/>
-	<tag name="japan" count="9933" url="http://www.last.fm/tag/japan"/>
-	<tag name="club" count="9686" url="http://www.last.fm/tag/club"/>
-	<tag name="dancehall" count="9642" url="http://www.last.fm/tag/dancehall"/>
-	<tag name="romantic" count="9554" url="http://www.last.fm/tag/romantic"/>
-	<tag name="icelandic" count="9519" url="http://www.last.fm/tag/icelandic"/>
-	<tag name="dreamy" count="9485" url="http://www.last.fm/tag/dreamy"/>
-	<tag name="bossa nova" count="9392" url="http://www.last.fm/tag/bossa%20nova"/>
-	<tag name="japanese music" count="9314" url="http://www.last.fm/tag/japanese%20music"/>
-	<tag name="neofolk" count="9311" url="http://www.last.fm/tag/neofolk"/>
-	<tag name="male" count="9299" url="http://www.last.fm/tag/male"/>
-	<tag name="calm" count="9199" url="http://www.last.fm/tag/calm"/>
-	<tag name="usa" count="8874" url="http://www.last.fm/tag/usa"/>
-	<tag name="scottish" count="8808" url="http://www.last.fm/tag/scottish"/>
-	<tag name="halftoned singles club" count="8761" url="http://www.last.fm/tag/halftoned%20singles%20club"/>
-	<tag name="progressive trance" count="8682" url="http://www.last.fm/tag/progressive%20trance"/>
-	<tag name="gay" count="8616" url="http://www.last.fm/tag/gay"/>
-	<tag name="contemporary classical" count="8598" url="http://www.last.fm/tag/contemporary%20classical"/>
-	<tag name="sweet" count="8593" url="http://www.last.fm/tag/sweet"/>
-	<tag name="art rock" count="8549" url="http://www.last.fm/tag/art%20rock"/>
-	<tag name="game music" count="8542" url="http://www.last.fm/tag/game%20music"/>
-	<tag name="avantgarde" count="8528" url="http://www.last.fm/tag/avantgarde"/>
-	<tag name="summer" count="8477" url="http://www.last.fm/tag/summer"/>
-</toptags>
+<tag>
+    <name>rock</name>
+    <count>2401966</count>
+    <url>www.last.fm/tag/rock</url>
+</tag>
+<tag>
+    <name>seen live</name>
+    <count>1296047</count>
+    <url>www.last.fm/tag/seen%20live</url>
+</tag>
+<tag>
+    <name>alternative</name>
+    <count>1218149</count>
+    <url>www.last.fm/tag/alternative</url>
+</tag>
+<tag>
+    <name>indie</name>
+    <count>1122500</count>
+    <url>www.last.fm/tag/indie</url>
+</tag>
+<tag>
+    <name>electronic</name>
+    <count>1024915</count>
+    <url>www.last.fm/tag/electronic</url>
+</tag>
+<tag>
+    <name>pop</name>
+    <count>921367</count>
+    <url>www.last.fm/tag/pop</url>
+</tag>
+<tag>
+    <name>metal</name>
+    <count>699403</count>
+    <url>www.last.fm/tag/metal</url>
+</tag>
+<tag>
+    <name>female vocalists</name>
+    <count>656840</count>
+    <url>www.last.fm/tag/female%20vocalists</url>
+</tag>
+<tag>
+    <name>classic rock</name>
+    <count>577150</count>
+    <url>www.last.fm/tag/classic%20rock</url>
+</tag>
+<tag>
+    <name>alternative rock</name>
+    <count>569739</count>
+    <url>www.last.fm/tag/alternative%20rock</url>
+</tag>
+<tag>
+    <name>jazz</name>
+    <count>566783</count>
+    <url>www.last.fm/tag/jazz</url>
+</tag>
+<tag>
+    <name>punk</name>
+    <count>529070</count>
+    <url>www.last.fm/tag/punk</url>
+</tag>
+<tag>
+    <name>indie rock</name>
+    <count>483595</count>
+    <url>www.last.fm/tag/indie%20rock</url>
+</tag>
+<tag>
+    <name>folk</name>
+    <count>418748</count>
+    <url>www.last.fm/tag/folk</url>
+</tag>
+<tag>
+    <name>singer-songwriter</name>
+    <count>407231</count>
+    <url>www.last.fm/tag/singer-songwriter</url>
+</tag>
+<tag>
+    <name>ambient</name>
+    <count>402043</count>
+    <url>www.last.fm/tag/ambient</url>
+</tag>
+<tag>
+    <name>electronica</name>
+    <count>401121</count>
+    <url>www.last.fm/tag/electronica</url>
+</tag>
+<tag>
+    <name>experimental</name>
+    <count>387742</count>
+    <url>www.last.fm/tag/experimental</url>
+</tag>
+<tag>
+    <name>hip-hop</name>
+    <count>384885</count>
+    <url>www.last.fm/tag/hip-hop</url>
+</tag>
+<tag>
+    <name>hard rock</name>
+    <count>383303</count>
+    <url>www.last.fm/tag/hard%20rock</url>
+</tag>
+<tag>
+    <name>dance</name>
+    <count>376501</count>
+    <url>www.last.fm/tag/dance</url>
+</tag>
+<tag>
+    <name>80s</name>
+    <count>373926</count>
+    <url>www.last.fm/tag/80s</url>
+</tag>
+<tag>
+    <name>hardcore</name>
+    <count>337707</count>
+    <url>www.last.fm/tag/hardcore</url>
+</tag>
+<tag>
+    <name>black metal</name>
+    <count>336425</count>
+    <url>www.last.fm/tag/black%20metal</url>
+</tag>
+<tag>
+    <name>progressive rock</name>
+    <count>328348</count>
+    <url>www.last.fm/tag/progressive%20rock</url>
+</tag>
+<tag>
+    <name>death metal</name>
+    <count>328249</count>
+    <url>www.last.fm/tag/death%20metal</url>
+</tag>
+<tag>
+    <name>chillout</name>
+    <count>326260</count>
+    <url>www.last.fm/tag/chillout</url>
+</tag>
+<tag>
+    <name>heavy metal</name>
+    <count>310969</count>
+    <url>www.last.fm/tag/heavy%20metal</url>
+</tag>
+<tag>
+    <name>instrumental</name>
+    <count>305187</count>
+    <url>www.last.fm/tag/instrumental</url>
+</tag>
+<tag>
+    <name>british</name>
+    <count>298535</count>
+    <url>www.last.fm/tag/british</url>
+</tag>
+<tag>
+    <name>punk rock</name>
+    <count>285828</count>
+    <url>www.last.fm/tag/punk%20rock</url>
+</tag>
+<tag>
+    <name>industrial</name>
+    <count>284029</count>
+    <url>www.last.fm/tag/industrial</url>
+</tag>
+<tag>
+    <name>soundtrack</name>
+    <count>281365</count>
+    <url>www.last.fm/tag/soundtrack</url>
+</tag>
+<tag>
+    <name>soul</name>
+    <count>265927</count>
+    <url>www.last.fm/tag/soul</url>
+</tag>
+<tag>
+    <name>emo</name>
+    <count>242819</count>
+    <url>www.last.fm/tag/emo</url>
+</tag>
+<tag>
+    <name>blues</name>
+    <count>239203</count>
+    <url>www.last.fm/tag/blues</url>
+</tag>
+<tag>
+    <name>classical</name>
+    <count>235992</count>
+    <url>www.last.fm/tag/classical</url>
+</tag>
+<tag>
+    <name>rap</name>
+    <count>232683</count>
+    <url>www.last.fm/tag/rap</url>
+</tag>
+<tag>
+    <name>90s</name>
+    <count>229143</count>
+    <url>www.last.fm/tag/90s</url>
+</tag>
+<tag>
+    <name>thrash metal</name>
+    <count>221720</count>
+    <url>www.last.fm/tag/thrash%20metal</url>
+</tag>
+<tag>
+    <name>favorites</name>
+    <count>218761</count>
+    <url>www.last.fm/tag/favorites</url>
+</tag>
+<tag>
+    <name>metalcore</name>
+    <count>217657</count>
+    <url>www.last.fm/tag/metalcore</url>
+</tag>
+<tag>
+    <name>trance</name>
+    <count>217649</count>
+    <url>www.last.fm/tag/trance</url>
+</tag>
+<tag>
+    <name>japanese</name>
+    <count>215811</count>
+    <url>www.last.fm/tag/japanese</url>
+</tag>
+<tag>
+    <name>reggae</name>
+    <count>204601</count>
+    <url>www.last.fm/tag/reggae</url>
+</tag>
+<tag>
+    <name>country</name>
+    <count>203023</count>
+    <url>www.last.fm/tag/country</url>
+</tag>
+<tag>
+    <name>acoustic</name>
+    <count>202004</count>
+    <url>www.last.fm/tag/acoustic</url>
+</tag>
+<tag>
+    <name>progressive metal</name>
+    <count>196382</count>
+    <url>www.last.fm/tag/progressive%20metal</url>
+</tag>
+<tag>
+    <name>hip hop</name>
+    <count>191304</count>
+    <url>www.last.fm/tag/hip%20hop</url>
+</tag>
+<tag>
+    <name>power metal</name>
+    <count>190044</count>
+    <url>www.last.fm/tag/power%20metal</url>
+</tag>
+<tag>
+    <name>trip-hop</name>
+    <count>189716</count>
+    <url>www.last.fm/tag/trip-hop</url>
+</tag>
+<tag>
+    <name>melodic death metal</name>
+    <count>185031</count>
+    <url>www.last.fm/tag/melodic%20death%20metal</url>
+</tag>
+<tag>
+    <name>funk</name>
+    <count>184275</count>
+    <url>www.last.fm/tag/funk</url>
+</tag>
+<tag>
+    <name>psychedelic</name>
+    <count>184104</count>
+    <url>www.last.fm/tag/psychedelic</url>
+</tag>
+<tag>
+    <name>post-rock</name>
+    <count>180024</count>
+    <url>www.last.fm/tag/post-rock</url>
+</tag>
+<tag>
+    <name>new wave</name>
+    <count>179857</count>
+    <url>www.last.fm/tag/new%20wave</url>
+</tag>
+<tag>
+    <name>electro</name>
+    <count>177749</count>
+    <url>www.last.fm/tag/electro</url>
+</tag>
+<tag>
+    <name>indie pop</name>
+    <count>177014</count>
+    <url>www.last.fm/tag/indie%20pop</url>
+</tag>
+<tag>
+    <name>house</name>
+    <count>172223</count>
+    <url>www.last.fm/tag/house</url>
+</tag>
+<tag>
+    <name>techno</name>
+    <count>171858</count>
+    <url>www.last.fm/tag/techno</url>
+</tag>
+<tag>
+    <name>german</name>
+    <count>169288</count>
+    <url>www.last.fm/tag/german</url>
+</tag>
+<tag>
+    <name>love</name>
+    <count>158526</count>
+    <url>www.last.fm/tag/love</url>
+</tag>
+<tag>
+    <name>britpop</name>
+    <count>155165</count>
+    <url>www.last.fm/tag/britpop</url>
+</tag>
+<tag>
+    <name>rnb</name>
+    <count>153180</count>
+    <url>www.last.fm/tag/rnb</url>
+</tag>
+<tag>
+    <name>70s</name>
+    <count>150660</count>
+    <url>www.last.fm/tag/70s</url>
+</tag>
+<tag>
+    <name>american</name>
+    <count>150241</count>
+    <url>www.last.fm/tag/american</url>
+</tag>
+<tag>
+    <name>gothic metal</name>
+    <count>147618</count>
+    <url>www.last.fm/tag/gothic%20metal</url>
+</tag>
+<tag>
+    <name>downtempo</name>
+    <count>144373</count>
+    <url>www.last.fm/tag/downtempo</url>
+</tag>
+<tag>
+    <name>grunge</name>
+    <count>144135</count>
+    <url>www.last.fm/tag/grunge</url>
+</tag>
+<tag>
+    <name>albums i own</name>
+    <count>144092</count>
+    <url>www.last.fm/tag/albums%20i%20own</url>
+</tag>
+<tag>
+    <name>piano</name>
+    <count>142536</count>
+    <url>www.last.fm/tag/piano</url>
+</tag>
+<tag>
+    <name>00s</name>
+    <count>142219</count>
+    <url>www.last.fm/tag/00s</url>
+</tag>
+<tag>
+    <name>60s</name>
+    <count>140976</count>
+    <url>www.last.fm/tag/60s</url>
+</tag>
+<tag>
+    <name>beautiful</name>
+    <count>140634</count>
+    <url>www.last.fm/tag/beautiful</url>
+</tag>
+<tag>
+    <name>post-punk</name>
+    <count>140392</count>
+    <url>www.last.fm/tag/post-punk</url>
+</tag>
+<tag>
+    <name>ska</name>
+    <count>139014</count>
+    <url>www.last.fm/tag/ska</url>
+</tag>
+<tag>
+    <name>gothic</name>
+    <count>135439</count>
+    <url>www.last.fm/tag/gothic</url>
+</tag>
+<tag>
+    <name>mellow</name>
+    <count>134197</count>
+    <url>www.last.fm/tag/mellow</url>
+</tag>
+<tag>
+    <name>screamo</name>
+    <count>132279</count>
+    <url>www.last.fm/tag/screamo</url>
+</tag>
+<tag>
+    <name>chill</name>
+    <count>129135</count>
+    <url>www.last.fm/tag/chill</url>
+</tag>
+<tag>
+    <name>doom metal</name>
+    <count>126652</count>
+    <url>www.last.fm/tag/doom%20metal</url>
+</tag>
+<tag>
+    <name>french</name>
+    <count>121777</count>
+    <url>www.last.fm/tag/french</url>
+</tag>
+<tag>
+    <name>guitar</name>
+    <count>118212</count>
+    <url>www.last.fm/tag/guitar</url>
+</tag>
+<tag>
+    <name>oldies</name>
+    <count>114068</count>
+    <url>www.last.fm/tag/oldies</url>
+</tag>
+<tag>
+    <name>idm</name>
+    <count>112456</count>
+    <url>www.last.fm/tag/idm</url>
+</tag>
+<tag>
+    <name>awesome</name>
+    <count>112224</count>
+    <url>www.last.fm/tag/awesome</url>
+</tag>
+<tag>
+    <name>j-rock</name>
+    <count>111961</count>
+    <url>www.last.fm/tag/j-rock</url>
+</tag>
+<tag>
+    <name>swedish</name>
+    <count>111705</count>
+    <url>www.last.fm/tag/swedish</url>
+</tag>
+<tag>
+    <name>finnish</name>
+    <count>110213</count>
+    <url>www.last.fm/tag/finnish</url>
+</tag>
+<tag>
+    <name>symphonic metal</name>
+    <count>109408</count>
+    <url>www.last.fm/tag/symphonic%20metal</url>
+</tag>
+<tag>
+    <name>male vocalists</name>
+    <count>108844</count>
+    <url>www.last.fm/tag/male%20vocalists</url>
+</tag>
+<tag>
+    <name>nu metal</name>
+    <count>107863</count>
+    <url>www.last.fm/tag/nu%20metal</url>
+</tag>
+<tag>
+    <name>lounge</name>
+    <count>103758</count>
+    <url>www.last.fm/tag/lounge</url>
+</tag>
+<tag>
+    <name>female vocalist</name>
+    <count>102642</count>
+    <url>www.last.fm/tag/female%20vocalist</url>
+</tag>
+<tag>
+    <name>grindcore</name>
+    <count>101839</count>
+    <url>www.last.fm/tag/grindcore</url>
+</tag>
+<tag>
+    <name>polish</name>
+    <count>100903</count>
+    <url>www.last.fm/tag/polish</url>
+</tag>
+<tag>
+    <name>progressive</name>
+    <count>99611</count>
+    <url>www.last.fm/tag/progressive</url>
+</tag>
+<tag>
+    <name>canadian</name>
+    <count>97421</count>
+    <url>www.last.fm/tag/canadian</url>
+</tag>
+<tag>
+    <name>folk metal</name>
+    <count>97291</count>
+    <url>www.last.fm/tag/folk%20metal</url>
+</tag>
+<tag>
+    <name>favourites</name>
+    <count>95546</count>
+    <url>www.last.fm/tag/favourites</url>
+</tag>
+<tag>
+    <name>j-pop</name>
+    <count>95385</count>
+    <url>www.last.fm/tag/j-pop</url>
+</tag>
+<tag>
+    <name>world</name>
+    <count>94259</count>
+    <url>www.last.fm/tag/world</url>
+</tag>
+<tag>
+    <name>drum and bass</name>
+    <count>92235</count>
+    <url>www.last.fm/tag/drum%20and%20bass</url>
+</tag>
+<tag>
+    <name>synthpop</name>
+    <count>91993</count>
+    <url>www.last.fm/tag/synthpop</url>
+</tag>
+<tag>
+    <name>post-hardcore</name>
+    <count>91633</count>
+    <url>www.last.fm/tag/post-hardcore</url>
+</tag>
+<tag>
+    <name>ebm</name>
+    <count>89994</count>
+    <url>www.last.fm/tag/ebm</url>
+</tag>
+<tag>
+    <name>minimal</name>
+    <count>88302</count>
+    <url>www.last.fm/tag/minimal</url>
+</tag>
+<tag>
+    <name>new age</name>
+    <count>88270</count>
+    <url>www.last.fm/tag/new%20age</url>
+</tag>
+<tag>
+    <name>cover</name>
+    <count>85867</count>
+    <url>www.last.fm/tag/cover</url>
+</tag>
+<tag>
+    <name>pop rock</name>
+    <count>85238</count>
+    <url>www.last.fm/tag/pop%20rock</url>
+</tag>
+<tag>
+    <name>favorite</name>
+    <count>84508</count>
+    <url>www.last.fm/tag/favorite</url>
+</tag>
+<tag>
+    <name>pop punk</name>
+    <count>84400</count>
+    <url>www.last.fm/tag/pop%20punk</url>
+</tag>
+<tag>
+    <name>female</name>
+    <count>83828</count>
+    <url>www.last.fm/tag/female</url>
+</tag>
+<tag>
+    <name>russian</name>
+    <count>83226</count>
+    <url>www.last.fm/tag/russian</url>
+</tag>
+<tag>
+    <name>latin</name>
+    <count>82521</count>
+    <url>www.last.fm/tag/latin</url>
+</tag>
+<tag>
+    <name>darkwave</name>
+    <count>81307</count>
+    <url>www.last.fm/tag/darkwave</url>
+</tag>
+<tag>
+    <name>noise</name>
+    <count>79314</count>
+    <url>www.last.fm/tag/noise</url>
+</tag>
+<tag>
+    <name>dark ambient</name>
+    <count>78750</count>
+    <url>www.last.fm/tag/dark%20ambient</url>
+</tag>
+<tag>
+    <name>industrial metal</name>
+    <count>77026</count>
+    <url>www.last.fm/tag/industrial%20metal</url>
+</tag>
+<tag>
+    <name>avant-garde</name>
+    <count>72923</count>
+    <url>www.last.fm/tag/avant-garde</url>
+</tag>
+<tag>
+    <name>brutal death metal</name>
+    <count>71648</count>
+    <url>www.last.fm/tag/brutal%20death%20metal</url>
+</tag>
+<tag>
+    <name>sexy</name>
+    <count>70013</count>
+    <url>www.last.fm/tag/sexy</url>
+</tag>
+<tag>
+    <name>dub</name>
+    <count>69849</count>
+    <url>www.last.fm/tag/dub</url>
+</tag>
+<tag>
+    <name>psychedelic rock</name>
+    <count>69672</count>
+    <url>www.last.fm/tag/psychedelic%20rock</url>
+</tag>
+<tag>
+    <name>gothic rock</name>
+    <count>68938</count>
+    <url>www.last.fm/tag/gothic%20rock</url>
+</tag>
+<tag>
+    <name>celtic</name>
+    <count>68902</count>
+    <url>www.last.fm/tag/celtic</url>
+</tag>
+<tag>
+    <name>anime</name>
+    <count>68836</count>
+    <url>www.last.fm/tag/anime</url>
+</tag>
+<tag>
+    <name>disco</name>
+    <count>68442</count>
+    <url>www.last.fm/tag/disco</url>
+</tag>
+<tag>
+    <name>easy listening</name>
+    <count>68385</count>
+    <url>www.last.fm/tag/easy%20listening</url>
+</tag>
+<tag>
+    <name>alternative metal</name>
+    <count>67213</count>
+    <url>www.last.fm/tag/alternative%20metal</url>
+</tag>
+<tag>
+    <name>favourite</name>
+    <count>66052</count>
+    <url>www.last.fm/tag/favourite</url>
+</tag>
+<tag>
+    <name>christian</name>
+    <count>65090</count>
+    <url>www.last.fm/tag/christian</url>
+</tag>
+<tag>
+    <name>cool</name>
+    <count>64519</count>
+    <url>www.last.fm/tag/cool</url>
+</tag>
+<tag>
+    <name>classic</name>
+    <count>63495</count>
+    <url>www.last.fm/tag/classic</url>
+</tag>
+<tag>
+    <name>christmas</name>
+    <count>63115</count>
+    <url>www.last.fm/tag/christmas</url>
+</tag>
+<tag>
+    <name>blues rock</name>
+    <count>62202</count>
+    <url>www.last.fm/tag/blues%20rock</url>
+</tag>
+<tag>
+    <name>shoegaze</name>
+    <count>61943</count>
+    <url>www.last.fm/tag/shoegaze</url>
+</tag>
+<tag>
+    <name>stoner rock</name>
+    <count>60720</count>
+    <url>www.last.fm/tag/stoner%20rock</url>
+</tag>
+<tag>
+    <name>folk rock</name>
+    <count>60600</count>
+    <url>www.last.fm/tag/folk%20rock</url>
+</tag>
+<tag>
+    <name>psytrance</name>
+    <count>60459</count>
+    <url>www.last.fm/tag/psytrance</url>
+</tag>
+<tag>
+    <name>comedy</name>
+    <count>60359</count>
+    <url>www.last.fm/tag/comedy</url>
+</tag>
+<tag>
+    <name>sad</name>
+    <count>60318</count>
+    <url>www.last.fm/tag/sad</url>
+</tag>
+<tag>
+    <name>fun</name>
+    <count>59777</count>
+    <url>www.last.fm/tag/fun</url>
+</tag>
+<tag>
+    <name>jpop</name>
+    <count>59248</count>
+    <url>www.last.fm/tag/jpop</url>
+</tag>
+<tag>
+    <name>melancholy</name>
+    <count>58856</count>
+    <url>www.last.fm/tag/melancholy</url>
+</tag>
+<tag>
+    <name>atmospheric</name>
+    <count>56570</count>
+    <url>www.last.fm/tag/atmospheric</url>
+</tag>
+<tag>
+    <name>deutsch</name>
+    <count>54128</count>
+    <url>www.last.fm/tag/deutsch</url>
+</tag>
+<tag>
+    <name>viking metal</name>
+    <count>54037</count>
+    <url>www.last.fm/tag/viking%20metal</url>
+</tag>
+<tag>
+    <name>deathcore</name>
+    <count>53571</count>
+    <url>www.last.fm/tag/deathcore</url>
+</tag>
+<tag>
+    <name>uk</name>
+    <count>53123</count>
+    <url>www.last.fm/tag/uk</url>
+</tag>
+<tag>
+    <name>romantic</name>
+    <count>53109</count>
+    <url>www.last.fm/tag/romantic</url>
+</tag>
+<tag>
+    <name>female fronted metal</name>
+    <count>52643</count>
+    <url>www.last.fm/tag/female%20fronted%20metal</url>
+</tag>
+<tag>
+    <name>irish</name>
+    <count>52249</count>
+    <url>www.last.fm/tag/irish</url>
+</tag>
+<tag>
+    <name>visual kei</name>
+    <count>52037</count>
+    <url>www.last.fm/tag/visual%20kei</url>
+</tag>
+<tag>
+    <name>favorite songs</name>
+    <count>51226</count>
+    <url>www.last.fm/tag/favorite%20songs</url>
+</tag>
+<tag>
+    <name>fusion</name>
+    <count>51123</count>
+    <url>www.last.fm/tag/fusion</url>
+</tag>
+<tag>
+    <name>relax</name>
+    <count>50555</count>
+    <url>www.last.fm/tag/relax</url>
+</tag>
+<tag>
+    <name>spanish</name>
+    <count>50120</count>
+    <url>www.last.fm/tag/spanish</url>
+</tag>
+<tag>
+    <name>alt-country</name>
+    <count>50097</count>
+    <url>www.last.fm/tag/alt-country</url>
+</tag>
+<tag>
+    <name>amazing</name>
+    <count>49980</count>
+    <url>www.last.fm/tag/amazing</url>
+</tag>
+<tag>
+    <name>covers</name>
+    <count>49544</count>
+    <url>www.last.fm/tag/covers</url>
+</tag>
+<tag>
+    <name>relaxing</name>
+    <count>49358</count>
+    <url>www.last.fm/tag/relaxing</url>
+</tag>
+<tag>
+    <name>acid jazz</name>
+    <count>49058</count>
+    <url>www.last.fm/tag/acid%20jazz</url>
+</tag>
+<tag>
+    <name>goth</name>
+    <count>48707</count>
+    <url>www.last.fm/tag/goth</url>
+</tag>
+<tag>
+    <name>hardcore punk</name>
+    <count>48631</count>
+    <url>www.last.fm/tag/hardcore%20punk</url>
+</tag>
+<tag>
+    <name>lo-fi</name>
+    <count>47962</count>
+    <url>www.last.fm/tag/lo-fi</url>
+</tag>
+<tag>
+    <name>happy</name>
+    <count>47509</count>
+    <url>www.last.fm/tag/happy</url>
+</tag>
+<tag>
+    <name>garage rock</name>
+    <count>47270</count>
+    <url>www.last.fm/tag/garage%20rock</url>
+</tag>
+<tag>
+    <name>live</name>
+    <count>46903</count>
+    <url>www.last.fm/tag/live</url>
+</tag>
+<tag>
+    <name>rockabilly</name>
+    <count>46507</count>
+    <url>www.last.fm/tag/rockabilly</url>
+</tag>
+<tag>
+    <name>melancholic</name>
+    <count>46445</count>
+    <url>www.last.fm/tag/melancholic</url>
+</tag>
+<tag>
+    <name>italian</name>
+    <count>46190</count>
+    <url>www.last.fm/tag/italian</url>
+</tag>
+<tag>
+    <name>dark</name>
+    <count>46039</count>
+    <url>www.last.fm/tag/dark</url>
+</tag>
+<tag>
+    <name>norwegian</name>
+    <count>45685</count>
+    <url>www.last.fm/tag/norwegian</url>
+</tag>
+<tag>
+    <name>swing</name>
+    <count>45471</count>
+    <url>www.last.fm/tag/swing</url>
+</tag>
+<tag>
+    <name>emocore</name>
+    <count>45434</count>
+    <url>www.last.fm/tag/emocore</url>
+</tag>
+<tag>
+    <name>ethereal</name>
+    <count>45270</count>
+    <url>www.last.fm/tag/ethereal</url>
+</tag>
+<tag>
+    <name>ballad</name>
+    <count>44938</count>
+    <url>www.last.fm/tag/ballad</url>
+</tag>
+<tag>
+    <name>glam rock</name>
+    <count>44551</count>
+    <url>www.last.fm/tag/glam%20rock</url>
+</tag>
+<tag>
+    <name>good</name>
+    <count>44414</count>
+    <url>www.last.fm/tag/good</url>
+</tag>
+<tag>
+    <name>australian</name>
+    <count>43422</count>
+    <url>www.last.fm/tag/australian</url>
+</tag>
+<tag>
+    <name>americana</name>
+    <count>43362</count>
+    <url>www.last.fm/tag/americana</url>
+</tag>
+<tag>
+    <name>male vocalist</name>
+    <count>43122</count>
+    <url>www.last.fm/tag/male%20vocalist</url>
+</tag>
+<tag>
+    <name>synth pop</name>
+    <count>42338</count>
+    <url>www.last.fm/tag/synth%20pop</url>
+</tag>
+<tag>
+    <name>brazilian</name>
+    <count>42041</count>
+    <url>www.last.fm/tag/brazilian</url>
+</tag>
+<tag>
+    <name>political</name>
+    <count>41925</count>
+    <url>www.last.fm/tag/political</url>
+</tag>
+<tag>
+    <name>party</name>
+    <count>41849</count>
+    <url>www.last.fm/tag/party</url>
+</tag>
+<tag>
+    <name>jrock</name>
+    <count>41676</count>
+    <url>www.last.fm/tag/jrock</url>
+</tag>
+<tag>
+    <name>soft rock</name>
+    <count>41475</count>
+    <url>www.last.fm/tag/soft%20rock</url>
+</tag>
+<tag>
+    <name>hiphop</name>
+    <count>41339</count>
+    <url>www.last.fm/tag/hiphop</url>
+</tag>
+<tag>
+    <name>melodic metal</name>
+    <count>41146</count>
+    <url>www.last.fm/tag/melodic%20metal</url>
+</tag>
+<tag>
+    <name>post rock</name>
+    <count>40187</count>
+    <url>www.last.fm/tag/post%20rock</url>
+</tag>
+<tag>
+    <name>rock n roll</name>
+    <count>39936</count>
+    <url>www.last.fm/tag/rock%20n%20roll</url>
+</tag>
+<tag>
+    <name>sludge</name>
+    <count>39706</count>
+    <url>www.last.fm/tag/sludge</url>
+</tag>
+<tag>
+    <name>favourite songs</name>
+    <count>39576</count>
+    <url>www.last.fm/tag/favourite%20songs</url>
+</tag>
+<tag>
+    <name>epic</name>
+    <count>39098</count>
+    <url>www.last.fm/tag/epic</url>
+</tag>
+<tag>
+    <name>vocal</name>
+    <count>39028</count>
+    <url>www.last.fm/tag/vocal</url>
+</tag>
+<tag>
+    <name>technical death metal</name>
+    <count>38803</count>
+    <url>www.last.fm/tag/technical%20death%20metal</url>
+</tag>
+<tag>
+    <name>female vocals</name>
+    <count>37936</count>
+    <url>www.last.fm/tag/female%20vocals</url>
+</tag>
+<tag>
+    <name>usa</name>
+    <count>37864</count>
+    <url>www.last.fm/tag/usa</url>
+</tag>
+<tag>
+    <name>remix</name>
+    <count>36826</count>
+    <url>www.last.fm/tag/remix</url>
+</tag>
+<tag>
+    <name>club</name>
+    <count>36420</count>
+    <url>www.last.fm/tag/club</url>
+</tag>
+<tag>
+    <name>speed metal</name>
+    <count>35949</count>
+    <url>www.last.fm/tag/speed%20metal</url>
+</tag>
+<tag>
+    <name>funky</name>
+    <count>35420</count>
+    <url>www.last.fm/tag/funky</url>
+</tag>
+<tag>
+    <name>trip hop</name>
+    <count>35305</count>
+    <url>www.last.fm/tag/trip%20hop</url>
+</tag>
+<tag>
+    <name>nu-metal</name>
+    <count>35177</count>
+    <url>www.last.fm/tag/nu-metal</url>
+</tag>
+<tag>
+    <name>electroclash</name>
+    <count>34685</count>
+    <url>www.last.fm/tag/electroclash</url>
+</tag>
+<tag>
+    <name>rhythm and blues</name>
+    <count>34661</count>
+    <url>www.last.fm/tag/rhythm%20and%20blues</url>
+</tag>
+<tag>
+    <name>bossa nova</name>
+    <count>34612</count>
+    <url>www.last.fm/tag/bossa%20nova</url>
+</tag>
+<tag>
+    <name>baroque</name>
+    <count>34382</count>
+    <url>www.last.fm/tag/baroque</url>
+</tag>
+<tag>
+    <name>contemporary classical</name>
+    <count>34352</count>
+    <url>www.last.fm/tag/contemporary%20classical</url>
+</tag>
+<tag>
+    <name>neofolk</name>
+    <count>34009</count>
+    <url>www.last.fm/tag/neofolk</url>
+</tag>
+<tag>
+    <name>electropop</name>
+    <count>33717</count>
+    <url>www.last.fm/tag/electropop</url>
+</tag>
+<tag>
+    <name>progressive trance</name>
+    <count>33637</count>
+    <url>www.last.fm/tag/progressive%20trance</url>
+</tag>
+<tag>
+    <name>dancehall</name>
+    <count>33572</count>
+    <url>www.last.fm/tag/dancehall</url>
+</tag>
+<tag>
+    <name>rock and roll</name>
+    <count>33051</count>
+    <url>www.last.fm/tag/rock%20and%20roll</url>
+</tag>
+<tag>
+    <name>industrial rock</name>
+    <count>32854</count>
+    <url>www.last.fm/tag/industrial%20rock</url>
+</tag>
+<tag>
+    <name>brasil</name>
+    <count>32837</count>
+    <url>www.last.fm/tag/brasil</url>
+</tag>
+<tag>
+    <name>russian rock</name>
+    <count>32706</count>
+    <url>www.last.fm/tag/russian%20rock</url>
+</tag>
+<tag>
+    <name>guitar virtuoso</name>
+    <count>32365</count>
+    <url>www.last.fm/tag/guitar%20virtuoso</url>
+</tag>
+<tag>
+    <name>dnb</name>
+    <count>32236</count>
+    <url>www.last.fm/tag/dnb</url>
+</tag>
+<tag>
+    <name>thrash</name>
+    <count>31771</count>
+    <url>www.last.fm/tag/thrash</url>
+</tag>
+<tag>
+    <name>loved</name>
+    <count>31639</count>
+    <url>www.last.fm/tag/loved</url>
+</tag>
+<tag>
+    <name>drone</name>
+    <count>31411</count>
+    <url>www.last.fm/tag/drone</url>
+</tag>
+<tag>
+    <name>drum n bass</name>
+    <count>31364</count>
+    <url>www.last.fm/tag/drum%20n%20bass</url>
+</tag>
+<tag>
+    <name>breakbeat</name>
+    <count>31358</count>
+    <url>www.last.fm/tag/breakbeat</url>
+</tag>
+<tag>
+    <name>psychobilly</name>
+    <count>31337</count>
+    <url>www.last.fm/tag/psychobilly</url>
+</tag>
+<tag>
+    <name>catchy</name>
+    <count>31297</count>
+    <url>www.last.fm/tag/catchy</url>
+</tag>
+<tag>
+    <name>summer</name>
+    <count>31162</count>
+    <url>www.last.fm/tag/summer</url>
+</tag>
+<tag>
+    <name>art rock</name>
+    <count>31124</count>
+    <url>www.last.fm/tag/art%20rock</url>
+</tag>
+<tag>
+    <name>world music</name>
+    <count>30921</count>
+    <url>www.last.fm/tag/world%20music</url>
+</tag>
+<tag>
+    <name>dark electro</name>
+    <count>30625</count>
+    <url>www.last.fm/tag/dark%20electro</url>
+</tag>
+<tag>
+    <name>smooth jazz</name>
+    <count>30495</count>
+    <url>www.last.fm/tag/smooth%20jazz</url>
+</tag>
+<tag>
+    <name>rapcore</name>
+    <count>30458</count>
+    <url>www.last.fm/tag/rapcore</url>
+</tag>
+<tag>
+    <name>ska punk</name>
+    <count>29541</count>
+    <url>www.last.fm/tag/ska%20punk</url>
+</tag>
+<tag>
+    <name>mpb</name>
+    <count>29378</count>
+    <url>www.last.fm/tag/mpb</url>
+</tag>
+<tag>
+    <name>underground hip-hop</name>
+    <count>29336</count>
+    <url>www.last.fm/tag/underground%20hip-hop</url>
+</tag>
+<tag>
+    <name>medieval</name>
+    <count>29171</count>
+    <url>www.last.fm/tag/medieval</url>
+</tag>
+<tag>
+    <name>southern rock</name>
+    <count>28978</count>
+    <url>www.last.fm/tag/southern%20rock</url>
+</tag>
+<tag>
+    <name>dreamy</name>
+    <count>28730</count>
+    <url>www.last.fm/tag/dreamy</url>
+</tag>
+<tag>
+    <name>vocal trance</name>
+    <count>28543</count>
+    <url>www.last.fm/tag/vocal%20trance</url>
+</tag>
+<tag>
+    <name>dubstep</name>
+    <count>28467</count>
+    <url>www.last.fm/tag/dubstep</url>
+</tag>
+<tag>
+    <name>christian rock</name>
+    <count>28452</count>
+    <url>www.last.fm/tag/christian%20rock</url>
+</tag>
+<tag>
+    <name>pagan metal</name>
+    <count>28424</count>
+    <url>www.last.fm/tag/pagan%20metal</url>
+</tag>
+<tag>
+    <name>english</name>
+    <count>28295</count>
+    <url>www.last.fm/tag/english</url>
+</tag>
+<tag>
+    <name>favorite albums</name>
+    <count>28273</count>
+    <url>www.last.fm/tag/favorite%20albums</url>
+</tag>
+<tag>
+    <name>dream pop</name>
+    <count>28217</count>
+    <url>www.last.fm/tag/dream%20pop</url>
+</tag>
+<tag>
+    <name>video game music</name>
+    <count>28093</count>
+    <url>www.last.fm/tag/video%20game%20music</url>
+</tag>
+<tag>
+    <name>melodic black metal</name>
+    <count>27942</count>
+    <url>www.last.fm/tag/melodic%20black%20metal</url>
+</tag>
+<tag>
+    <name>symphonic black metal</name>
+    <count>27839</count>
+    <url>www.last.fm/tag/symphonic%20black%20metal</url>
+</tag>
+</toptags></lfm>

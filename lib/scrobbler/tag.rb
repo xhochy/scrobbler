@@ -67,17 +67,6 @@ module Scrobbler
         t.url   = (xml).at(:url).inner_html
         t
       end
-      
-      def top_tags
-        doc = fetch_and_parse("/#{API_VERSION}/tag/toptags.xml")
-        @top_tags = (doc/:tag).inject([]) do |tags, tag|
-          t       = Tag.new(tag['name'])
-          t.count = tag['count']
-          t.url   = tag['url']
-          tags << t
-          tags
-        end
-      end
     end
     
     def initialize(name)

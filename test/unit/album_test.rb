@@ -6,6 +6,7 @@ class TestAlbum < Test::Unit::TestCase
     @album = Scrobbler::Album.new('Carrie Underwood', 'Some Hearts')
   end
   
+  # @apiversion 2.0
   test 'should require the artist name' do
     assert_raises(ArgumentError) { Scrobbler::Album.new('', 'Some Hearts') }
   end
@@ -28,13 +29,8 @@ class TestAlbum < Test::Unit::TestCase
   
   test 'should be able to load album info' do
     @album.load_info
-    assert_equal('18589', @album.reach)
     assert_equal('http://www.last.fm/music/Carrie+Underwood/Some+Hearts', @album.url)
     assert_equal(Time.mktime(2005, 11, 15, 00, 00, 00), @album.release_date)
-    assert_equal(14, @album.tracks.size)
-    assert_equal('Wasted', @album.tracks.first.name)
-    assert_equal('http://www.last.fm/music/Carrie+Underwood/_/Wasted', @album.tracks.first.url)
-    assert_equal('6738', @album.tracks.first.reach)
   end
   
   test 'should be able to find an ablum' do
@@ -47,7 +43,6 @@ class TestAlbum < Test::Unit::TestCase
     album = Scrobbler::Album.find('Carrie Underwood', 'Some Hearts', :include_info => true)
     assert_equal('Carrie Underwood', album.artist)
     assert_equal('Some Hearts', album.name)
-    assert_equal('18589', album.reach)
     assert_equal('http://www.last.fm/music/Carrie+Underwood/Some+Hearts', album.url)
     assert_equal(Time.mktime(2005, 11, 15, 00, 00, 00), album.release_date)
   end
@@ -56,23 +51,15 @@ class TestAlbum < Test::Unit::TestCase
     album = Scrobbler::Album.new('Carrie Underwood', 'Some Hearts', :include_info => true)
     assert_equal('Carrie Underwood', album.artist)
     assert_equal('Some Hearts', album.name)
-    assert_equal('18589', album.reach)
     assert_equal('http://www.last.fm/music/Carrie+Underwood/Some+Hearts', album.url)
     assert_equal(Time.mktime(2005, 11, 15, 00, 00, 00), album.release_date)
   end
   
-  test 'should load info when trying to access tracks if info has not been loaded' do
-    assert_equal(14, @album.tracks.size)
-    assert_equal('Wasted', @album.tracks.first.name)
-    assert_equal('http://www.last.fm/music/Carrie+Underwood/_/Wasted', @album.tracks.first.url)
-    assert_equal('6738', @album.tracks.first.reach)
-  end
-  
   test 'should have an image method that accepts a type' do
     @album.load_info
-    assert_equal('http://images.amazon.com/images/P/B000BGR18W.01.MZZZZZZZ.jpg', @album.image(:small))
-    assert_equal('http://images.amazon.com/images/P/B000BGR18W.01.MZZZZZZZ.jpg', @album.image(:medium))
-    assert_equal('http://images.amazon.com/images/P/B000BGR18W.01.MZZZZZZZ.jpg', @album.image(:large))
+    assert_equal('http://userserve-ak.last.fm/serve/34s/19874169.jpg', @album.image(:small))
+    assert_equal('http://userserve-ak.last.fm/serve/64s/19874169.jpg', @album.image(:medium))
+    assert_equal('http://userserve-ak.last.fm/serve/174s/19874169.jpg', @album.image(:large))
   end
   
   test "should raise an argument error when attempting to get an image that doesn't exist" do
@@ -81,6 +68,6 @@ class TestAlbum < Test::Unit::TestCase
   end
   
   test 'should load info when trying to access an image if the info has not been loaded' do
-    assert_equal('http://images.amazon.com/images/P/B000BGR18W.01.MZZZZZZZ.jpg', @album.image(:small))
+    assert_equal('http://userserve-ak.last.fm/serve/34s/19874169.jpg', @album.image(:small))
   end
 end

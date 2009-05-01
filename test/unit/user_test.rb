@@ -20,17 +20,6 @@ class TestUser < Test::Unit::TestCase
     assert_equal(%w{jnunemaker oaknd1 wharle}, users.collect(&:username))
   end
   
-  test 'should be able to load profile while finding' do
-    user = Scrobbler::User.find('jnunemaker', :include_profile => true)
-    assert_equal(@user.username, user.username)
-    assert_equal('3017870', user.id)
-  end
-  
-  test 'should be able to load profile while finding multiple users' do
-    users = Scrobbler::User.find('jnunemaker', 'oaknd1', 'wharle', :include_profile => true)
-    assert_equal(3, users.size)
-  end
-  
   test 'should require a username' do
     assert_raise(ArgumentError) { Scrobbler::User.new('') }
   end
@@ -92,48 +81,47 @@ class TestUser < Test::Unit::TestCase
   test "should be able to get a user's top artists" do
     assert_equal(3, @user.top_artists.size)
     first = @user.top_artists.first
-    assert_equal('Dixie Chicks', first.name)
-    assert_equal('3248ed2d-bada-41b5-a7b6-ac88faa1f1ac', first.mbid)
-    assert_equal('592', first.playcount)
+    assert_equal('Dream Theater', first.name)
+    assert_equal('28503ab7-8bf2-4666-a7bd-2644bfc7cb1d', first.mbid)
+    assert_equal('1643', first.playcount)
     assert_equal('1', first.rank)
-    assert_equal('http://www.last.fm/music/Dixie+Chicks', first.url)
-    assert_equal('http://static3.last.fm/storable/image/182497/small.jpg', first.thumbnail)
-    assert_equal('http://panther1.last.fm/proposedimages/sidebar/6/4037/512759.jpg', first.image)
+    assert_equal('http://www.last.fm/music/Dream+Theater', first.url)
+    assert_equal('http://userserve-ak.last.fm/serve/34/5535004.jpg', first.thumbnail)
+    assert_equal('http://userserve-ak.last.fm/serve/64/5535004.jpg', first.image)
   end
   
   test 'should be able to get top albums' do
     assert_equal(3, @user.top_albums.size)
     first = @user.top_albums.first
-    assert_equal('LeAnn Rimes', first.artist)
-    assert_equal('9092d8e1-9b38-4372-a96d-000b8561a8bc', first.artist_mbid)
-    assert_equal('This Woman', first.name)
-    assert_equal('080a4038-5156-460a-8dd5-daaa7d16b6a6', first.mbid)
-    assert_equal('297', first.playcount)
+    assert_equal('Skid Row', first.artist)
+    assert_equal('6da0515e-a27d-449d-84cc-00713c38a140', first.artist_mbid)
+    assert_equal('Slave To The Grid', first.name)
+    assert_equal('251', first.playcount)
     assert_equal('1', first.rank)    
-    assert_equal('http://www.last.fm/music/LeAnn+Rimes/This+Woman', first.url)
-    assert_equal('http://images.amazon.com/images/P/B00067BD8K.01._SCMZZZZZZZ_.jpg', first.image(:small))
-    assert_equal('http://images.amazon.com/images/P/B00067BD8K.01._SCMZZZZZZZ_.jpg', first.image(:medium))
-    assert_equal('http://images.amazon.com/images/P/B00067BD8K.01._SCMZZZZZZZ_.jpg', first.image(:large))
+    assert_equal('http://www.last.fm/music/Skid+Row/Slave+To+The+Grid', first.url)
+    assert_equal('http://userserve-ak.last.fm/serve/34s/12621887.jpg', first.image(:small))
+    assert_equal('http://userserve-ak.last.fm/serve/64s/12621887.jpg', first.image(:medium))
+    assert_equal('http://userserve-ak.last.fm/serve/126/12621887.jpg', first.image(:large))
   end
   
   test 'should be able to get top tracks' do
     assert_equal(3, @user.top_tracks.size)
     first = @user.top_tracks.first
-    assert_equal("Probably Wouldn't Be This Way", first.name)
-    assert_equal('LeAnn Rimes', first.artist)
-    assert_equal('9092d8e1-9b38-4372-a96d-000b8561a8bc', first.artist_mbid)
+    assert_equal("Learning to Live", first.name)
+    assert_equal('Dream Theater', first.artist)
+    assert_equal('28503ab7-8bf2-4666-a7bd-2644bfc7cb1d', first.artist_mbid)
     assert_equal("", first.mbid)
-    assert_equal('61', first.playcount)
+    assert_equal('51', first.playcount)
     assert_equal('1', first.rank)
-    assert_equal('http://www.last.fm/music/LeAnn+Rimes/_/Probably+Wouldn%27t+Be+This+Way', first.url)
+    assert_equal('http://www.last.fm/music/Dream+Theater/_/Learning+to+Live', first.url)
   end
   
   test 'should be able to get top tags' do
-    assert_equal(3, @user.top_tags.size)
+    assert_equal(7, @user.top_tags.size)
     first = @user.top_tags.first
-    assert_equal("country", first.name)
-    assert_equal("6", first.count)
-    assert_equal("http://www.last.fm/tag/country", first.url)
+    assert_equal("rock", first.name)
+    assert_equal("16", first.count)
+    assert_equal("www.last.fm/tag/rock", first.url)
   end
   
   # not implemented
@@ -149,31 +137,31 @@ class TestUser < Test::Unit::TestCase
   test 'should have friends' do
     assert_equal(3, @user.friends.size)
     first = @user.friends.first
-    assert_equal('oaknd1', first.username)
-    assert_equal('http://www.last.fm/user/oaknd1/', first.url)
-    assert_equal('http://panther1.last.fm/avatar/1894043b3e8995c51f7bb5e3210ef97a.jpg', first.avatar)
+    assert_equal('lobsterclaw', first.username)
+    assert_equal('http://www.last.fm/user/lobsterclaw', first.url)
+    assert_equal('http://userserve-ak.last.fm/serve/34/1733471.jpg', first.avatar)
   end
   
   test 'should have neighbours' do
-    assert_equal(3, @user.neighbours.size)
+    assert_equal(2, @user.neighbours.size)
     first = @user.neighbours.first
-    assert_equal('xBluejeanbabyx', first.username)
-    assert_equal('http://www.last.fm/user/xBluejeanbabyx/', first.url)
-    assert_equal('http://panther1.last.fm/avatar/d4de2144dc9b651b02d5d633124f0205.jpg', first.avatar)
+    assert_equal('Driotheri', first.username)
+    assert_equal('http://www.last.fm/user/Driotheri', first.url)
+    assert_equal('http://userserve-ak.last.fm/serve/34/6070771.jpg', first.avatar)
   end
   
   test 'should have recent tracks' do
     assert_equal(3, @user.recent_tracks.size)
     first = @user.recent_tracks.first
-    assert_equal('Recovering the Satellites', first.name)
-    assert_equal('Counting Crows', first.artist)
-    assert_equal('a0327dc2-dc76-44d5-aec6-47cd2dff1469', first.artist_mbid)
+    assert_equal('Liquid Dreams', first.name)
+    assert_equal('Liquid Tension Experiment', first.artist)
+    assert_equal('bc641be9-ca36-4c61-9394-5230433f6646', first.artist_mbid)
     assert_equal('', first.mbid)
-    assert_equal('328bc43b-a81a-4dc0-844f-1a27880e5fb2', first.album_mbid)
-    assert_equal('Recovering the Satellites', first.album)
-    assert_equal('http://www.last.fm/music/Counting+Crows/_/Recovering+the+Satellites', first.url)
-    assert_equal(Time.mktime(2007, 5, 4, 21, 1, 00), first.date)
-    assert_equal('1178312462', first.date_uts)
+    assert_equal('6c20d297-121e-47d0-aa3a-8f27c7a06553', first.album_mbid)
+    assert_equal('Liquid Tension Experiment 2', first.album)
+    assert_equal('http://www.last.fm/music/Liquid+Tension+Experiment/_/Liquid+Dreams', first.url)
+    assert_equal(Time.mktime(2009, 4, 28, 17, 54, 00), first.date)
+    assert_equal('1240941262', first.date_uts)
   end
   
   test 'should have recent banned tracks' do
@@ -215,77 +203,4 @@ class TestUser < Test::Unit::TestCase
     assert_equal(1134907203, first.to)
   end
   
-  test 'should have weekly artist chart' do
-    chart = @user.weekly_artist_chart
-    assert_equal(5, chart.size)
-    first = chart.first
-    assert_equal('Rascal Flatts', first.name)
-    assert_equal('6e0ae159-8449-4262-bba5-18ec87fa529f', first.mbid)
-    assert_equal('1', first.chartposition)
-    assert_equal('25', first.playcount)
-    assert_equal('http://www.last.fm/music/Rascal+Flatts', first.url)
-  end
-  
-  test 'should have weekly artist chart for past weeks' do
-    chart = @user.weekly_artist_chart(1138536002, 1139140802)
-    assert_equal(8, chart.size)
-    first = chart.first
-    assert_equal('Jenny Lewis with The Watson Twins', first.name)
-    assert_equal('4b179fe2-dfa5-40b1-b6db-b56dbc3b5f09', first.mbid)
-    assert_equal('1', first.chartposition)
-    assert_equal('48', first.playcount)
-    assert_equal('http://www.last.fm/music/Jenny+Lewis+with+The+Watson+Twins', first.url)
-  end
-  
-  test 'should have weekly album chart' do
-    chart = @user.weekly_album_chart
-    assert_equal(4, chart.size)
-    first = chart.first
-    assert_equal('Reba McEntire', first.artist)
-    assert_equal('3ec17e85-9284-4f4c-8831-4e56c2354cdb', first.artist_mbid)
-    assert_equal("Reba #1's", first.name)
-    assert_equal('', first.mbid)
-    assert_equal('1', first.chartposition)
-    assert_equal('13', first.playcount)
-    assert_equal('http://www.last.fm/music/Reba+McEntire/Reba%2B%25231%2527s', first.url)
-  end
-  
-  test 'should have weekly album chart for past weeks' do
-    chart = @user.weekly_album_chart(1138536002, 1139140802)
-    assert_equal(4, chart.size)
-    first = chart.first
-    assert_equal('Jewel', first.artist)
-    assert_equal('abae8575-ec8a-4736-abc3-1ad5093a68aa', first.artist_mbid)
-    assert_equal("0304", first.name)
-    assert_equal('52b3f067-9d82-488c-9747-6d608d9b9486', first.mbid)
-    assert_equal('1', first.chartposition)
-    assert_equal('13', first.playcount)
-    assert_equal('http://www.last.fm/music/Jewel/0304', first.url)
-  end
-  
-  test 'should have track album chart' do
-    chart = @user.weekly_track_chart
-    assert_equal(4, chart.size)
-    first = chart.first
-    assert_equal('Rebecca St. James', first.artist)
-    assert_equal('302716e4-a702-4bbc-baac-591f8a8e20bc', first.artist_mbid)
-    assert_equal('Omega', first.name)
-    assert_equal('', first.mbid)
-    assert_equal('1', first.chartposition)
-    assert_equal('2', first.playcount)
-    assert_equal('http://www.last.fm/music/Rebecca+St.+James/_/Omega', first.url)
-  end
-  
-  test 'should have weekly track chart for past weeks' do
-    chart = @user.weekly_track_chart(1138536002, 1139140802)
-    assert_equal(4, chart.size)
-    first = chart.first
-    assert_equal('Natasha Bedingfield', first.artist)
-    assert_equal('8b477559-946e-4ef2-9fe1-446cff8fdd79', first.artist_mbid)
-    assert_equal('Unwritten', first.name)
-    assert_equal('', first.mbid)
-    assert_equal('1', first.chartposition)
-    assert_equal('8', first.playcount)
-    assert_equal('http://www.last.fm/music/Natasha+Bedingfield/_/Unwritten', first.url)
-  end
 end
