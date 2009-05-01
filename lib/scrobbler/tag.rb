@@ -61,10 +61,10 @@ module Scrobbler
     
     class << self
       def new_from_xml(xml, doc=nil)
-        name    = (xml).at(:name).inner_html
+        name    = xml.at(:name).inner_html
         t       = Tag.new(name)
-        t.count = (xml).at(:count).inner_html
-        t.url   = (xml).at(:url).inner_html
+        t.count = xml.at(:count).inner_html if xml.at(:count)
+        t.url   = xml.at(:url).inner_html
         t
       end
     end

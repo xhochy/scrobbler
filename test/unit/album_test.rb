@@ -23,10 +23,6 @@ class TestAlbum < Test::Unit::TestCase
     assert_equal('Some Hearts', @album.name)
   end
   
-  test 'should have correct api path' do
-    assert_equal("/1.0/album/Carrie+Underwood/Some+Hearts", @album.api_path)
-  end
-  
   test 'should be able to load album info' do
     @album.load_info
     assert_equal('http://www.last.fm/music/Carrie+Underwood/Some+Hearts', @album.url)
@@ -44,7 +40,10 @@ class TestAlbum < Test::Unit::TestCase
     assert_equal('Carrie Underwood', album.artist)
     assert_equal('Some Hearts', album.name)
     assert_equal('http://www.last.fm/music/Carrie+Underwood/Some+Hearts', album.url)
+    assert_equal(131312, album.listeners)
+    assert_equal(2096260, album.playcount)
     assert_equal(Time.mktime(2005, 11, 15, 00, 00, 00), album.release_date)
+    assert_equal(["country", "albums i own", "pop", "country pop", "american idol"], album.top_tags.collect(&:name))
   end
   
   test "should be able to include the album's info on initialize" do
@@ -60,6 +59,7 @@ class TestAlbum < Test::Unit::TestCase
     assert_equal('http://userserve-ak.last.fm/serve/34s/19874169.jpg', @album.image(:small))
     assert_equal('http://userserve-ak.last.fm/serve/64s/19874169.jpg', @album.image(:medium))
     assert_equal('http://userserve-ak.last.fm/serve/174s/19874169.jpg', @album.image(:large))
+    assert_equal('http://userserve-ak.last.fm/serve/300x300/19874169.jpg', @album.image(:extralarge))
   end
   
   test "should raise an argument error when attempting to get an image that doesn't exist" do

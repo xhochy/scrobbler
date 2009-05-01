@@ -27,9 +27,21 @@ module Scrobbler
       def fetch_and_parse(resource)
         Hpricot::XML(connection.get(resource))
       end
+      
     end
     
     private
+      def request(api_method, parameters)
+        parameters['api_key'] = @@api_key
+        parameters['method'] = api_method.to_s
+        paramlist = []
+        parameters.each do |key, value|
+          paramlist <<  "#{CGI::escape(key)}=#{CGI::escape(value)}"
+        end
+        
+        self.class.fetch_and_parse('/2.0/?' + paramlist.join('&'))
+      end
+
       def get_instance2(api_method, instance_name, element, parameters = {}, force=false)
         scrobbler_class = "scrobbler/#{element.to_s}".camelize.constantize
         if instance_variable_get("@#{instance_name}").nil? || force

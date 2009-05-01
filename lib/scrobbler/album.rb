@@ -43,7 +43,8 @@
 #   Inside Your Heaven
 module Scrobbler
   class Album < Base
-    attr_accessor :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url, :reach, :release_date
+    attr_accessor :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url
+    attr_accessor :reach, :release_date, :listeners, :playcount, :top_tags
     attr_accessor :image_large, :image_medium, :image_small
     attr_writer :tracks
     
@@ -83,6 +84,10 @@ module Scrobbler
       end
     end
     
+    # If the additional parameter :include_info is set to true, additional 
+    # information is loaded
+    #
+    # @todo Albums should be able to be created via a MusicBrainz id too
     def initialize(artist, name, o={})
       raise ArgumentError, "Artist is required" if artist.blank?
       raise ArgumentError, "Name is required" if name.blank?
@@ -92,28 +97,38 @@ module Scrobbler
       load_info() if options[:include_info]
     end
     
-    def api_path
-      "/#{API_VERSION}/album/#{CGI::escape(artist)}/#{CGI::escape(name)}"
-    end
+    @info_loaded = false # Indicates if the info was already loaded
     
+    # Load additional information about this album
+    #
+    # Calls "album.getinfo" REST method
+    #
+    # @todo Parse wiki content
+    # @todo Add language code for wiki translation
     def load_info
-      doc = self.class.fetch_and_parse("/2.0/?method=album.getinfo" + 
-        "&api_key=#{@@api_key}&artist=" + 
-        CGI::escape(@artist) + '&album=' + CGI::escape(@name))
-      unless doc.to_s.include?("No such album for this artist") || doc.to_s.include?("not found on this server") || doc.to_s.include?("ERROR")
-        xml = doc.at(:album)
-        @url          = (doc).at(:url).inner_html
-        @release_date = Time.parse((doc).at(:releasedate).inner_html.strip)
+      xml = request('album.getinfo', {'artist' => @artist, 'name' => @name})
+      unless xml.at(:lfm)['status'] == 'failed' || @info_loaded
+        xml = xml.at(:album)
+        @url          = xml.at(:url).inner_html
+        @release_date = Time.parse(xml.at(:releasedate).inner_html.strip)
+        @image_extralarge = xml.at("/image[@size='extralarge']").inner_html
         @image_large  = xml.at("/image[@size='large']").inner_html
         @image_medium = xml.at("/image[@size='medium']").inner_html
         @image_small  = xml.at("/image[@size='small']").inner_html
-        @mbid         = doc.at(:mbid).inner_html
+        @mbid         = xml.at(:mbid).inner_html
+        @listeners    = xml.at(:listeners).inner_html.to_i
+        @playcount    = xml.at(:playcount).inner_html.to_i
+        @info_loaded  = true
+        @top_tags = []
+        xml.at(:toptags).search(:tag).each do |elem|
+            @top_tags << Tag.new_from_xml(elem)
+        end
       end
     end
     
     def image(which=:small)
       which = which.to_s
-      raise ArgumentError unless ['small', 'medium', 'large'].include?(which)      
+      raise ArgumentError unless ['small', 'medium', 'large', 'extralarge'].include?(which)      
       img_url = instance_variable_get("@image_#{which}")
       if img_url.nil?
         load_info
