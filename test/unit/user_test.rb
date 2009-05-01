@@ -86,8 +86,9 @@ class TestUser < Test::Unit::TestCase
     assert_equal('1643', first.playcount)
     assert_equal('1', first.rank)
     assert_equal('http://www.last.fm/music/Dream+Theater', first.url)
-    assert_equal('http://userserve-ak.last.fm/serve/34/5535004.jpg', first.thumbnail)
-    assert_equal('http://userserve-ak.last.fm/serve/64/5535004.jpg', first.image)
+    assert_equal('http://userserve-ak.last.fm/serve/34/5535004.jpg', first.image(:small))
+    assert_equal('http://userserve-ak.last.fm/serve/64/5535004.jpg', first.image(:medium))
+    assert_equal('http://userserve-ak.last.fm/serve/126/5535004.jpg', first.image(:large))
   end
   
   test 'should be able to get top albums' do

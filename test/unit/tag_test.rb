@@ -28,8 +28,8 @@ class TestTag < Test::Unit::TestCase
     assert_equal('yes', @tag.top_artists.first.streamable)
     assert_equal('d87e52c5-bb8d-4da8-b941-9f4928627dc8', @tag.top_artists.first.mbid)
     assert_equal('http://www.last.fm/music/ABBA', @tag.top_artists.first.url)
-    assert_equal('http://userserve-ak.last.fm/serve/34/135930.jpg', @tag.top_artists.first.thumbnail)
-    assert_equal('http://userserve-ak.last.fm/serve/64/135930.jpg', @tag.top_artists.first.image)
+    assert_equal('http://userserve-ak.last.fm/serve/34/135930.jpg', @tag.top_artists.first.image(:small))
+    assert_equal('http://userserve-ak.last.fm/serve/64/135930.jpg', @tag.top_artists.first.image(:medium))
   end
   
   test 'should be able to find top albums for a tag' do

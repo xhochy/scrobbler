@@ -57,9 +57,11 @@
 #   (62.436%) Ashlee Simpson
 #   (62.160%) Christina Aguilera
 module Scrobbler
+  # @todo Add missing functions that require authentication
+  # @todo Integrate search functionality into this class which is already implemented in Scrobbler::Search
   class Artist < Base
-    attr_accessor :name, :mbid, :playcount, :rank, :url, :thumbnail, :image, :reach, :count, :streamable
-    attr_accessor :chartposition, :image_large
+    attr_accessor :name, :mbid, :playcount, :rank, :url, :count, :streamable
+    attr_accessor :chartposition, :image_small, :image_medium, :image_large
     
     # used for similar artists
     attr_accessor :match
@@ -70,21 +72,20 @@ module Scrobbler
         name             = Base::sanitize(xml['name'])          if name.nil? && xml['name']
         name         = Base::sanitize(xml.at('/name').inner_html) if name.nil? && (xml).at(:name)
         a                = Artist.new(name)
-        a.mbid           = (xml).at(:mbid).inner_html           if (xml).at(:mbid)
-        a.playcount      = (xml).at(:playcount).inner_html      if (xml).at(:playcount)
+        a.mbid           = xml.at(:mbid).inner_html           if xml.at(:mbid)
+        a.playcount      = xml.at(:playcount).inner_html      if xml.at(:playcount)
         a.rank           = Base::sanitize(xml['rank'])           if xml['rank']
-        a.url            = (xml).at(:url).inner_html            if (xml).at(:url)
-        a.thumbnail = xml.at("image[@size='small']").inner_html if xml.at("image[@size='small']")
-        a.image   = xml.at("image[@size='medium']'").inner_html if xml.at("image[@size='medium']'")
-        a.image_large = xml.at("image[@size='large']'").inner_html if xml.at("image[@size='large']'")
-        a.reach          = (xml).at(:reach).inner_html          if (xml).at(:reach)
-        a.match          = (xml).at(:match).inner_html          if (xml).at(:match)
-        a.chartposition = (xml).at(:chartposition).inner_html  if (xml).at(:chartposition)
+        a.url            = xml.at(:url).inner_html            if xml.at(:url)
+        a.image_small  = xml.at("image[@size='small']").inner_html   if xml.at("image[@size='small']")
+        a.image_medium = xml.at("image[@size='medium']'").inner_html if xml.at("image[@size='medium']'")
+        a.image_large  = xml.at("image[@size='large']'").inner_html  if xml.at("image[@size='large']'")
+        a.match          = xml.at(:match).inner_html          if xml.at(:match)
+        a.chartposition = xml.at(:chartposition).inner_html  if xml.at(:chartposition)
 
         # in top artists for tag
         a.count          = xml.at('/tagcount').inner_html    if xml.at('/tagcount')
         a.streamable     = xml['streamable']                    if xml['streamable']
-        a.streamable     = (xml).at(:streamable).inner_html == '1' ? 'yes' : 'no' if a.streamable.nil? && (xml).at(:streamable)
+        a.streamable     = xml.at(:streamable).inner_html == '1' ? 'yes' : 'no' if a.streamable.nil? && xml.at(:streamable)
         a
       end
     end
@@ -94,14 +95,20 @@ module Scrobbler
       @name = name
     end
     
-    def api_path
-      "/#{API_VERSION}/artist/#{CGI::escape(name)}"
-    end
-    
+    # Get the URL to the ical or rss representation of the current events that
+    # a artist will play
+    #
+    # @todo Use the API function and parse that into a common ruby structure
     def current_events(format=:ics)
       format = :ics if format.to_s == 'ical'
       raise ArgumentError unless ['ics', 'rss'].include?(format.to_s)
-      "#{API_URL.chop}#{api_path}/events.#{format}"
+      "#{API_URL.chop}/2.0/artist/#{CGI::escape(name)}/events.#{format}"
+    end
+    
+    def image(which=:small)
+      which = which.to_s
+      raise ArgumentError unless ['small', 'medium', 'large'].include?(which)      
+      instance_variable_get("@image_#{which}")
     end
     
     def similar(force=false)
