@@ -166,36 +166,4 @@ class TestUser < Test::Unit::TestCase
     assert_equal(true, first.now_playing)
   end
   
-  test 'should have recent banned tracks' do
-    assert_equal(3, @user.recent_banned_tracks.size)
-    first = @user.recent_banned_tracks.first
-    assert_equal('Dress Rehearsal Rag', first.name)
-    assert_equal('Leonard Cohen', first.artist)
-    assert_equal('65314b12-0e08-43fa-ba33-baaa7b874c15', first.artist_mbid)
-    assert_equal('', first.mbid)
-    assert_equal('http://www.last.fm/music/Leonard+Cohen/_/Dress+Rehearsal+Rag', first.url)
-    assert_equal(Time.mktime(2006, 9, 27, 14, 19, 00), first.date)
-    assert_equal('1159366744', first.date_uts)
-  end
-  
-  test 'should have recent loved tracks' do
-    assert_equal(3, @user.recent_loved_tracks.size)
-    first = @user.recent_loved_tracks.first
-    assert_equal('Am I Missing', first.name)
-    assert_equal('Dashboard Confessional', first.artist)
-    assert_equal('50549203-9602-451c-b49f-ff031ba8635c', first.artist_mbid)
-    assert_equal('', first.mbid)
-    assert_equal('http://www.last.fm/music/Dashboard+Confessional/_/Am+I+Missing', first.url)
-    assert_equal(Time.mktime(2006, 9, 26, 17, 43, 00), first.date)
-    assert_equal('1159292606', first.date_uts)
-  end
-  
-  test 'should have recommendations' do
-    assert_equal(3, @user.recommendations.size)
-    first = @user.recommendations.first
-    assert_equal('Kaiser Chiefs', first.name)
-    assert_equal('90218af4-4d58-4821-8d41-2ee295ebbe21', first.mbid)
-    assert_equal('http://www.last.fm/music/Kaiser+Chiefs', first.url)
-  end
-  
 end
