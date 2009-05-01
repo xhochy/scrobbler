@@ -66,6 +66,7 @@ module Scrobbler
         t.thumbnail = xml.at('/image[@size="small"]').inner_html if xml.at('/image[@size="small"]')
         t.image = xml.at('/image[@size="medium"]').inner_html   if xml.at('/image[@size="medium"]')
         t.now_playing = true if xml['nowplaying'] && xml['nowplaying'] == 'true'
+        t.now_playing = false unless t.now_playing
         t
       end
     end
