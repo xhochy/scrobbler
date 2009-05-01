@@ -63,22 +63,19 @@ module Scrobbler
       end
       
       def new_from_xml(xml, doc=nil)
-        name             = (xml).at(:name).inner_html                   if (xml).at(:name)
-        name             = xml['name']                                  if name.nil? && xml['name']
-        artist           = (xml).at(:artist)['name']                    if (xml).at(:artist) && (xml).at(:artist)['name']
-        artist           = (xml).at('/artist/name').inner_html          if artist.nil? && (xml).at('/artist/name')
-        artist           = doc.root['artist']                           if artist.nil? && doc.root['artist']
-        a                = Album.new(artist, name)
-        a.artist_mbid    = (xml).at(:artist)['mbid']                    if (xml).at(:artist) && (xml).at(:artist)['mbid']
-        a.artist_mbid    = (xml).at(:artist).at(:mbid).inner_html       if a.artist_mbid.nil? && (xml).at(:artist) && (xml).at(:artist).at(:mbid)
-        a.mbid           = (xml).at(:mbid).inner_html                   if (xml).at(:mbid)
-        a.playcount      = (xml).at(:playcount).inner_html              if (xml).at(:playcount)
-        a.chartposition = (xml).at(:chartposition).inner_html          if (xml).at(:chartposition)
-        a.rank           = xml['rank']                   if xml['rank']
-        a.url            = xml.at('/url').inner_html                   if xml.at('/url')
-        a.image_large    = xml.at("/image[@size='large']").inner_html if xml.at("/image[@size='large']")
-        a.image_medium   = xml.at("/image[@size='medium']").inner_html if xml.at("/image[@size='medium']")
-        a.image_small    = xml.at("/image[@size='small']").inner_html if xml.at("/image[@size='small']")
+        name = Base::sanitize(xml.at(:name).inner_html) if xml.at(:name)
+        name = Base::sanitize(xml['name'])              if name.nil? && xml['name']
+        artist = Base::sanitize(xml.at('/artist/name').inner_html) if xml.at('/artist/name')
+        a = Album.new(artist, name)
+        a.artist_mbid = xml.at(:artist).at(:mbid).inner_html if xml.at(:artist) && xml.at(:artist).at(:mbid)
+        a.mbid          = xml.at(:mbid).inner_html           if xml.at(:mbid)
+        a.playcount     = xml.at(:playcount).inner_html      if xml.at(:playcount)
+        a.chartposition = xml.at(:chartposition).inner_html  if xml.at(:chartposition)
+        a.rank          = xml['rank']                        if xml['rank']
+        a.url           = xml.at('/url').inner_html          if xml.at('/url')
+        a.image_large   = xml.at("/image[@size='large']").inner_html  if xml.at("/image[@size='large']")
+        a.image_medium  = xml.at("/image[@size='medium']").inner_html if xml.at("/image[@size='medium']")
+        a.image_small   = xml.at("/image[@size='small']").inner_html  if xml.at("/image[@size='small']")
                 
         # needed on top albums for tag
         a.count          = xml['count'] if xml['count']

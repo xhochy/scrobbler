@@ -15,6 +15,8 @@ module Scrobbler
     end
 
     @@coder = HTMLEntities.new
+    
+    # Decode HTML Entities so that we have plain strings in out code
     def Base.sanitize(string)
        @@coder.decode(string)
     end
