@@ -41,7 +41,10 @@
 #   Whenever You Remember
 #   I Ain't in Checotah Anymore
 #   Inside Your Heaven
+#
 module Scrobbler
+  # @todo Add missing functions that require authentication
+  # @todo Integrate search functionality into this class which is already implemented in Scrobbler::Search
   class Album < Base
     attr_accessor :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url
     attr_accessor :reach, :release_date, :listeners, :playcount, :top_tags
