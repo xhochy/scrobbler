@@ -163,6 +163,7 @@ class TestUser < Test::Unit::TestCase
     assert_equal('http://www.last.fm/music/Liquid+Tension+Experiment/_/Liquid+Dreams', first.url)
     assert_equal(Time.mktime(2009, 4, 28, 17, 54, 00), first.date)
     assert_equal('1240941262', first.date_uts)
+    assert_equal(true, first.now_playing)
   end
   
   test 'should have recent banned tracks' do

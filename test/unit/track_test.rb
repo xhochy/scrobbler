@@ -21,10 +21,6 @@ class TestTrack < Test::Unit::TestCase
     assert_equal('Before He Cheats', @track.name)
   end
   
-  test 'should have api path' do
-    assert_equal('/1.0/track/Carrie+Underwood/Before+He+Cheats', @track.api_path)
-  end
-  
   test 'should have fans' do
     assert_equal(3, @track.fans.size)
     assert_equal('ccaron0', @track.fans.first.username)

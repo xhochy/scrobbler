@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <lfm status="ok">
 <recenttracks user="RJ">
-<track > 
+<track nowplaying="true"> 
                     <artist mbid="bc641be9-ca36-4c61-9394-5230433f6646">Liquid Tension Experiment</artist>
         <name>Liquid Dreams</name>
     <streamable>1</streamable>
