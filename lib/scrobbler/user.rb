@@ -60,6 +60,22 @@ module Scrobbler
     attr_accessor :weight
     
     class << self
+      def new_from_libxml(xml)
+        data = {}
+        xml.children.each do |child|
+          data[:name] = child.content if child.name == 'name'
+          data[:url] = child.content if child.name == 'url'
+          data[:weight] = child.content if child.name == 'weight'
+          data[:match] = child.content if child.name == 'match'
+          if child.name == 'image'
+            data[:image_small] = child.content if child['size'] == 'small'
+            data[:image_medium] = child.content if child['size'] == 'medium'
+            data[:image_large] = child.content if child['size'] == 'large'
+          end
+        end
+        User.new(data[:name], data)
+      end
+
       def new_from_xml(xml, doc=nil)
         u        = User.new(xml.at(:name).inner_html)
         u.url    = (xml).at(:url).inner_html    if (xml).at(:url)
@@ -77,15 +93,22 @@ module Scrobbler
       end
     end
     
-    def initialize(username, o={})
-      options = {:include_profile => false}.merge(o)
+    def initialize(username, input={})
+      data = {:include_profile => false}.merge(input)
       raise ArgumentError if username.blank?
       @username = username
-      load_profile() if options[:include_profile]
+      load_profile() if data[:include_profile]
+      populate_data(data)
     end
     
     def api_path
       "/#{API_VERSION}/user/#{CGI::escape(username)}"
+    end
+    
+    def image(which=:small)
+      which = which.to_s
+      raise ArgumentError unless ['small', 'medium', 'large'].include?(which)      
+      instance_variable_get("@image_#{which}")
     end
     
     def current_events(format=:ics)
@@ -123,7 +146,7 @@ module Scrobbler
     end
     
     def top_artists(force=false, period='overall')
-      get_instance2('user.gettopartists', :top_artists, :artist, {'user'=>@username, 'period'=>period}, force)
+      get_response('user.gettopartists', :top_artists, 'topartists', 'artist', {'user' => @username, 'period'=>period}, force)
     end
     
     def top_albums(force=false, period='overall')

@@ -68,41 +68,32 @@ module Scrobbler
     
     class << self
       def new_from_libxml(xml)
+        data = {}
+      
         # Step 1 get all information from the root's attributes
-        name = xml['name'] if xml['name']
-        rank = xml['rank'] if xml['rank']
-        streamable = xml['streamable'] if xml['streamable']
+        data[:name] = xml['name'] if xml['name']
+        data[:rank] = xml['rank'] if xml['rank']
+        data[:streamable] = xml['streamable'] if xml['streamable']
         
         # Step 2 get all information from the root's children nodes
-        data = {}
         xml.children.each do |child|
-          if child.name == 'name' && name.nil?
-            name = child.content
-          elsif child.name == 'mbid'
-            data[:mbid] = child.content
-          elsif child.name == 'playcount'
-            data[:playcount] = child.content
-          elsif child.name == 'url'
-            data[:url] = child.content
-          elsif child.name == 'image'
-            if child['size'] == 'small'
-              data[:image_small] = child.content
-            elsif child['size'] == 'medium'
-              data[:image_medium] = child.content
-            elsif child['size'] == 'large'
-              data[:image_large] = child.content
-            end
-          elsif child.name == 'match'
-            data[:match] = child.content
-          elsif child.name == 'chartposition'
-            data[:chartposition] = child.content
-          elsif child.name == 'streamable'
-            data[:streamable] = child.content
+          data[:playcount] = child.content if child.name == 'playcount'
+          data[:mbid] = child.content if child.name == 'mbid'
+          data[:url] = child.content if child.name == 'url'
+          data[:match] = child.content if child.name == 'match'
+          data[:chartposition] = child.content if child.name == 'chartposition'
+          data[:streamable] = child.content if child.name == 'streamable'
+          data[:name] = child.content if child.name == 'name'
+
+          if child.name == 'image'
+            data[:image_small] = child.content if child['size'] == 'small'
+            data[:image_medium] = child.content if child['size'] == 'medium'
+            data[:image_large] = child.content if child['size'] == 'large'
           end
         end
         
         # Step 3 fill the object
-        Artist.new(name, data)
+        Artist.new(data[:name], data)
       end
       
       def new_from_xml(xml, doc=nil)
@@ -131,16 +122,7 @@ module Scrobbler
     def initialize(name, data = {})
       raise ArgumentError, "Name is required" if name.blank?
       @name = name
-      @rank = data[:rank] unless data[:rank].nil?
-      @streamable = data[:streamable] unless data[:streamable].nil?
-      @mbid = data[:mbid] unless data[:mbid].nil?
-      @playcount = data[:playcount] unless data[:playcount].nil?
-      @url = data[:url] unless data[:url].nil?
-      @image_small = data[:image_small] unless data[:image_small].nil?
-      @image_medium = data[:image_medium] unless data[:image_medium].nil?
-      @image_large = data[:image_large] unless data[:image_large].nil?
-      @match = data[:match] unless data[:match].nil?
-      @chartposition = data[:chartposition] unless data[:chartposition].nil?
+      populate_data(data)
     end
     
     # Get the URL to the ical or rss representation of the current events that
@@ -160,23 +142,11 @@ module Scrobbler
     end
     
     def similar(force=false)
-      if @similar.nil?
-        doc = request('artist.getsimilar', {'artist' => @name}, false)
-        # As XPath this would be /lfm/similarartists/artist
-        @similar = []
-        doc.root.children.each do |child|
-          next unless child.name == 'similarartists'
-          child.children.each do |artist|
-            next unless artist.name == 'artist'
-             @similar << Artist.new_from_libxml(artist)
-          end
-        end
-      end
-      @similar      
+      get_response('artist.getsimilar', :similar, 'similarartists', 'artist', {'artist' => @name}, force)
     end
     
     def top_fans(force=false)
-      get_instance2('artist.gettopfans', :top_fans, :user, {'artist'=>@name}, force)
+      get_response('artist.gettopfans', :top_fans, 'topfans', 'user', {'artist' => @name}, force)
     end
     
     def top_tracks(force=false)
@@ -188,18 +158,7 @@ module Scrobbler
     end
     
     def top_tags(force=false)
-      if @top_tags.nil?
-        doc = request('artist.gettoptags', {'artist' => @name}, false)
-        @top_tags = []
-        doc.root.children.each do |child|
-          next unless child.name == 'toptags'
-          child.children.each do |tag|
-            next unless tag.name == 'tag'
-            @top_tags << Tag.new_from_libxml(tag)
-          end
-        end
-      end
-      @top_tags
+      get_response('artist.gettoptags', :top_tags, 'toptags', 'tag', {'artist' => @name}, force)
     end
     
   end

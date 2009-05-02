@@ -70,7 +70,9 @@ class TestArtist < Test::Unit::TestCase
     first = @artist.top_fans.first
     assert_equal('Slide15', first.username)
     assert_equal('http://www.last.fm/user/Slide15', first.url)
-    assert_equal('http://userserve-ak.last.fm/serve/34/4477633.jpg', first.avatar)
+    assert_equal('http://userserve-ak.last.fm/serve/34/4477633.jpg', first.image(:small))
+    assert_equal('http://userserve-ak.last.fm/serve/64/4477633.jpg', first.image(:medium))
+    assert_equal('http://userserve-ak.last.fm/serve/126/4477633.jpg', first.image(:large))
     assert_equal('265440672', first.weight)
   end
   
