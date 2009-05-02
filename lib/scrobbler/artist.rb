@@ -188,7 +188,19 @@ module Scrobbler
     end
     
     def top_tags(force=false)
-      get_instance2('artist.gettoptags', :top_tags, :tag, {'artist'=>@name}, force)
+      if @top_tags.nil?
+        doc = request('artist.gettoptags', {'artist' => @name}, false)
+        @top_tags = []
+        doc.root.children.each do |child|
+          next unless child.name == 'toptags'
+          child.children.each do |tag|
+            next unless tag.name == 'tag'
+            @top_tags << Tag.new_from_libxml(tag)
+          end
+        end
+      end
+      @top_tags
     end
+    
   end
 end

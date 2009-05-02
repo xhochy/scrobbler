@@ -60,6 +60,20 @@ module Scrobbler
     attr_accessor :name, :count, :url
     
     class << self
+      def new_from_libxml(xml)
+        data = {}
+        xml.children.each do |child|
+          if child.name == 'name'
+            data[:name] = child.content
+          elsif child.name == 'count'
+            data[:count] = child.content
+          elsif child.name == 'url'
+            data[:url] = child.content
+          end
+        end
+        t = Tag.new(data[:name], data)
+      end
+      
       def new_from_xml(xml, doc=nil)
         name    = xml.at(:name).inner_html
         t       = Tag.new(name)
@@ -69,9 +83,11 @@ module Scrobbler
       end
     end
     
-    def initialize(name)
+    def initialize(name, data={})
       raise ArgumentError, "Name is required" if name.blank?
       @name = name
+      @url = data[:url] if data[:url]
+      @count = data[:count] if data[:count]
     end
     
     def api_path
