@@ -67,9 +67,47 @@ module Scrobbler
     attr_accessor :match
     
     class << self
+      def new_from_libxml(xml)
+        # Step 1 get all information from the root's attributes
+        name = xml['name'] if xml['name']
+        rank = xml['rank'] if xml['rank']
+        streamable = xml['streamable'] if xml['streamable']
+        
+        # Step 2 get all information from the root's children nodes
+        data = {}
+        xml.children.each do |child|
+          if child.name == 'name' && name.nil?
+            name = child.content
+          elsif child.name == 'mbid'
+            data[:mbid] = child.content
+          elsif child.name == 'playcount'
+            data[:playcount] = child.content
+          elsif child.name == 'url'
+            data[:url] = child.content
+          elsif child.name == 'image'
+            if child['size'] == 'small'
+              data[:image_small] = child.content
+            elsif child['size'] == 'medium'
+              data[:image_medium] = child.content
+            elsif child['size'] == 'large'
+              data[:image_large] = child.content
+            end
+          elsif child.name == 'match'
+            data[:match] = child.content
+          elsif child.name == 'chartposition'
+            data[:chartposition] = child.content
+          elsif child.name == 'streamable'
+            data[:streamable] = child.content
+          end
+        end
+        
+        # Step 3 fill the object
+        Artist.new(name, data)
+      end
+      
       def new_from_xml(xml, doc=nil)
         # occasionally name can be found in root of artist element (<artist name="">) rather than as an element (<name>)
-        name             = Base::sanitize(xml['name'])          if name.nil? && xml['name']
+        name             = Base::sanitize(xml['name'])          if xml['name']
         name         = Base::sanitize(xml.at('/name').inner_html) if name.nil? && (xml).at(:name)
         a                = Artist.new(name)
         a.mbid           = xml.at(:mbid).inner_html           if xml.at(:mbid)
@@ -90,9 +128,19 @@ module Scrobbler
       end
     end
     
-    def initialize(name)
+    def initialize(name, data = {})
       raise ArgumentError, "Name is required" if name.blank?
       @name = name
+      @rank = data[:rank] unless data[:rank].nil?
+      @streamable = data[:streamable] unless data[:streamable].nil?
+      @mbid = data[:mbid] unless data[:mbid].nil?
+      @playcount = data[:playcount] unless data[:playcount].nil?
+      @url = data[:url] unless data[:url].nil?
+      @image_small = data[:image_small] unless data[:image_small].nil?
+      @image_medium = data[:image_medium] unless data[:image_medium].nil?
+      @image_large = data[:image_large] unless data[:image_large].nil?
+      @match = data[:match] unless data[:match].nil?
+      @chartposition = data[:chartposition] unless data[:chartposition].nil?
     end
     
     # Get the URL to the ical or rss representation of the current events that
@@ -112,7 +160,19 @@ module Scrobbler
     end
     
     def similar(force=false)
-      get_instance2('artist.getsimilar', :similar, :artist, {'artist'=>@name}, force)
+      if @similar.nil?
+        doc = request('artist.getsimilar', {'artist' => @name}, false)
+        # As XPath this would be /lfm/similarartists/artist
+        @similar = []
+        doc.root.children.each do |child|
+          next unless child.name == 'similarartists'
+          child.children.each do |artist|
+            next unless artist.name == 'artist'
+             @similar << Artist.new_from_libxml(artist)
+          end
+        end
+      end
+      @similar      
     end
     
     def top_fans(force=false)

@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'cgi'
 require 'htmlentities'
+require 'libxml'
 
 $KCODE = 'u'
 
@@ -33,7 +34,7 @@ module Scrobbler
     end
     
     private
-      def request(api_method, parameters)
+      def request(api_method, parameters, use_hpricot = true)
         parameters['api_key'] = @@api_key
         parameters['method'] = api_method.to_s
         paramlist = []
@@ -41,7 +42,9 @@ module Scrobbler
           paramlist <<  "#{CGI::escape(key)}=#{CGI::escape(value)}"
         end
         
-        self.class.fetch_and_parse('/2.0/?' + paramlist.join('&'))
+        url = '/2.0/?' + paramlist.join('&')
+        return LibXML::XML::Document.string(self.class.connection.get(url)) unless use_hpricot
+        self.class.fetch_and_parse(url)
       end
 
       def get_instance2(api_method, instance_name, element, parameters = {}, force=false)

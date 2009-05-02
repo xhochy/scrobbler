@@ -61,7 +61,7 @@ class TestArtist < Test::Unit::TestCase
     assert_equal('http://userserve-ak.last.fm/serve/34/8422011.jpg', first.image(:small))
     assert_equal('http://userserve-ak.last.fm/serve/64/8422011.jpg', first.image(:medium))
     assert_equal('http://userserve-ak.last.fm/serve/126/8422011.jpg', first.image(:large))
-    assert_equal('yes', first.streamable)
+    assert_equal('1', first.streamable)
   end
   
   # @apiversion 2.0
