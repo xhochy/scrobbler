@@ -112,7 +112,7 @@ module Scrobbler
     end
     
     def fans(force=false)
-      get_instance2('track.gettopfans', :fans, :user, {'artist'=>@artist, 'track'=>@name}, force)
+      get_response('track.gettopfans', :fans, 'topfans', 'user', {'artist'=>@artist, 'track'=>@name}, force)
     end
     
     def tags(force=false)

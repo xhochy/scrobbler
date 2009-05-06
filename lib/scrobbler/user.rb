@@ -46,18 +46,7 @@
 #   (34) Stickwitu
 module Scrobbler  
   class User < Base
-    # attributes needed to initialize
-    attr_reader :username
-    
-    # profile attributes
-    attr_accessor :id, :cluster, :url, :realname, :mbox_sha1sum, :registered
-    attr_accessor :registered_unixtime, :age, :gender, :country, :playcount
-    
-    # neighbor attributes
-    attr_accessor :match, :image_small, :image_medium, :image_large
-    
-    # track fans attributes
-    attr_accessor :weight
+    attr_reader :username, :url, :weight, :match, :realname
     
     class << self
       def new_from_libxml(xml)
@@ -77,15 +66,6 @@ module Scrobbler
         User.new(data[:name], data)
       end
 
-      def new_from_xml(xml, doc=nil)
-        u        = User.new(xml.at(:name).inner_html)
-        u.url    = (xml).at(:url).inner_html    if (xml).at(:url)
-        u.image_small = (xml).at(:image).inner_html  if (xml).at(:image)
-        u.weight = (xml).at(:weight).inner_html if (xml).at(:weight)
-        u.match  = (xml).at(:match).inner_html  if (xml).at(:match)
-        u
-      end
-      
       def find(*args)
         options = {:include_profile => false}
         options.merge!(args.pop) if args.last.is_a?(Hash)
