@@ -52,7 +52,8 @@ class TestTag < Test::Unit::TestCase
     assert_equal('Bee Gees', first.artist)
     assert_equal('bf0f7e29-dfe1-416c-b5c6-f9ebc19ea810', first.artist_mbid)
     assert_equal('http://www.last.fm/music/Bee+Gees/_/Stayin%27+Alive', first.url)
-    assert_equal('http://images.amazon.com/images/P/B00069590Q.01._SCMZZZZZZZ_.jpg', first.thumbnail)
-    assert_equal('http://images.amazon.com/images/P/B00069590Q.01._SCMZZZZZZZ_.jpg', first.image)
+    assert_equal('http://images.amazon.com/images/P/B00069590Q.01._SCMZZZZZZZ_.jpg', first.image(:small))
+    assert_equal('http://images.amazon.com/images/P/B00069590Q.01._SCMZZZZZZZ_.jpg', first.image(:medium))
+    assert_equal('http://images.amazon.com/images/P/B00069590Q.01._SCMZZZZZZZ_.jpg', first.image(:large))
   end
 end

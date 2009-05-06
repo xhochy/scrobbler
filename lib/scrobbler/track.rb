@@ -39,7 +39,7 @@ module Scrobbler
     attr_accessor :streamable, :album, :album_mbid, :date, :date_uts, :now_playing
     
     # only seems to be used on top tracks for tag
-    attr_accessor :count, :thumbnail, :image, :image_small, :image_medium
+    attr_accessor :count, :image_large, :image_small, :image_medium
     
     # for weekly top tracks
     attr_accessor :chartposition
@@ -90,6 +90,7 @@ module Scrobbler
         t.date_uts      = xml.at(:date)['uts']              if xml.at(:date) && xml.at(:date)['uts']
         t.image_small = xml.at('/image[@size="small"]').inner_html if xml.at('/image[@size="small"]')
         t.image_medium = xml.at('/image[@size="medium"]').inner_html   if xml.at('/image[@size="medium"]')
+        t.image_large = xml.at('/image[@size="medium"]').inner_html   if xml.at('/image[@size="large"]')
         t.now_playing = true if xml['nowplaying'] && xml['nowplaying'] == 'true'
         t.now_playing = false unless t.now_playing
         t

@@ -59,7 +59,8 @@ module Scrobbler
     
     class << self
       def find(artist, name, o={})
-        new(artist, name, o)
+        o[:artist] = artist
+        new(name, o)
       end
       
       def new_from_libxml(xml)
@@ -121,8 +122,8 @@ module Scrobbler
       raise ArgumentError, "Artist or mbid is required" if data[:artist].nil? && data[:mbid].nil?
       raise ArgumentError, "Name is required" if name.blank?
       @name = name
-      load_info() if data[:include_info]
       populate_data(data)
+      load_info() if data[:include_info]
     end
     
     # Indicates if the info was already loaded
