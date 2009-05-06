@@ -39,12 +39,37 @@ module Scrobbler
     attr_accessor :streamable, :album, :album_mbid, :date, :date_uts, :now_playing
     
     # only seems to be used on top tracks for tag
-    attr_accessor :count, :thumbnail, :image
+    attr_accessor :count, :thumbnail, :image, :image_small, :image_medium
     
     # for weekly top tracks
     attr_accessor :chartposition
     
     class << self
+      def new_from_libxml(xml)
+        data = {}
+        xml.children.each do |child|
+          data[:name] = child.content if child.name == 'name'
+          data[:mbid] = child.content if child.name == 'mbid'
+          data[:url] = child.content if child.name == 'url'
+          data[:date] = Time.parse(child.content) if child.name == 'date'
+          data[:artist] = Artist.new_from_libxml(child) if child.name == 'artist'
+          data[:album] = Album.new_from_libxml(child) if child.name == 'album'
+          data[:playcount] = child.content if child.name == 'playcount'
+          if child.name == 'image'
+            data[:image_small] = child.content if child['size'] == 'small'
+            data[:image_medium] = child.content if child['size'] == 'medium'
+            data[:image_large] = child.content if child['size'] == 'large'
+          end
+        end
+        
+        data[:rank] = xml['rank'] if xml['rank']
+        data[:now_playing] = true if xml['nowplaying'] && xml['nowplaying'] == 'true'
+        
+        data[:now_playing] = false if data[:now_playing].nil?
+        
+        Track.new(data[:artist], data[:name], data)
+      end
+    
       def new_from_xml(xml, doc=nil)
         artist          = xml.at('/artist/name').inner_html if xml.at('/artist/name')
         artist          = xml.at(:artist).inner_html        if artist.nil? && xml.at(:artist)
@@ -63,19 +88,26 @@ module Scrobbler
         t.album_mbid    = xml.at(:album)['mbid']            if xml.at(:album) && xml.at(:album)['mbid']
         t.date          = Time.parse((xml).at(:date).inner_html)  if xml.at(:date)
         t.date_uts      = xml.at(:date)['uts']              if xml.at(:date) && xml.at(:date)['uts']
-        t.thumbnail = xml.at('/image[@size="small"]').inner_html if xml.at('/image[@size="small"]')
-        t.image = xml.at('/image[@size="medium"]').inner_html   if xml.at('/image[@size="medium"]')
+        t.image_small = xml.at('/image[@size="small"]').inner_html if xml.at('/image[@size="small"]')
+        t.image_medium = xml.at('/image[@size="medium"]').inner_html   if xml.at('/image[@size="medium"]')
         t.now_playing = true if xml['nowplaying'] && xml['nowplaying'] == 'true'
         t.now_playing = false unless t.now_playing
         t
       end
     end
     
-    def initialize(artist, name)
+    def initialize(artist, name, data={})
       raise ArgumentError, "Artist is required" if artist.blank?
       raise ArgumentError, "Name is required" if name.blank?
       @artist = artist
       @name = name
+      populate_data(data)
+    end
+    
+    def image(which=:small)
+      which = which.to_s
+      raise ArgumentError unless ['small', 'medium', 'large'].include?(which)      
+      instance_variable_get("@image_#{which}")
     end
     
     def fans(force=false)

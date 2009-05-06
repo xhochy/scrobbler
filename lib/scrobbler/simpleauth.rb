@@ -8,6 +8,7 @@ module Scrobbler
   AUTH_URL = 'http://post.audioscrobbler.com'
   AUTH_VER = '1.2.1'
   
+  # @todo This is not 2.0!!
   class SimpleAuth
     # you should read last.fm/api/submissions#handshake
 

@@ -51,10 +51,10 @@ module Scrobbler
     
     # profile attributes
     attr_accessor :id, :cluster, :url, :realname, :mbox_sha1sum, :registered
-    attr_accessor :registered_unixtime, :age, :gender, :country, :playcount, :avatar
+    attr_accessor :registered_unixtime, :age, :gender, :country, :playcount
     
     # neighbor attributes
-    attr_accessor :match
+    attr_accessor :match, :image_small, :image_medium, :image_large
     
     # track fans attributes
     attr_accessor :weight
@@ -67,6 +67,7 @@ module Scrobbler
           data[:url] = child.content if child.name == 'url'
           data[:weight] = child.content if child.name == 'weight'
           data[:match] = child.content if child.name == 'match'
+          data[:realname] = child.content if child.name == 'realname'
           if child.name == 'image'
             data[:image_small] = child.content if child['size'] == 'small'
             data[:image_medium] = child.content if child['size'] == 'medium'
@@ -79,7 +80,7 @@ module Scrobbler
       def new_from_xml(xml, doc=nil)
         u        = User.new(xml.at(:name).inner_html)
         u.url    = (xml).at(:url).inner_html    if (xml).at(:url)
-        u.avatar = (xml).at(:image).inner_html  if (xml).at(:image)
+        u.image_small = (xml).at(:image).inner_html  if (xml).at(:image)
         u.weight = (xml).at(:weight).inner_html if (xml).at(:weight)
         u.match  = (xml).at(:match).inner_html  if (xml).at(:match)
         u
@@ -101,95 +102,143 @@ module Scrobbler
       populate_data(data)
     end
     
-    def api_path
-      "/#{API_VERSION}/user/#{CGI::escape(username)}"
-    end
-    
     def image(which=:small)
       which = which.to_s
       raise ArgumentError unless ['small', 'medium', 'large'].include?(which)      
       instance_variable_get("@image_#{which}")
     end
     
-    def current_events(format=:ics)
+    # Get a list of upcoming events that this user is attending. 
+    #
+    # Supports ical, ics or rss as its format  
+    def events(format=:ics)
       format = :ics if format.to_s == 'ical'
       raise ArgumentError unless ['ics', 'rss'].include?(format.to_s)
-      "#{API_URL.chop}#{api_path}/events.#{format}"
+      "#{API_URL.chop}/2.0/user/#{CGI::escape(@username)}/events.#{format}"
+    end
+
+    # Get a list of the user's friends on Last.fm.    
+    def friends(force=false, page=1, limit=50)
+      get_response('user.getfriends', :friends, 'friends', 'user', {'user'=>@username, 'page'=>page.to_s, 'limit'=>limit.to_s}, force)
     end
     
-    def friends_events(format=:ics)
-      format = :ics if format.to_s == 'ical'
-      raise ArgumentError unless ['ics', 'rss'].include?(format.to_s)
-      "#{API_URL.chop}#{api_path}/friendevents.#{format}"
+    # Get information about a user profile.
+    def load_info
+        # This function require authentication, but SimpleAuth is not yet 2.0
+        raise NotImplementedError
     end
     
-    def recommended_events(format=:ics)
-      format = :ics if format.to_s == 'ical'
-      raise ArgumentError unless ['ics', 'rss'].include?(format.to_s)
-      "#{API_URL.chop}#{api_path}/eventsysrecs.#{format}"
+    # Get the last 50 tracks loved by a user.
+    def loved_tracks(force=false)
+        get_response('user.getlovedtracks', :loved_tracks, 'lovedtracks', 'track', {'user'=>@username}, force)
+    end
+
+    # Get a list of a user's neighbours on Last.fm.
+    def neighbours(force=false)
+      get_response('user.getneighbours', :neighbours, 'neighbours', 'user', {'user'=>@username}, force)
+    end
+
+    # Get a paginated list of all events a user has attended in the past. 
+    def past_events(format=:ics)
+      # This needs a Event class, which is yet not available
+      raise NotImplementedError
     end
     
-    def load_profile
-      doc                  = self.class.fetch_and_parse("#{api_path}/profile.xml")
-      @id                  = (doc).at(:profile)['id']
-      @cluster             = (doc).at(:profile)['cluster']
-      @url                 = (doc).at(:url).inner_html
-      @realname            = (doc).at(:realname).inner_html
-      @mbox_sha1sum        = (doc).at(:mbox_sha1sum).inner_html
-      @registered          = (doc).at(:registered).inner_html
-      @registered_unixtime = (doc).at(:registered)['unixtime']
-      @age                 = (doc).at(:age).inner_html
-      @gender              = (doc).at(:gender).inner_html
-      @country             = (doc).at(:country).inner_html
-      @playcount           = (doc).at(:playcount).inner_html
-      @avatar              = (doc).at(:avatar).inner_html
+    # Get a list of a user's playlists on Last.fm. 
+    def playlists
+      # This needs a Playlist class which is yet not available
+      raise NotImplementedError
     end
     
+    # Get a list of the recent tracks listened to by this user. Indicates now 
+    # playing track if the user is currently listening.
+    def recent_tracks(force=false)
+      get_response('user.getrecenttracks', :recent_tracks, 'recenttracks', 'track', {'user'=>@username}, force)
+    end
+    
+    # Get Last.fm artist recommendations for a user
+    def recommended_artists
+        # This function require authentication, but SimpleAuth is not yet 2.0
+        raise NotImplementedError
+    end
+    
+    # Get a paginated list of all events recommended to a user by Last.fm, 
+    # based on their listening profile. 
+    def recommended_events
+        # This function require authentication, but SimpleAuth is not yet 2.0
+        raise NotImplementedError
+    end
+    
+    # Get shouts for this user.
+    def shouts
+      # This needs a Shout class which is yet not available
+      raise NotImplementedError
+    end
+    
+    # Get the top albums listened to by a user. You can stipulate a time period. 
+    # Sends the overall chart by default. 
+    def top_albums(force=false, period='overall')
+      get_response('user.gettopalbums', :top_albums, 'topalbums', 'album', {'user'=>@username, 'period'=>period}, force)
+    end
+
+    # Get the top artists listened to by a user. You can stipulate a time 
+    # period. Sends the overall chart by default. 
     def top_artists(force=false, period='overall')
       get_response('user.gettopartists', :top_artists, 'topartists', 'artist', {'user' => @username, 'period'=>period}, force)
     end
-    
-    def top_albums(force=false, period='overall')
-      get_instance2('user.gettopalbums', :top_albums, :album, {'user'=>@username, 'period'=>period}, force)
-    end
-    
-    def top_tracks(force=false, period='overall')
-      get_instance2('user.gettoptracks', :top_tracks, :track, {'user'=>@username, 'period'=>period}, force)
-    end
-    
+
+    #  Get the top tags used by this user.
     def top_tags(force=false)
-      get_instance2('user.gettoptags', :top_tags, :tag, {'user'=>@username}, force)
+      get_response('user.gettoptags', :top_tags, 'toptags', 'tag', {'user'=>@username}, force)
+    end
+
+    # Get the top tracks listened to by a user. You can stipulate a time period. 
+    # Sends the overall chart by default. 
+    def top_tracks(force=false, period='overall')
+      get_response('user.gettoptracks', :top_tracks, 'toptracks', 'track', {'user'=>@username, 'period'=>period}, force)
+    end
+
+    # Get an album chart for a user profile, for a given date range. If no date 
+    # range is supplied, it will return the most recent album chart for this 
+    # user. 
+    def weekly_album_chart(from=nil, to=nil)
+      parameters = {'user' => @username}
+      parameters['from'] = from unless from.nil?
+      parameters['to'] = to unless to.nil?
+      get_response('user.getweeklyalbumchart', nil, 'weeklyalbumchart', 'album', parameters, true)
     end
     
-    def friends(force=false, page=1, limit=50)
-      get_instance2('user.getfriends', :friends, :user, {'user'=>@username, 'page'=>page.to_s, 'limit'=>limit.to_s}, force)
+    # Get an artist chart for a user profile, for a given date range. If no date
+    # range is supplied, it will return the most recent artist chart for this 
+    # user. 
+    def weekly_artist_chart(from=nil, to=nil)
+      parameters = {'user' => @username}
+      parameters['from'] = from unless from.nil?
+      parameters['to'] = to unless to.nil?
+      get_response('user.getweeklyartistchart', nil, 'weeklyartistchart', 'artist', parameters, true)
     end
     
-    def neighbours(force=false)
-      get_instance2('user.getneighbours', :neighbours, :user, {'user'=>@username}, force)
+    # Get a list of available charts for this user, expressed as date ranges 
+    # which can be sent to the chart services. 
+    def weekly_chart_list(force=false)
+      # @todo
+      raise NotImplementedError
+    end
+
+    # Get a track chart for a user profile, for a given date range. If no date 
+    # range is supplied, it will return the most recent track chart for this 
+    # user. 
+    def weekly_track_chart(from=nil, to=nil)
+      parameters = {'user' => @username}
+      parameters['from'] = from unless from.nil?
+      parameters['to'] = to unless to.nil?
+      get_response('user.getweeklytrackchart', nil, 'weeklytrackchart', 'track', parameters, true)
     end
     
-    def recent_tracks(force=false)
-      get_instance2('user.getrecenttracks', :recent_tracks, :track, {'user'=>@username}, force)
-    end
-    
-    def recent_banned_tracks(force=false)
-      #warn "#{file}:#{lineno}:Warning: Scrobbler::User#recent_banned_tracks is deprecated (not supported by the Last.fm 2.0 API)"
-      get_instance(:recentbannedtracks, :recent_banned_tracks, :track, force)
-    end
-    
-    def recent_loved_tracks(force=false)
-      #warn "#{file}:#{lineno}:Warning: Scrobbler::User#recent_loved_tracks is deprecated (not supported by the Last.fm 2.0 API)"
-      get_instance(:recentlovedtracks, :recent_loved_tracks, :track, force)
-    end
-    
-    def recommendations(force=false)
-      #warn "#{file}:#{lineno}:Warning: Scrobbler::User#recommendations is deprecated (not supported by the Last.fm 2.0 API)"
-      get_instance(:systemrecs, :recommendations, :artist, force)
-    end
-    
-    def charts(force=false)
-      get_instance2('user.getweeklychartlist', :charts, :chart, {'user'=>@username}, force)
+    # Shout on this user's shoutbox
+    def shout(message)
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
     end
     
   end
