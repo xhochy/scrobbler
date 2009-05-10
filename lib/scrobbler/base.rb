@@ -28,6 +28,7 @@ module Scrobbler
       end
       
       def fetch_and_parse(resource)
+        puts resource
         Hpricot::XML(connection.get(resource))
       end
       

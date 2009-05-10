@@ -4,32 +4,7 @@ class TestGeo < Test::Unit::TestCase
 
   def setup
     @geo = Scrobbler::Geo.new('Manchester')
-
-    @similar_artists = ["Megadeth", "Pantera", "Slayer", "Iron Maiden",
-      "Anthrax", "Machine Head", "Sepultura", "Motörhead", "Testament",
-      "Trivium", "Black Sabbath", "Exodus", "Ozzy Osbourne", "AC/DC",
-      "Kreator", "Black Label Society", "Guns N' Roses", "System of a Down",
-      "Judas Priest", "Soulfly", "Godsmack", "Children of Bodom", "Slipknot",
-      "Disturbed", "Hunter", "Apocalyptica", "Iced Earth", "Annihilator",
-      "Rammstein", "KoЯn", "Death Angel", "In Flames", "Lamb of God", "Overkill",
-      "Diamond Head", "Damageplan", "Acid Drinkers", "Beatallica", "Stone Sour",
-      "Metal Church", "MD.45", "Volbeat", "HammerFall","Black Tide",
-      "Rage Against the Machine", "Manowar", "Probot", "Bullet For My Valentine",
-      "Flotsam and Jetsam", "Dio", "Roadrunner United", "Venom", "Arch Enemy",
-      "Mercyful Fate", "Nuclear Assault", "Destruction", "Blind Guardian",
-      "Sacred Reich", "Bruce Dickinson", "Turbo", "Static-X", "Helloween",
-      "Zakk Wylde", "Avenged Sevenfold", "W.A.S.P.", "Kat", "Skid Row",
-      "DevilDriver", "Danzig", "Heathen", "Mokoma", "Lordi", "Shadows Fall",
-      "Chimaira", "Whiplash", "Mudvayne", "Onslaught", "Sodom", "Rage",
-      "Forbidden", "Evile", "Savatage", "Scorpions", "DragonForce",
-      "Axel Rudi Pell", "Rob Zombie", "Killswitch Engage", "Sebastian Bach",
-      "Saxon", "Cavalera Conspiracy", "Voivod", "Drowning Pool",
-      "Fear Factory", "Mötley Crüe", "Prong", "Kotiteollisuus", "Stone",
-      "Fozzy", "Yngwie Malmsteen", "Deep Purple"]
-    @top_albums = ["Master of Puppets", "Metallica", "Ride the Lightning", "Reload"]
-    @top_fans = ["Slide15", "Air_Force", "Evile9", "thy_satan", "Aiham", "Quugel"]
-    @top_tracks = ['Nothing Else Matters', 'Enter Sandman',
-        'The Day That Never Comes', 'One']
+    @events = ['qdqwd','qwdqwdwdqw']
   end
 
   # @apiversion 2.0
@@ -42,17 +17,17 @@ class TestGeo < Test::Unit::TestCase
     assert_equal('Manchester', @geo.location)
   end
 
-  test 'should have the correct ical path to current events' do                  
-    assert_equal('http://ws.audioscrobbler.com/2.0/geo/Manchester/events.ics', @geo.events(:ical))
-  end
+  #test 'should have the correct ical path to current events' do
+  #  assert_equal('http://ws.audioscrobbler.com/2.0/geo/Manchester/events.ics', @geo.events(:ical))
+  #end
 
-  test 'should have the correct rss path to current events' do
-    assert_equal('http://ws.audioscrobbler.com/2.0/geo/Manchester/events.rss', @geo.events(:rss))
-  end
+  #test 'should have the correct rss path to current events' do
+  #  assert_equal('http://ws.audioscrobbler.com/2.0/geo/Manchester/events.rss', @geo.events(:rss))
+  #end
 
   # @apiversion 2.0
   test 'should be able to find events' do
-    assert_equal(@events, @geo.events.collect(&:title))
+    assert_equal(@events, @geo.events(:rss).collect(&:title))
 #    first = @artist.similar.first
 #    assert_equal('Megadeth', first.name)
 #    assert_equal('a9044915-8be3-4c7e-b11f-9e2d2ea0a91e', first.mbid)
