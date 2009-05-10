@@ -4,7 +4,8 @@ class TestGeo < Test::Unit::TestCase
 
   def setup
     @geo = Scrobbler::Geo.new('Manchester')
-    @events = ['qdqwd','qwdqwdwdqw']
+    @events = ['Will and The People','Son Of Dave','Surface Unsigned',
+              'Experimental Dental School']
   end
 
   # @apiversion 2.0
