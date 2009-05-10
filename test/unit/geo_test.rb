@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper.rb'
 class TestGeo < Test::Unit::TestCase
 
   def setup
-    @artist = Scrobbler::Geo.new('Manchester')
+    @geo = Scrobbler::Geo.new('Manchester')
 
     @similar_artists = ["Megadeth", "Pantera", "Slayer", "Iron Maiden",
       "Anthrax", "Machine Head", "Sepultura", "Motörhead", "Testament",
@@ -39,20 +39,20 @@ class TestGeo < Test::Unit::TestCase
 
   # @apiversion 2.0
   test "should know it's location" do
-    assert_equal('Manchester', @artist.location)
+    assert_equal('Manchester', @geo.location)
   end
 
   test 'should have the correct ical path to current events' do                  
-    assert_equal('http://ws.audioscrobbler.com/2.0/geo/Manchester/events.ics', @artist.events(:ical))
+    assert_equal('http://ws.audioscrobbler.com/2.0/geo/Manchester/events.ics', @geo.events(:ical))
   end
 
   test 'should have the correct rss path to current events' do
-    assert_equal('http://ws.audioscrobbler.com/2.0/geo/Manchester/events.rss', @artist.events(:rss))
+    assert_equal('http://ws.audioscrobbler.com/2.0/geo/Manchester/events.rss', @geo.events(:rss))
   end
 
   # @apiversion 2.0
-#  test 'should be able to find similar artists' do
-#    assert_equal(@similar_artists, @artist.similar.collect(&:name))
+  test 'should be able to find events' do
+    assert_equal(@events, @geo.events.collect(&:title))
 #    first = @artist.similar.first
 #    assert_equal('Megadeth', first.name)
 #    assert_equal('a9044915-8be3-4c7e-b11f-9e2d2ea0a91e', first.mbid)
@@ -62,7 +62,7 @@ class TestGeo < Test::Unit::TestCase
 #    assert_equal('http://userserve-ak.last.fm/serve/64/8422011.jpg', first.image(:medium))
 #    assert_equal('http://userserve-ak.last.fm/serve/126/8422011.jpg', first.image(:large))
 #    assert_equal('1', first.streamable)
-#  end
+  end
 
   # @apiversion 2.0
 #  test 'should be able to find top fans' do
