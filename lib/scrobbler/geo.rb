@@ -10,5 +10,9 @@ module Scrobbler
     def top_artists(country,force=false)
       get_response('geo.gettopartists', :artists, 'topartists', 'artist', {'country'=>country}, force)
     end
+
+    def top_tracks(country,force=false)
+      get_response('geo.gettoptracks', :tracks, 'toptracks', 'track', {'country'=>country}, force)
+    end
   end
 end

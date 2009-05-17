@@ -10,6 +10,7 @@ class TestGeo < Test::Unit::TestCase
     @first_atrists_names = ['Will And The People','Carnations','Midwich Cuckoos','NO FLASH','Will And The People']
     @first_headliner = 'Will And The People'
     @top_artist_names = ['The Killers','Coldplay','Radiohead','Muse','Franz Ferdinand','U2']
+    @top_track_names = ['Use Somebody','Schwarz zu Blau','Sex on Fire','Alles Neu','Poker Face','Ayo Technology']
   end
 
   # @apiversion 2.0
@@ -62,5 +63,21 @@ class TestGeo < Test::Unit::TestCase
     assert_equal('http://userserve-ak.last.fm/serve/34/95070.jpg',top_artist.image_small)
     assert_equal('http://userserve-ak.last.fm/serve/64/95070.jpg',top_artist.image_medium)
     assert_equal('http://userserve-ak.last.fm/serve/126/95070.jpg',top_artist.image_large)
+  end
+
+  test 'should be able to find top tracks' do
+    top_tracks = @geo.top_tracks('germany')
+    assert_equal(@top_track_names,top_tracks.collect(&:name))
+  end
+
+  test 'first top track has the correct attributes' do
+    top_track = @geo.top_tracks('germany').first
+    assert_equal('Use Somebody',top_track.name)
+    assert_equal('2819',top_track.playcount)
+    assert_equal('1234567abcde',top_track.mbid)
+    assert_equal('http://www.last.fm/music/Kings+of+Leon/_/Use+Somebody',top_track.url)    
+    assert_equal('Kings of Leon',top_track.artist.name)
+    assert_equal('6ffb8ea9-2370-44d8-b678-e9237bbd347b',top_track.artist.mbid)
+    assert_equal('http://www.last.fm/music/Kings+of+Leon',top_track.artist.url)
   end
 end
