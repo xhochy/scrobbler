@@ -58,6 +58,8 @@ module Scrobbler
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/track/toptags.xml")
             elsif pieces.last =~ /[?&]method=track\.gettopfans/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/track/fans.xml")
+            elsif pieces.last =~ /[?&]method=user\.getlovedtracks/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/lovedtracks.xml")
             elsif pieces.last =~ /[?&]method=user\.gettopartists/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/topartists.xml")
             elsif pieces.last =~ /[?&]method=user\.gettopalbums/
@@ -74,6 +76,12 @@ module Scrobbler
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/recenttracks.xml")
             elsif pieces.last =~ /[?&]method=geo\.getevents/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/geo/events.xml")
+            elsif pieces.last =~ /[?&]method=user\.getweeklyalbumchart/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/weeklyalbumchart.xml")
+            elsif pieces.last =~ /[?&]method=user\.getweeklyartistchart/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/weeklyartistchart.xml")
+            elsif pieces.last =~ /[?&]method=user\.getweeklytrackchart/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/weeklytrackchart.xml")
             else
               throw Exception.new("Illegal or unsupported Last.FM method called")
             end

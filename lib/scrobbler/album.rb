@@ -59,14 +59,43 @@ module Scrobbler
     
     class << self
       def find(artist, name, o={})
-        new(artist, name, o)
+        o[:artist] = artist
+        new(name, o)
+      end
+      
+      def new_from_libxml(xml)
+        data = {}
+
+        xml.children.each do |child|
+          data[:name] = child.content if child.name == 'name'
+          data[:playcount] = child.content if child.name == 'playcount'
+          data[:mbid] = child.content if child.name == 'mbid'
+          data[:url] = child.content if child.name == 'url'
+          data[:artist] = Artist.new_from_libxml(child) if child.name == 'artist'
+          if child.name == 'image'
+            data[:image_small] = child.content if child['size'] == 'small'
+            data[:image_medium] = child.content if child['size'] == 'medium'
+            data[:image_large] = child.content if child['size'] == 'large'
+          end
+        end
+        
+        # If we have not found anything in the content of this node yet then
+        # this must be a simple artist node which has the name of the artist
+        # as its content
+        data[:name] = xml.content if data == {}
+        
+        # Get all information from the root's attributes
+        data[:mbid] = xml['mbid'] if xml['mbid']
+        data[:rank] = xml['rank'] if xml['rank']
+        
+        Album.new(data[:name], data)
       end
       
       def new_from_xml(xml, doc=nil)
         name = Base::sanitize(xml.at(:name).inner_html) if xml.at(:name)
         name = Base::sanitize(xml['name'])              if name.nil? && xml['name']
         artist = Base::sanitize(xml.at('/artist/name').inner_html) if xml.at('/artist/name')
-        a = Album.new(artist, name)
+        a = Album.new(name, :artist=>artist)
         a.artist_mbid = xml.at(:artist).at(:mbid).inner_html if xml.at(:artist) && xml.at(:artist).at(:mbid)
         a.mbid          = xml.at(:mbid).inner_html           if xml.at(:mbid)
         a.playcount     = xml.at(:playcount).inner_html      if xml.at(:playcount)
@@ -88,16 +117,17 @@ module Scrobbler
     # information is loaded
     #
     # @todo Albums should be able to be created via a MusicBrainz id too
-    def initialize(artist, name, o={})
-      raise ArgumentError, "Artist is required" if artist.blank?
+    def initialize(name, input={})
+      data = {:include_profile => false}.merge(input)
+      raise ArgumentError, "Artist or mbid is required" if data[:artist].nil? && data[:mbid].nil?
       raise ArgumentError, "Name is required" if name.blank?
-      @artist = artist
-      @name   = name
-      options = {:include_info => false}.merge(o)
-      load_info() if options[:include_info]
+      @name = name
+      populate_data(data)
+      load_info() if data[:include_info]
     end
     
-    @info_loaded = false # Indicates if the info was already loaded
+    # Indicates if the info was already loaded
+    @info_loaded = false 
     
     # Load additional information about this album
     #

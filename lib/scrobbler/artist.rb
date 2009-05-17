@@ -70,19 +70,20 @@ module Scrobbler
       def new_from_libxml(xml)
         data = {}
       
-        # Step 1 get all information from the root's attributes
-        data[:name] = xml['name'] if xml['name']
-        data[:rank] = xml['rank'] if xml['rank']
-        data[:streamable] = xml['streamable'] if xml['streamable']
-        
-        # Step 2 get all information from the root's children nodes
+        # Get all information from the root's children nodes
         xml.children.each do |child|
           data[:playcount] = child.content if child.name == 'playcount'
           data[:mbid] = child.content if child.name == 'mbid'
           data[:url] = child.content if child.name == 'url'
           data[:match] = child.content if child.name == 'match'
           data[:chartposition] = child.content if child.name == 'chartposition'
-          data[:streamable] = child.content if child.name == 'streamable'
+          if child.name == 'streamable'
+            if ['1', 'true'].include?(child.content)
+              data[:streamable] = true
+            else
+              data[:streamable] = false
+            end
+          end
           data[:name] = child.content if child.name == 'name'
 
           if child.name == 'image'
@@ -90,7 +91,20 @@ module Scrobbler
             data[:image_medium] = child.content if child['size'] == 'medium'
             data[:image_large] = child.content if child['size'] == 'large'
           end
-        end
+        end        
+        
+        # If we have not found anything in the content of this node yet then
+        # this must be a simple artist node which has the name of the artist
+        # as its content
+        data[:name] = xml.content if data == {}
+        
+        # Get all information from the root's attributes
+        data[:name] = xml['name'] if xml['name']
+        data[:rank] = xml['rank'] if xml['rank']
+        data[:streamable] = xml['streamable'] if xml['streamable']
+        data[:mbid] = xml['mbid'] if xml['mbid']
+        
+        
         
         # Step 3 fill the object
         Artist.new(data[:name], data)
@@ -132,7 +146,7 @@ module Scrobbler
     def current_events(format=:ics)
       format = :ics if format.to_s == 'ical'
       raise ArgumentError unless ['ics', 'rss'].include?(format.to_s)
-      "#{API_URL.chop}/2.0/artist/#{CGI::escape(name)}/events.#{format}"
+      "#{API_URL.chop}/2.0/artist/#{CGI::escape(@name)}/events.#{format}"
     end
     
     def image(which=:small)

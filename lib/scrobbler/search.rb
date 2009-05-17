@@ -18,7 +18,7 @@ module Scrobbler
         (doc/"//album").each do |album|
           artist = album/"artist"
           name = album/"name"
-          results << Album.new(artist.inner_html, name.inner_html, :include_info => true)
+          results << Album.new(name.inner_html, :include_info => true, :artist => artist.inner_html)
         end
       elsif type == 'artist'
         (doc/"//artist/name").each do |name|

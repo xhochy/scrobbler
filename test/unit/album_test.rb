@@ -3,16 +3,16 @@ require File.dirname(__FILE__) + '/../test_helper.rb'
 class TestAlbum < Test::Unit::TestCase
 
   def setup
-    @album = Scrobbler::Album.new('Carrie Underwood', 'Some Hearts')
+    @album = Scrobbler::Album.new('Some Hearts', :artist=>'Carrie Underwood')
   end
   
   # @apiversion 2.0
   test 'should require the artist name' do
-    assert_raises(ArgumentError) { Scrobbler::Album.new('', 'Some Hearts') }
+    assert_raises(ArgumentError) { Scrobbler::Album.new('Some Hearts') }
   end
   
   test 'should require the track name' do
-    assert_raises(ArgumentError) { Scrobbler::Album.new('Carrie Underwood', '') }
+    assert_raises(ArgumentError) { Scrobbler::Album.new('') }
   end
   
   test 'should know the artist' do
@@ -47,7 +47,7 @@ class TestAlbum < Test::Unit::TestCase
   end
   
   test "should be able to include the album's info on initialize" do
-    album = Scrobbler::Album.new('Carrie Underwood', 'Some Hearts', :include_info => true)
+    album = Scrobbler::Album.new('Some Hearts', :artist=>'Carrie Underwood', :include_info => true)
     assert_equal('Carrie Underwood', album.artist)
     assert_equal('Some Hearts', album.name)
     assert_equal('http://www.last.fm/music/Carrie+Underwood/Some+Hearts', album.url)
