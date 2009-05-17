@@ -6,7 +6,6 @@ module Scrobbler
     class << self
       def new_from_xml(xml)
         data = {}
-        location = nil
         xml.children.each do |child|
           data[:name] = child.content if child.name == 'name'
           data[:url] = child.content if child.name == 'url'
