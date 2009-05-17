@@ -42,7 +42,7 @@ module Scrobbler
     attr_accessor :count, :image_large, :image_small, :image_medium
     
     # for weekly top tracks
-    attr_accessor :chartposition
+    attr_accessor :chartposition, :tagcount
     
     class << self
       def new_from_libxml(xml)
@@ -55,12 +55,21 @@ module Scrobbler
           data[:artist] = Artist.new_from_libxml(child) if child.name == 'artist'
           data[:album] = Album.new_from_libxml(child) if child.name == 'album'
           data[:playcount] = child.content if child.name == 'playcount'
+          data[:tagcount] = child.content if child.name == 'tagcount'
           if child.name == 'image'
             data[:image_small] = child.content if child['size'] == 'small'
             data[:image_medium] = child.content if child['size'] == 'medium'
             data[:image_large] = child.content if child['size'] == 'large'
           end
+          if child.name == 'streamable'
+            if ['1', 'true'].include?(child.content)
+              data[:streamable] = true
+            else
+              data[:streamable] = false
+            end
+          end
         end
+        
         
         data[:rank] = xml['rank'] if xml['rank']
         data[:now_playing] = true if xml['nowplaying'] && xml['nowplaying'] == 'true'
@@ -68,32 +77,6 @@ module Scrobbler
         data[:now_playing] = false if data[:now_playing].nil?
         
         Track.new(data[:artist], data[:name], data)
-      end
-    
-      def new_from_xml(xml, doc=nil)
-        artist          = xml.at('/artist/name').inner_html if xml.at('/artist/name')
-        artist          = xml.at(:artist).inner_html        if artist.nil? && xml.at(:artist)
-        name            = xml.at(:name).inner_html          if xml.at(:name)
-        t               = Track.new(artist, name)
-        t.artist_mbid   = xml.at(:artist)['mbid']           if xml.at(:artist) && xml.at(:artist)['mbid']
-        t.artist_mbid   = xml.at('/artist/mbid').inner_html if t.artist_mbid.nil? && xml.at('/artist/mbid')
-        t.mbid          = xml.at(:mbid).inner_html          if xml.at(:mbid)
-        t.playcount     = xml.at(:playcount).inner_html     if xml.at(:playcount)
-        t.chartposition = xml.at(:chartposition).inner_html if xml.at(:chartposition)
-        t.rank          = xml['rank'] if xml['rank']
-        t.url           = xml.at('/url').inner_html         if xml.at('/url')
-        t.streamable    = xml.at('/streamable').inner_html  if xml.at('/streamable')
-        t.count         = xml.at('/tagcount').inner_html    if xml.at('/tagcount')
-        t.album         = xml.at(:album).inner_html         if xml.at(:album)
-        t.album_mbid    = xml.at(:album)['mbid']            if xml.at(:album) && xml.at(:album)['mbid']
-        t.date          = Time.parse((xml).at(:date).inner_html)  if xml.at(:date)
-        t.date_uts      = xml.at(:date)['uts']              if xml.at(:date) && xml.at(:date)['uts']
-        t.image_small = xml.at('/image[@size="small"]').inner_html if xml.at('/image[@size="small"]')
-        t.image_medium = xml.at('/image[@size="medium"]').inner_html   if xml.at('/image[@size="medium"]')
-        t.image_large = xml.at('/image[@size="medium"]').inner_html   if xml.at('/image[@size="large"]')
-        t.now_playing = true if xml['nowplaying'] && xml['nowplaying'] == 'true'
-        t.now_playing = false unless t.now_playing
-        t
       end
     end
     

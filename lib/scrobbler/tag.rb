@@ -86,20 +86,16 @@ module Scrobbler
       @count = data[:count] if data[:count]
     end
     
-    def api_path
-      "/#{API_VERSION}/tag/#{CGI::escape(name)}"
-    end
-    
     def top_artists(force=false)
-      get_instance2('tag.gettopartists', :top_artists, :artist, {'tag'=>@name}, force)
+      get_response('tag.gettopartists', :top_artists, 'topartists', 'artist', {'tag'=>@name}, force)
     end
     
     def top_albums(force=false)
-      get_instance2('tag.gettopalbums', :top_albums, :album, {'tag'=>@name}, force)
+      get_response('tag.gettopalbums', :top_albums, 'topalbums', 'album', {'tag'=>@name}, force)
     end
 
     def top_tracks(force=false)
-      get_instance2('tag.gettoptracks', :top_tracks, :track, {'tag'=>@name}, force)
+      get_response('tag.gettoptracks', :top_tracks, 'toptracks', 'track', {'tag'=>@name}, force)
     end
   end
 end

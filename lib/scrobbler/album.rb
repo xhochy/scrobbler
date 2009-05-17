@@ -90,29 +90,8 @@ module Scrobbler
         
         Album.new(data[:name], data)
       end
-      
-      def new_from_xml(xml, doc=nil)
-        name = Base::sanitize(xml.at(:name).inner_html) if xml.at(:name)
-        name = Base::sanitize(xml['name'])              if name.nil? && xml['name']
-        artist = Base::sanitize(xml.at('/artist/name').inner_html) if xml.at('/artist/name')
-        a = Album.new(name, :artist=>artist)
-        a.artist_mbid = xml.at(:artist).at(:mbid).inner_html if xml.at(:artist) && xml.at(:artist).at(:mbid)
-        a.mbid          = xml.at(:mbid).inner_html           if xml.at(:mbid)
-        a.playcount     = xml.at(:playcount).inner_html      if xml.at(:playcount)
-        a.chartposition = xml.at(:chartposition).inner_html  if xml.at(:chartposition)
-        a.rank          = xml['rank']                        if xml['rank']
-        a.url           = xml.at('/url').inner_html          if xml.at('/url')
-        a.image_large   = xml.at("/image[@size='large']").inner_html  if xml.at("/image[@size='large']")
-        a.image_medium  = xml.at("/image[@size='medium']").inner_html if xml.at("/image[@size='medium']")
-        a.image_small   = xml.at("/image[@size='small']").inner_html  if xml.at("/image[@size='small']")
-                
-        # needed on top albums for tag
-        a.count          = xml['count'] if xml['count']
-        a.streamable     = xml['streamable'] if xml['streamable']
-        a
-      end
     end
-    
+      
     # If the additional parameter :include_info is set to true, additional 
     # information is loaded
     #
@@ -136,23 +115,35 @@ module Scrobbler
     # @todo Parse wiki content
     # @todo Add language code for wiki translation
     def load_info
+      return nil if @info_loaded
       xml = request('album.getinfo', {'artist' => @artist, 'name' => @name})
-      unless xml.at(:lfm)['status'] == 'failed' || @info_loaded
-        xml = xml.at(:album)
-        @url          = xml.at(:url).inner_html
-        @release_date = Time.parse(xml.at(:releasedate).inner_html.strip)
-        @image_extralarge = xml.at("/image[@size='extralarge']").inner_html
-        @image_large  = xml.at("/image[@size='large']").inner_html
-        @image_medium = xml.at("/image[@size='medium']").inner_html
-        @image_small  = xml.at("/image[@size='small']").inner_html
-        @mbid         = xml.at(:mbid).inner_html
-        @listeners    = xml.at(:listeners).inner_html.to_i
-        @playcount    = xml.at(:playcount).inner_html.to_i
+      unless xml.root['status'] == 'failed'
+        xml.root.children.each do |childL1|
+          next unless childL1.name == 'album'
+          
+          childL1.children.each do |childL2|
+            @url = childL2.content if childL2.name == 'url'
+            @id = childL2.content if childL2.name == 'id'
+            @mbid = childL2.content if childL2.name == 'mbid'
+            @release_date = Time.parse(childL2.content.strip) if childL2.name == 'releasedate'            
+            if childL2.name == 'image'
+              @image_small = childL2.content if childL2['size'] == 'small'
+              @image_medium = childL2.content if childL2['size'] == 'medium'
+              @image_large = childL2.content if childL2['size'] == 'large'
+              @image_extralarge = childL2.content if childL2['size'] == 'extralarge'
+            end
+            @listeners = childL2.content.to_i if childL2.name == 'listeners'
+            @playcount = childL2.content.to_i if childL2.name == 'playcount'
+            if childL2.name == 'toptags'
+              @top_tags = []
+              childL2.children.each do |childL3|
+                next unless childL3.name == 'tag'
+                @top_tags << Tag.new_from_libxml(childL3)
+              end # childL2.children.each do |childL3|
+            end # if childL2.name == 'toptags'
+          end # childL1.children.each do |childL2|
+        end # xml.children.each do |childL1|
         @info_loaded  = true
-        @top_tags = []
-        xml.at(:toptags).search(:tag).each do |elem|
-            @top_tags << Tag.new_from_xml(elem)
-        end
       end
     end
     

@@ -11,7 +11,7 @@ Echoe.new('scrobbler', Scrobbler::Version) do |p|
   p.url             = "http://scrobbler.rubyforge.org"
   p.author          = ['John Nunemaker', 'Jonathan Rudenberg', 'Uwe L. Korn']
   p.email           = "nunemaker@gmail.com"
-  p.extra_deps      = [['hpricot', '>=0.4.86'], ['activesupport', '>=1.4.2'], ['htmlentities', '>=4.0.0']]
+  p.extra_deps      = [['hpricot', '>=0.4.86'], ['activesupport', '>=1.4.2'], ['libxml', '>=1.0.0']]
   p.need_tar_gz     = false
   p.docs_host       = WEBSITE_PATH
   p.ignore_pattern  = /website/
