@@ -29,40 +29,15 @@ module Scrobbler
           end
   
           data[:url] = child.content if child.name == 'url'
+          data[:description] = child.content if child.name == 'description'
+          data[:attendance] = child.content if child.name == 'attendance'
+          data[:reviews]    = child.content if child.name == 'reviews'
+          data[:tag]        = child.content if child.name == 'tag'
+          data[:start_date]  = child.content if child.name == 'startDate'
+          data[:start_time] = child.content if child.name == 'startTime'
 
-          #data[:weight] = child.content if child.name == 'weight'
-          #data[:match] = child.content if child.name == 'match'
-          #data[:realname] = child.content if child.name == 'realname'
-          #if child.name == 'image'
-          #  data[:image_small] = child.content if child['size'] == 'small'
-          #  data[:image_medium] = child.content if child['size'] == 'medium'
-          #  data[:image_large] = child.content if child['size'] == 'large'
-          #end
+          
         end
-
-        #        event = Event.new()
-        #        event.id = xml.at(:id).inner_html
-        #        event.title = xml.at(:title).inner_html
-        #        #event.artists <<
-        #        event.artists = []
-        #        xml.at(:artists).traverse_element do |artist|
-        #          #puts '===='
-        #          #event.artists <<
-        #          unless artist.at(:artist).nil?
-        #           # pp artist.at(:artist).inner_html
-        #          end
-        #
-        #          unless artist.at(:headliner).nil?
-        #            #pp artist.at(:headliner).inner_html
-        #          end
-        #        end
-        #<artists>
-        #  <artist>Will And The People</artist>
-        #  <artist>Carnations</artist>
-        #  <artist>Midwich Cuckoos</artist>
-        #  <artist>NO FLASH</artist>
-        #  <headliner>Will And The People</headliner>
-        #</artists>
 
         #  <venue>
         #  <name>Ruby Lounge</name>
@@ -82,13 +57,7 @@ module Scrobbler
         # </venue>
         #          event.start_date = xml['startDate']
         #          event.start_time = xml['startTime']
-        #          event.description = xml.at(:description).inner_html
-
-        #<image size="small">http://userserve-ak.last.fm/serve/34/24035067.jpg</image>
-        #<image size="medium">http://userserve-ak.last.fm/serve/64/24035067.jpg</image>
-        #<image size="large">http://userserve-ak.last.fm/serve/126/24035067.jpg</image>
-
-        #
+        
         #        event.attendance = xml.at(:attendance).inner_html
         #        event.reviews = xml.at(:reviews).inner_html
         #        event.tag = xml.at(:tag).inner_html

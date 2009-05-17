@@ -43,8 +43,13 @@ class TestGeo < Test::Unit::TestCase
     assert_equal('http://www.last.fm/event/1025661', first.url)
     assert_equal('http://userserve-ak.last.fm/serve/34/24035067.jpg', first.image_small)
     assert_equal('http://userserve-ak.last.fm/serve/64/24035067.jpg', first.image_medium)
-    assert_equal('http://userserve-ak.last.fm/serve/126/24035067.jpg', first.image_large)
-    
+    assert_equal('http://userserve-ak.last.fm/serve/126/24035067.jpg', first.image_large)    
+    assert_equal('Sed sed lectus hendrerit urna imperdiet bibendum.', first.description)
+    assert_equal('2', first.attendance)
+    assert_equal('0', first.reviews)
+    assert_equal('lastfm:event=1025661', first.tag)
+    assert_equal('Sun, 10 May 2009', first.start_date)
+    assert_equal('19:30', first.start_time)
   end
 
 end
