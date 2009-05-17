@@ -1,17 +1,14 @@
 module Scrobbler
   class Geo < Base
-    attr_accessor :location    
-
-    def initialize(location, data = {})
-      raise ArgumentError, "Location is required" if location.blank?
-      @location = location
-      populate_data(data)
-    end
 
     # Gets a list of events based on the location that
     # the Geo object is set to
-    def events(force=false )
-      get_response('geo.getevents', :events, 'events', 'event', {'location'=>@location}, force)
+    def events(location, force=false )
+      get_response('geo.getevents', :events, 'events', 'event', {'location'=>location}, force)
+    end
+
+    def top_artists(country,force=false)
+      get_response('geo.gettopartists', :artists, 'topartists', 'artist', {'country'=>country}, force)
     end
   end
 end

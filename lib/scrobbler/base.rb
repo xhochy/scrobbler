@@ -60,8 +60,8 @@ module Scrobbler
           elements = []
           doc.root.children.each do |child|
             next unless child.name == parent
-            child.children.each do |child2|
-              next unless child2.name == element
+            child.children.each do |child2|              
+              next unless child2.name == element              
                elements << scrobbler_class.new_from_libxml(child2)
             end
           end
