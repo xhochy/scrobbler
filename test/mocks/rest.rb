@@ -76,6 +76,8 @@ module Scrobbler
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/recenttracks.xml")
             elsif pieces.last =~ /[?&]method=geo\.getevents/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/geo/events.xml")
+            elsif pieces.last =~ /[?&]method=geo\.gettopartists/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/geo/top_artists.xml")
             elsif pieces.last =~ /[?&]method=user\.getweeklyalbumchart/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/weeklyalbumchart.xml")
             elsif pieces.last =~ /[?&]method=user\.getweeklyartistchart/
@@ -88,18 +90,18 @@ module Scrobbler
           end
   	    elsif @base_url == Scrobbler::AUTH_URL
           if args[:hs] == "true" && args[:p] == Scrobbler::AUTH_VER.to_s && args[:c] == 'rbs' &&
-             args[:v] == Scrobbler::Version.to_s && args[:u] == 'chunky' && !args[:t].blank? &&
-             args[:a] == Digest::MD5.hexdigest('7813258ef8c6b632dde8cc80f6bda62f' + args[:t])
+              args[:v] == Scrobbler::Version.to_s && args[:u] == 'chunky' && !args[:t].blank? &&
+              args[:a] == Digest::MD5.hexdigest('7813258ef8c6b632dde8cc80f6bda62f' + args[:t])
             
             "OK\n#{@session_id}\n#{@now_playing_url}\n#{@submission_url}"
           end
         elsif @base_url == @now_playing_url
           if args[:s] == @session_id && ![args[:a], args[:t], args[:b], args[:n]].any?(&:blank?)
-             'OK'
+            'OK'
           end           
         elsif @base_url == @submission_url
           if args[:s] == @session_id && 
-             ![args['a[0]'], args['t[0]'], args['i[0]'], args['o[0]'], args['l[0]'], args['b[0]']].any?(&:blank?)
+              ![args['a[0]'], args['t[0]'], args['i[0]'], args['o[0]'], args['l[0]'], args['b[0]']].any?(&:blank?)
             'OK'
           end
         elsif @base_url == @scrobbler_api_url_v2
