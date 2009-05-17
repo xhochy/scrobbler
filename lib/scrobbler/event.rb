@@ -36,10 +36,8 @@ module Scrobbler
           data[:reviews]    = child.content if child.name == 'reviews'
           data[:tag]        = child.content if child.name == 'tag'
           data[:start_date]  = child.content if child.name == 'startDate'
-          data[:start_time] = child.content if child.name == 'startTime'
-          
-          venue = Venue.new_from_xml(child) if child.name == 'venue'
-          
+          data[:start_time] = child.content if child.name == 'startTime'          
+          venue = Venue.new_from_xml(child) if child.name == 'venue'          
         end
  
         event = Event.new(data[:id],data)
@@ -54,22 +52,6 @@ module Scrobbler
       raise ArgumentError if id.blank?
       @id = id
       populate_data(input)
-    end
-
-    def from=(value)
-      @from = value.to_i
-    end
-
-    def to=(value)
-      @to = value.to_i
-    end
-
-    def from
-      @from.to_i
-    end
-
-    def to
-      @to.to_i
     end
   end
 end
