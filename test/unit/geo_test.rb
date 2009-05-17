@@ -35,6 +35,18 @@ class TestGeo < Test::Unit::TestCase
     assert_equal('19:30', first.start_time)
   end
 
+  test 'first event should have the correct venue' do
+    venue = @geo.events('Manchester').first.venue
+    assert_equal('Ruby Lounge',venue.name)
+    assert_equal('28-34 High Street',venue.street)
+    assert_equal('Manchester',venue.city)
+    assert_equal('M4 1QB',venue.postalcode)
+    assert_equal('GMT',venue.timezone)
+    assert_equal('http://www.last.fm/venue/8843135',venue.url)
+    assert_equal('53.482827',venue.geo_lat)
+    assert_equal('-2.238715',venue.geo_long)
+  end
+
   test 'should be able to find top artists' do
     top_artists = @geo.top_artists('spain')
     assert_equal(@top_artist_names,top_artists.collect(&:name))

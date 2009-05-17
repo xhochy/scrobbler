@@ -15,14 +15,12 @@
                 <name>Ruby Lounge</name>
                 <location>
                     <city>Manchester</city>
-
                     <country>United Kingdom</country>
                     <street>28-34 High Street</street>
                     <postalcode>M4 1QB</postalcode>
                     <geo:point>
                         <geo:lat>53.482827</geo:lat>
                         <geo:long>-2.238715</geo:long>
-
                     </geo:point>
                     <timezone>GMT</timezone>
                 </location>
@@ -53,14 +51,12 @@
                 <name>Night &amp; Day Café</name>
                 <location>
                     <city>Manchester</city>
-
                     <country>United Kingdom</country>
                     <street>26 Oldham Street</street>
                     <postalcode>M1 1JN</postalcode>
                     <geo:point>
                         <geo:lat>53.4826</geo:lat>
                         <geo:long>-2.235278</geo:long>
-
                     </geo:point>
                     <timezone>GMT</timezone>
                 </location>
@@ -68,7 +64,6 @@
             </venue>
             <startDate>Sun, 10 May 2009</startDate>
             <startTime>20:00</startTime>
-
             <description></description>
             <image size="small">http://userserve-ak.last.fm/serve/34/5274435.jpg</image>
             <image size="medium">http://userserve-ak.last.fm/serve/64/5274435.jpg</image>
