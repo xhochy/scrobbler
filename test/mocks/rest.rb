@@ -74,6 +74,8 @@ module Scrobbler
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/neighbours.xml")
             elsif pieces.last =~ /[?&]method=user\.getrecenttracks/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/recenttracks.xml")
+            elsif pieces.last =~ /[?&]method=geo\.getevents/
+              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/geo/events.xml")
             elsif pieces.last =~ /[?&]method=user\.getweeklyalbumchart/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/weeklyalbumchart.xml")
             elsif pieces.last =~ /[?&]method=user\.getweeklyartistchart/

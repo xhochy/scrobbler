@@ -116,7 +116,7 @@ module Scrobbler
     end
     
     def tags(force=false)
-      get_instance2('track.gettoptags', :tags, :tag, {'artist'=>@artist, 'track'=>@name}, force)
+      get_response('track.gettoptags', :top_tags, 'toptags', 'tag', {'artist'=>@artist, 'track'=>@name}, force)
     end
   end
 end

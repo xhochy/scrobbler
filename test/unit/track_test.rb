@@ -29,9 +29,8 @@ class TestTrack < Test::Unit::TestCase
   end
   
   test 'should have top tags' do
-    assert_equal(6, @track.tags.size)
-    assert_equal('country', @track.tags.first.name)
-    assert_equal('100', @track.tags.first.count)
-    assert_equal('http://www.last.fm/tag/country', @track.tags.first.url)
+    assert_equal('pop', @track.tags.first.name)
+    assert_equal('924808', @track.tags.first.count)
+    assert_equal('www.last.fm/tag/pop', @track.tags.first.url)
   end
 end

@@ -63,15 +63,11 @@ module Scrobbler
       def new_from_libxml(xml)
         data = {}
         xml.children.each do |child|
-          if child.name == 'name'
-            data[:name] = child.content
-          elsif child.name == 'count'
-            data[:count] = child.content
-          elsif child.name == 'url'
-            data[:url] = child.content
-          end
+          data[:name] = child.content if child.name == 'name'
+          data[:count] = child.content if child.name == 'count'
+          data[:url] = child.content if child.name == 'url'
         end
-        t = Tag.new(data[:name], data)
+        Tag.new(data[:name], data)
       end
       
       def new_from_xml(xml, doc=nil)
