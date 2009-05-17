@@ -71,7 +71,9 @@ module Scrobbler
       #"#{API_URL.chop}/2.0/geo/#{CGI::escape(location)}/events.#{format}"
 #      get_response('geo.getevents', :events, 'events', 'geo', {'location' => @location}, force)
       #get_instance2('artist.gettoptracks', :top_tracks, :track, {'artist'=>@name}, force)
-      get_instance2('geo.getevents', :events, :event, {'location'=>@location}, force)
+      #get_instance2('geo.getevents', :events, :event, {'location'=>@location}, force)
+                #    (api_method, instance_name, parent, element, parameters, force=false)
+      get_response('geo.getevents', :events, 'events', 'event', {'location'=>@location}, force)
     end
     #
     #    def image(which=:small)

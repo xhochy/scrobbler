@@ -27,8 +27,7 @@ module Scrobbler
         @connection ||= REST::Connection.new(API_URL)
       end
       
-      def fetch_and_parse(resource)
-        puts resource
+      def fetch_and_parse(resource)        
         Hpricot::XML(connection.get(resource))
       end
       

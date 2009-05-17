@@ -5,7 +5,14 @@ class TestGeo < Test::Unit::TestCase
   def setup
     @geo = Scrobbler::Geo.new('Manchester')
     @events = ['Will and The People','Son Of Dave','Surface Unsigned',
-              'Experimental Dental School']
+      'Experimental Dental School']
+    @ids = ['1025661','954053','1005964','909456']
+    @first_atrists_names = ['Will And The People','Carnations','Midwich Cuckoos','NO FLASH','Will And The People']
+    @first_headliner = 'Will And The People'
+
+
+
+
   end
 
   # @apiversion 2.0
@@ -28,57 +35,16 @@ class TestGeo < Test::Unit::TestCase
 
   # @apiversion 2.0
   test 'should be able to find events' do
+    assert_equal(@ids, @geo.events(:rss).collect(&:id))
     assert_equal(@events, @geo.events(:rss).collect(&:title))
-#    first = @artist.similar.first
-#    assert_equal('Megadeth', first.name)
-#    assert_equal('a9044915-8be3-4c7e-b11f-9e2d2ea0a91e', first.mbid)
-#    assert_equal('100', first.match)
-#    assert_equal('www.last.fm/music/Megadeth', first.url)
-#    assert_equal('http://userserve-ak.last.fm/serve/34/8422011.jpg', first.image(:small))
-#    assert_equal('http://userserve-ak.last.fm/serve/64/8422011.jpg', first.image(:medium))
-#    assert_equal('http://userserve-ak.last.fm/serve/126/8422011.jpg', first.image(:large))
-#    assert_equal('1', first.streamable)
+    first = @geo.events.first
+    assert_equal(@first_atrists_names, first.artists.collect(&:name))    
+
+    assert_equal('http://www.last.fm/event/1025661', first.url)
+    assert_equal('http://userserve-ak.last.fm/serve/34/24035067.jpg', first.image_small)
+    assert_equal('http://userserve-ak.last.fm/serve/64/24035067.jpg', first.image_medium)
+    assert_equal('http://userserve-ak.last.fm/serve/126/24035067.jpg', first.image_large)
+    
   end
 
-  # @apiversion 2.0
-#  test 'should be able to find top fans' do
-#    assert_equal(@top_fans, @artist.top_fans.collect(&:username))
-#    first = @artist.top_fans.first
-#    assert_equal('Slide15', first.username)
-#    assert_equal('http://www.last.fm/user/Slide15', first.url)
-#    assert_equal('http://userserve-ak.last.fm/serve/34/4477633.jpg', first.image(:small))
-#    assert_equal('http://userserve-ak.last.fm/serve/64/4477633.jpg', first.image(:medium))
-#    assert_equal('http://userserve-ak.last.fm/serve/126/4477633.jpg', first.image(:large))
-#    assert_equal('265440672', first.weight)
-#  end
-
-  # @apiversion 2.0
-#  test 'should be able to find top tracks' do
-#    assert_equal(@top_tracks, @artist.top_tracks.collect(&:name))
-#    first = @artist.top_tracks.first
-#    assert_equal('Nothing Else Matters', first.name)
-#    assert_equal('', first.mbid)
-#    assert_equal('http://www.last.fm/music/Metallica/_/Nothing+Else+Matters', first.url)
-#  end
-
-  # @apiversion 2.0
-#  test 'should be able to find top albums' do
-#    assert_equal(@top_albums, @artist.top_albums.collect(&:name))
-#    first = @artist.top_albums.first
-#    assert_equal('Master of Puppets', first.name)
-#    assert_equal('fed37cfc-2a6d-4569-9ac0-501a7c7598eb', first.mbid)
-#    assert_equal('http://www.last.fm/music/Metallica/Master+of+Puppets', first.url)
-#    assert_equal('http://userserve-ak.last.fm/serve/34s/8622967.jpg', first.image(:small))
-#    assert_equal('http://userserve-ak.last.fm/serve/64s/8622967.jpg', first.image(:medium))
-#    assert_equal('http://userserve-ak.last.fm/serve/126/8622967.jpg', first.image(:large))
-#  end
-
-  # @apiversion 2.0
-#  test 'should be able to find top tags' do
-#    assert_equal(['metal', 'thrash metal', 'heavy metal'], @artist.top_tags.collect(&:name))
-#    first = @artist.top_tags.first
-#    assert_equal('metal', first.name)
-#    assert_equal('100', first.count)
-#    assert_equal('http://www.last.fm/tag/metal', first.url)
-#  end
 end
