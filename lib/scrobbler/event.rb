@@ -38,7 +38,7 @@ module Scrobbler
 
           
         end
-
+        #TODO
         #  <venue>
         #  <name>Ruby Lounge</name>
         #  <location>
@@ -55,14 +55,7 @@ module Scrobbler
         #   </location>
         #  <url>http://www.last.fm/venue/8843135</url>
         # </venue>
-        #          event.start_date = xml['startDate']
-        #          event.start_time = xml['startTime']
-        
-        #        event.attendance = xml.at(:attendance).inner_html
-        #        event.reviews = xml.at(:reviews).inner_html
-        #        event.tag = xml.at(:tag).inner_html
-        #        event.url = xml.at(:url).inner_html
-        #event
+ 
         event = Event.new(data[:id],data)
         event.artists = artists
         event.headliner = headliner

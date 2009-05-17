@@ -9,10 +9,6 @@ class TestGeo < Test::Unit::TestCase
     @ids = ['1025661','954053','1005964','909456']
     @first_atrists_names = ['Will And The People','Carnations','Midwich Cuckoos','NO FLASH','Will And The People']
     @first_headliner = 'Will And The People'
-
-
-
-
   end
 
   # @apiversion 2.0
@@ -25,20 +21,13 @@ class TestGeo < Test::Unit::TestCase
     assert_equal('Manchester', @geo.location)
   end
 
-  #test 'should have the correct ical path to current events' do
-  #  assert_equal('http://ws.audioscrobbler.com/2.0/geo/Manchester/events.ics', @geo.events(:ical))
-  #end
-
-  #test 'should have the correct rss path to current events' do
-  #  assert_equal('http://ws.audioscrobbler.com/2.0/geo/Manchester/events.rss', @geo.events(:rss))
-  #end
-
   # @apiversion 2.0
   test 'should be able to find events' do
     assert_equal(@ids, @geo.events(:rss).collect(&:id))
     assert_equal(@events, @geo.events(:rss).collect(&:title))
     first = @geo.events.first
-    assert_equal(@first_atrists_names, first.artists.collect(&:name))    
+    assert_equal(@first_atrists_names, first.artists.collect(&:name))
+    assert_equal(@first_headliner, first.headliner.name)
 
     assert_equal('http://www.last.fm/event/1025661', first.url)
     assert_equal('http://userserve-ak.last.fm/serve/34/24035067.jpg', first.image_small)
