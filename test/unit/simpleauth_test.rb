@@ -19,7 +19,7 @@ class TestSimpleAuth < Test::Unit::TestCase
   end
   
   test 'should have the right version' do
-    assert_equal(Scrobbler::Version, @auth.client_ver)
+    assert_equal('0.2.13', @auth.client_ver)
   end
   
   test 'should handshake successfully' do

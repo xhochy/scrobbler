@@ -92,7 +92,7 @@ module Scrobbler
           end
   	    elsif @base_url == Scrobbler::AUTH_URL
           if args[:hs] == "true" && args[:p] == Scrobbler::AUTH_VER.to_s && args[:c] == 'rbs' &&
-              args[:v] == Scrobbler::Version.to_s && args[:u] == 'chunky' && !args[:t].blank? &&
+              args[:v] == '0.2.13' && args[:u] == 'chunky' && !args[:t].blank? &&
               args[:a] == Digest::MD5.hexdigest('7813258ef8c6b632dde8cc80f6bda62f' + args[:t])
             
             "OK\n#{@session_id}\n#{@now_playing_url}\n#{@submission_url}"
