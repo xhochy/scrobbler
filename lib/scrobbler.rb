@@ -8,7 +8,6 @@ require 'scrobbler/version'
 
 require 'scrobbler/album'
 require 'scrobbler/artist'
-require 'scrobbler/chart'
 require 'scrobbler/event'
 require 'scrobbler/venue'
 require 'scrobbler/geo'
