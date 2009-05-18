@@ -1,7 +1,8 @@
 module Scrobbler
   class Event < Base
-    attr_accessor :id, :title, :start_date, :start_time, :description, :attendance
-    attr_accessor :reviews, :tag, :url, :artists, :headliner, :image_small, :image_medium, :image_large
+    attr_accessor :id, :title, :start_date, :start_time, :description
+    attr_accessor :reviews, :tag, :url, :artists, :headliner, :image_small
+    attr_accessor :image_medium, :image_large, :attendance, :venue
     
     class << self
       def new_from_libxml(xml)        
@@ -9,6 +10,7 @@ module Scrobbler
         data = {}
         artists = []
         headliner = nil
+        venue = nil
 
         xml.children.each do |child|
           data[:id] = child.content if child.name == 'id'
@@ -34,55 +36,22 @@ module Scrobbler
           data[:reviews]    = child.content if child.name == 'reviews'
           data[:tag]        = child.content if child.name == 'tag'
           data[:start_date]  = child.content if child.name == 'startDate'
-          data[:start_time] = child.content if child.name == 'startTime'
-
-          
+          data[:start_time] = child.content if child.name == 'startTime'          
+          venue = Venue.new_from_xml(child) if child.name == 'venue'          
         end
-        #TODO
-        #  <venue>
-        #  <name>Ruby Lounge</name>
-        #  <location>
-        #    <city>Manchester</city>
-        #    <country>United Kingdom</country>
-        #    <street>28-34 High Street</street>
-        #    <postalcode>M4 1QB</postalcode>
-        #    <geo:point>
-        #      <geo:lat>53.482827</geo:lat>
-        #      <geo:long>-2.238715</geo:long>
-        #    </geo:point>
-
-        #    <timezone>GMT</timezone>
-        #   </location>
-        #  <url>http://www.last.fm/venue/8843135</url>
-        # </venue>
  
         event = Event.new(data[:id],data)
         event.artists = artists
         event.headliner = headliner
+        event.venue = venue
         event
       end
     end
 
     def initialize(id,input={})
-      raise ArgumentError if id.blank?      
+      raise ArgumentError if id.blank?
       @id = id
       populate_data(input)
-    end
-
-    def from=(value)
-      @from = value.to_i
-    end
-
-    def to=(value)
-      @to = value.to_i
-    end
-
-    def from
-      @from.to_i
-    end
-
-    def to
-      @to.to_i
     end
   end
 end
