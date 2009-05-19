@@ -7,7 +7,7 @@ class TestGeo < Test::Unit::TestCase
     @events = ['Will and The People','Son Of Dave','Surface Unsigned',
       'Experimental Dental School']
     @ids = ['1025661','954053','1005964','909456']
-    @first_atrists_names = ['Will And The People','Carnations','Midwich Cuckoos','NO FLASH','Will And The People']
+    @first_atrists_names = ['Will And The People','Carnations','Midwich Cuckoos','NO FLASH']
     @first_headliner = 'Will And The People'
     @top_artist_names = ['The Killers','Coldplay','Radiohead','Muse','Franz Ferdinand','U2']
     @top_track_names = ['Use Somebody','Schwarz zu Blau','Sex on Fire','Alles Neu','Poker Face','Ayo Technology']
