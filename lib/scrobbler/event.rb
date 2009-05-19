@@ -21,7 +21,7 @@ module Scrobbler
               artists << Artist.new(artist_element.content) if artist_element.name == 'artist'
               headliner = Artist.new(artist_element.content) if artist_element.name == 'headliner'
             end
-            artists << headliner unless headliner.nil?
+            artists << headliner unless headliner.nil? || headliner_alrady_listed_in_artist_list?(artists,headliner)
           end
 
           if child.name == 'image'
@@ -46,10 +46,17 @@ module Scrobbler
           event.send :populate_data, data
         end
 
-        event.artists = artists
+        event.artists = artists.uniq
         event.headliner = headliner
         event.venue = venue
         event
+      end
+
+      def headliner_alrady_listed_in_artist_list?(artists,headliner)
+        artists.each do |artist|
+            return true if artist.name == headliner.name
+        end
+        false
       end
 
       def new_from_libxml(xml)
@@ -69,10 +76,9 @@ module Scrobbler
     # Calls "event.getinfo" REST method
     def load_info
       doc = request('event.getinfo', {'event' => @id},false)
-      doc.root.children.each do |child|
-        Event.update_or_create_from_xml(child, self) if child.name = 'event'
-      end
-      
+      doc.root.children.each do |child|        
+        Event.update_or_create_from_xml(child, self) if child.name == 'event'
+      end      
     end
   end
 end

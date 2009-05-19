@@ -14,37 +14,45 @@ class TestEvent < Test::Unit::TestCase
     assert_equal('328799',@event.id)
   end
 
-  test "can collect it's own information" do
-    #assert_equal('Philip Glass',@event.title)
+  test "should know it's title" do
+    assert_equal('Philip Glass',@event.title)
+  end
+
+  test "should know it's start_date" do
     assert_equal('Thu, 12 Jun 2008 19:30:00',@event.start_date)
+  end
+
+  test "should know it's description" do
     assert_equal('Nunc vulputate, ante vitae sollicitudin ullamcorper, velit eros ultricies libero.',@event.description)
+  end
+
+  test "should know it's image paths" do
     assert_equal('http://userserve-ak.last.fm/serve/34/320636.jpg',@event.image_small)
     assert_equal('http://userserve-ak.last.fm/serve/64/320636.jpg',@event.image_medium)
     assert_equal('http://userserve-ak.last.fm/serve/126/320636.jpg',@event.image_large)
-    assert_equal('http://www.last.fm/event/328799',@event.url)
-    assert_equal('46',@event.attendance)
-    assert_equal('0',@event.reviews)
-    assert_equal('lastfm:event=328799',@event.tag)
-    #
-    #        <artists>
-    #            <artist>Philip Glass</artist>
-    #            <artist>Orchestra and Chorus of Erfurt Theatre</artist>
-    #            <headliner>Philip Glass</headliner>
-    #        </artists>
-    #        <venue>
-    #            <name>Barbican Centre</name>
-    #            <location>
-    #                <city>London</city>
-    #                <country>United Kingdom</country>
-    #                <street>Silk Street</street>
-    #                <postalcode>EC2Y 8DS</postalcode>
-    #                <geo:point>
-    #                    <geo:lat>51.519972</geo:lat>
-    #                    <geo:long>-0.09334</geo:long>
-    #                </geo:point>
-    #            </location>
-    #            <url>http://www.last.fm/venue/8777860</url>
-    #        </venue>
+  end
 
+  test "should know it's url" do
+    assert_equal('http://www.last.fm/event/328799',@event.url)
+  end
+
+  test "should know it's attendance" do
+    assert_equal('46',@event.attendance)
+  end
+
+  test "should know it's number of reviews" do
+    assert_equal('0',@event.reviews)
+  end
+
+  test "should know it's tag" do
+    assert_equal('lastfm:event=328799',@event.tag)
+  end
+
+  test 'creates the correct artists' do
+    assert_equal(2,@event.artists.size)
+  end
+
+  test 'creates the correct venue' do
+    assert_equal('Barbican Centre',@event.venue.name)
   end
 end
