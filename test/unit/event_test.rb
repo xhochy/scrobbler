@@ -25,49 +25,26 @@ class TestEvent < Test::Unit::TestCase
     assert_equal('46',@event.attendance)
     assert_equal('0',@event.reviews)
     assert_equal('lastfm:event=328799',@event.tag)
-#
-#        <artists>
-#            <artist>Philip Glass</artist>
-#            <artist>Orchestra and Chorus of Erfurt Theatre</artist>
-#            <headliner>Philip Glass</headliner>
-#        </artists>
-#        <venue>
-#            <name>Barbican Centre</name>
-#            <location>
-#                <city>London</city>
-#                <country>United Kingdom</country>
-#                <street>Silk Street</street>
-#                <postalcode>EC2Y 8DS</postalcode>
-#                <geo:point>
-#                    <geo:lat>51.519972</geo:lat>
-#                    <geo:long>-0.09334</geo:long>
-#                </geo:point>
-#            </location>
-#            <url>http://www.last.fm/venue/8777860</url>
-#        </venue>
+    #
+    #        <artists>
+    #            <artist>Philip Glass</artist>
+    #            <artist>Orchestra and Chorus of Erfurt Theatre</artist>
+    #            <headliner>Philip Glass</headliner>
+    #        </artists>
+    #        <venue>
+    #            <name>Barbican Centre</name>
+    #            <location>
+    #                <city>London</city>
+    #                <country>United Kingdom</country>
+    #                <street>Silk Street</street>
+    #                <postalcode>EC2Y 8DS</postalcode>
+    #                <geo:point>
+    #                    <geo:lat>51.519972</geo:lat>
+    #                    <geo:long>-0.09334</geo:long>
+    #                </geo:point>
+    #            </location>
+    #            <url>http://www.last.fm/venue/8777860</url>
+    #        </venue>
 
   end
-
-
-#  test 'should require to' do
-#    assert_raise(ArgumentError) { Scrobbler::Chart.new('1108296002', '') }
-#  end
-#
-#  test 'should be able to parse to and from that are unix timestamp strings' do
-#    chart = Scrobbler::Chart.new('1108296002', '1108900802')
-#    assert_equal(1108296002, chart.from)
-#    assert_equal(1108900802, chart.to)
-#  end
-#
-#  test 'should be able to parse to and from that are unix timestamp fixnums' do
-#    chart = Scrobbler::Chart.new(1108296002, 1108900802)
-#    assert_equal(1108296002, chart.from)
-#    assert_equal(1108900802, chart.to)
-#  end
-#
-#  test 'should be able to parse to and from that are times' do
-#    chart = Scrobbler::Chart.new(Time.at(1108296002), Time.at(1108900802))
-#    assert_equal(1108296002, chart.from)
-#    assert_equal(1108900802, chart.to)
-#  end
 end
