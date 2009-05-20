@@ -132,8 +132,12 @@ module Scrobbler
     
     # Get a list of the recent tracks listened to by this user. Indicates now 
     # playing track if the user is currently listening.
-    def recent_tracks(force=false)
-      get_response('user.getrecenttracks', :recent_tracks, 'recenttracks', 'track', {'user'=>@username}, force)
+    #
+    # Possible parameters:
+    #   - limit: An integer used to limit the number of tracks returned.
+    def recent_tracks(force=false, parameters={})
+      parameters.merge!({'user' => @username})
+      get_response('user.getrecenttracks', :recent_tracks, 'recenttracks', 'track', parameters, force)
     end
     
     # Get Last.fm artist recommendations for a user
