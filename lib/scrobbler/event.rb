@@ -75,7 +75,7 @@ module Scrobbler
     #
     # Calls "event.getinfo" REST method
     def load_info
-      doc = request('event.getinfo', {'event' => @id},false)
+      doc = request('event.getinfo', {'event' => @id})
       doc.root.children.each do |child|        
         Event.update_or_create_from_xml(child, self) if child.name == 'event'
       end      
