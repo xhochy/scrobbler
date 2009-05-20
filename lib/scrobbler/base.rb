@@ -29,7 +29,7 @@ module Scrobbler
         parameters['method'] = api_method.to_s
         paramlist = []
         parameters.each do |key, value|
-          paramlist <<  "#{CGI::escape(key)}=#{CGI::escape(value)}"
+          paramlist <<  "#{CGI::escape(key.to_s)}=#{CGI::escape(value.to_s)}"
         end
         
         url = '/2.0/?' + paramlist.join('&')
