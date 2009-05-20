@@ -88,6 +88,9 @@ module Scrobbler
         data[:mbid] = xml['mbid'] if xml['mbid']
         data[:rank] = xml['rank'] if xml['rank']
         
+        # If there is no name defined, than this was an empty album tag
+        return nil if data[:name].empty?
+        
         Album.new(data[:name], data)
       end
     end

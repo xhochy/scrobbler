@@ -3,3 +3,4 @@ pkg/*
 nbproject
 scrobbler-*.gem
 *.rb~
+coverage
