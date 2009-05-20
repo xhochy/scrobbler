@@ -5,8 +5,8 @@ module Scrobbler
     attr_accessor :image_medium, :image_large, :attendance, :venue
     
     class << self
-      def new_from_libxml(xml)        
 
+      def update_or_create_from_xml(xml, event=nil)
         data = {}
         artists = []
         headliner = nil
@@ -21,7 +21,7 @@ module Scrobbler
               artists << Artist.new(artist_element.content) if artist_element.name == 'artist'
               headliner = Artist.new(artist_element.content) if artist_element.name == 'headliner'
             end
-            artists << headliner unless headliner.nil?
+            artists << headliner unless headliner.nil? || headliner_alrady_listed_in_artist_list?(artists,headliner)
           end
 
           if child.name == 'image'
@@ -29,22 +29,38 @@ module Scrobbler
             data[:image_medium] = child.content if child['size'] == 'medium'
             data[:image_large] = child.content if child['size'] == 'large'
           end
-  
+
           data[:url] = child.content if child.name == 'url'
           data[:description] = child.content if child.name == 'description'
           data[:attendance] = child.content if child.name == 'attendance'
           data[:reviews]    = child.content if child.name == 'reviews'
           data[:tag]        = child.content if child.name == 'tag'
           data[:start_date]  = child.content if child.name == 'startDate'
-          data[:start_time] = child.content if child.name == 'startTime'          
-          venue = Venue.new_from_xml(child) if child.name == 'venue'          
+          data[:start_time] = child.content if child.name == 'startTime'
+          venue = Venue.new_from_xml(child) if child.name == 'venue'
         end
- 
-        event = Event.new(data[:id],data)
-        event.artists = artists
+
+        if event.nil?
+          event = Event.new(data[:id],data)
+        else
+          event.send :populate_data, data
+        end
+
+        event.artists = artists.uniq
         event.headliner = headliner
         event.venue = venue
         event
+      end
+
+      def headliner_alrady_listed_in_artist_list?(artists,headliner)
+        artists.each do |artist|
+            return true if artist.name == headliner.name
+        end
+        false
+      end
+
+      def new_from_libxml(xml)
+        update_or_create_from_xml(xml)
       end
     end
 
@@ -52,6 +68,17 @@ module Scrobbler
       raise ArgumentError if id.blank?
       @id = id
       populate_data(input)
+      load_info() if input[:include_info]
+    end
+
+    # Load additional informatalbumion about this event
+    #
+    # Calls "event.getinfo" REST method
+    def load_info
+      doc = request('event.getinfo', {'event' => @id},false)
+      doc.root.children.each do |child|        
+        Event.update_or_create_from_xml(child, self) if child.name == 'event'
+      end      
     end
   end
 end
