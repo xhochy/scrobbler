@@ -4,6 +4,8 @@
 #
 module Scrobbler
   class Shout < Base
+    attr_reader :author, :date, :body
+    
     class << self
       def new_from_libxml(xml)
         data={}
