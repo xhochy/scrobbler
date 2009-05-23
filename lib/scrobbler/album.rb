@@ -44,25 +44,18 @@
 #
 module Scrobbler
   # @todo Add missing functions that require authentication
-  # @todo Integrate search functionality into this class which is already implemented in Scrobbler::Search
   class Album < Base
-    attr_accessor :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url
-    attr_accessor :reach, :release_date, :listeners, :playcount, :top_tags
-    attr_accessor :image_large, :image_medium, :image_small
-    attr_writer :tracks
+    attr_reader :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url
+    attr_reader :reach, :release_date, :listeners, :playcount, :top_tags
+    attr_reader :image_large, :image_medium, :image_small
     
     # needed on top albums for tag
-    attr_accessor :count, :streamable
+    attr_reader :count, :streamable
     
     # needed for weekly album charts
-    attr_accessor :chartposition
+    attr_reader :chartposition
     
     class << self
-      def find(artist, name, o={})
-        o[:artist] = artist
-        new(name, o)
-      end
-      
       def new_from_libxml(xml)
         data = {}
 
