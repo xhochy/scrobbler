@@ -1,4 +1,4 @@
-%w{cgi rubygems libxml active_support}.each { |x| require x }
+%w{uri rubygems libxml active_support}.each { |x| require x }
 
 $: << File.expand_path(File.dirname(__FILE__))
 
