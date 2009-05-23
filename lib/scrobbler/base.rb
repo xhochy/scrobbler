@@ -1,7 +1,3 @@
-require 'rubygems'
-require 'cgi'
-require 'libxml'
-
 $KCODE = 'u'
 
 module Scrobbler
@@ -17,14 +13,10 @@ module Scrobbler
       def connection
         @connection ||= REST::Connection.new(API_URL)
       end
-      
-      def fetch_and_parse(resource)        
-        Hpricot::XML(connection.get(resource))
-      end
     end
     
     private
-      def request(api_method, parameters)
+      def request(api_method, parameters = {})
         parameters['api_key'] = @@api_key
         parameters['method'] = api_method.to_s
         paramlist = []

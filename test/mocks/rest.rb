@@ -110,11 +110,8 @@ module Scrobbler
               ![args['a[0]'], args['t[0]'], args['i[0]'], args['o[0]'], args['l[0]'], args['b[0]']].any?(&:blank?)
             'OK'
           end
-        elsif @base_url == @scrobbler_api_url_v2
-          File.read(File.dirname(__FILE__) + "/../fixtures/xml/search/album.xml")
-	      end
-	      
 	    end
 	  end
+	end
   end
 end

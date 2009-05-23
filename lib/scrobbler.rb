@@ -1,4 +1,4 @@
-%w{cgi rubygems hpricot active_support}.each { |x| require x }
+%w{cgi rubygems libxml active_support}.each { |x| require x }
 
 $: << File.expand_path(File.dirname(__FILE__))
 
@@ -19,5 +19,3 @@ require 'scrobbler/scrobble'
 require 'scrobbler/playing'
 
 require 'scrobbler/rest'
-
-require 'scrobbler/search'
