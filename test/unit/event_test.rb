@@ -55,4 +55,20 @@ class TestEvent < Test::Unit::TestCase
   test 'creates the correct venue' do
     assert_equal('Barbican Centre',@event.venue.name)
   end
+
+  test 'should collect shouts' do
+    assert_equal(6,@event.shouts.size)
+  end
+
+  test 'shout should have the correct body' do
+    assert_equal('test',@event.shouts.first.body)
+  end
+
+  test 'shout should have the correct author' do
+    assert_equal('kaypey',@event.shouts.first.author)
+  end
+
+  test 'shout should have the correct date' do
+    assert_equal('Tue, 28 Apr 2009 05:35:11',@event.shouts.first.date)
+  end
 end
