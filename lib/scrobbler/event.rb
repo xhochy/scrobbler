@@ -32,10 +32,10 @@ module Scrobbler
 
           data[:url] = child.content if child.name == 'url'
           data[:description] = child.content if child.name == 'description'
-          data[:attendance] = child.content if child.name == 'attendance'
-          data[:reviews]    = child.content if child.name == 'reviews'
+          data[:attendance] = child.content.to_i if child.name == 'attendance'
+          data[:reviews]    = child.content.to_i if child.name == 'reviews'
           data[:tag]        = child.content if child.name == 'tag'
-          data[:start_date]  = child.content if child.name == 'startDate'
+          data[:start_date] = Time.parse(child.content) if child.name == 'startDate'
           data[:start_time] = child.content if child.name == 'startTime'
           venue = Venue.new_from_xml(child) if child.name == 'venue'
         end
@@ -69,6 +69,12 @@ module Scrobbler
       @id = id
       populate_data(input)
       load_info() if input[:include_info]
+    end
+
+    def image(which=:small)
+      which = which.to_s
+      raise ArgumentError unless ['small', 'medium', 'large'].include?(which)      
+      instance_variable_get("@image_#{which}")
     end
 
     def shouts(force = false)

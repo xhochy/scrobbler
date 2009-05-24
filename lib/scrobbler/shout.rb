@@ -1,7 +1,3 @@
-#
-# This is an interface to the Last.FM Search API.
-# It currently allows you to search by album, artist, or track.
-#
 module Scrobbler
   class Shout < Base
     attr_reader :author, :date, :body
@@ -11,8 +7,8 @@ module Scrobbler
         data={}
         xml.children.each do |child|
           data[:body] = child.content if child.name == 'body'
-          data[:author] = child.content if child.name == 'author'
-          data[:date] = child.content if child.name == 'date'
+          data[:author] = Scrobbler::User.new(child.content) if child.name == 'author'
+          data[:date] = Time.parse(child.content) if child.name == 'date'
         end
         Shout.new(data)
       end
