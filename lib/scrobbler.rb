@@ -16,6 +16,7 @@ require 'scrobbler/track'
 
 require 'scrobbler/auth'
 require 'scrobbler/library'
+require 'scrobbler/playlist'
 
 require 'scrobbler/simpleauth'
 require 'scrobbler/scrobble'
