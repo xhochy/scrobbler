@@ -3,5 +3,6 @@ pkg/*
 nbproject
 scrobbler-*.gem
 *.rb~
+*.rake~
 coverage
 spec.html
