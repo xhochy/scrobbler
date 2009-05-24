@@ -14,6 +14,7 @@ require 'scrobbler/user'
 require 'scrobbler/tag'
 require 'scrobbler/track'
 
+require 'scrobbler/auth'
 require 'scrobbler/simpleauth'
 require 'scrobbler/scrobble'
 require 'scrobbler/playing'
