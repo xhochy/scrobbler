@@ -64,7 +64,7 @@ module Scrobbler
         data = {}
         xml.children.each do |child|
           data[:name] = child.content if child.name == 'name'
-          data[:count] = child.content if child.name == 'count'
+          data[:count] = child.content.to_i if child.name == 'count'
           data[:url] = child.content if child.name == 'url'
         end
         Tag.new(data[:name], data)

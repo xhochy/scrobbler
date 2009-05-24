@@ -54,8 +54,8 @@ module Scrobbler
           data[:date] = Time.parse(child.content) if child.name == 'date'
           data[:artist] = Artist.new_from_libxml(child) if child.name == 'artist'
           data[:album] = Album.new_from_libxml(child) if child.name == 'album'
-          data[:playcount] = child.content if child.name == 'playcount'
-          data[:tagcount] = child.content if child.name == 'tagcount'
+          data[:playcount] = child.content.to_i if child.name == 'playcount'
+          data[:tagcount] = child.content.to_i if child.name == 'tagcount'
           if child.name == 'image'
             data[:image_small] = child.content if child['size'] == 'small'
             data[:image_medium] = child.content if child['size'] == 'medium'
@@ -71,7 +71,7 @@ module Scrobbler
         end
         
         
-        data[:rank] = xml['rank'] if xml['rank']
+        data[:rank] = xml['rank'].to_i if xml['rank']
         data[:now_playing] = true if xml['nowplaying'] && xml['nowplaying'] == 'true'
         
         data[:now_playing] = false if data[:now_playing].nil?

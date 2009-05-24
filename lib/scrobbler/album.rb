@@ -61,7 +61,7 @@ module Scrobbler
 
         xml.children.each do |child|
           data[:name] = child.content if child.name == 'name'
-          data[:playcount] = child.content if child.name == 'playcount'
+          data[:playcount] = child.content.to_i if child.name == 'playcount'
           data[:mbid] = child.content if child.name == 'mbid'
           data[:url] = child.content if child.name == 'url'
           data[:artist] = Artist.new_from_libxml(child) if child.name == 'artist'

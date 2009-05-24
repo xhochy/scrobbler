@@ -70,10 +70,10 @@ module Scrobbler
       
         # Get all information from the root's children nodes
         xml.children.each do |child|
-          data[:playcount] = child.content if child.name == 'playcount'
+          data[:playcount] = child.content.to_i if child.name == 'playcount'
           data[:mbid] = child.content if child.name == 'mbid'
           data[:url] = child.content if child.name == 'url'
-          data[:match] = child.content if child.name == 'match'
+          data[:match] = child.content.to_i if child.name == 'match'
           data[:tagcount] = child.content if child.name == 'tagcount'
           data[:chartposition] = child.content if child.name == 'chartposition'
           if child.name == 'streamable'

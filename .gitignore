@@ -4,3 +4,4 @@ nbproject
 scrobbler-*.gem
 *.rb~
 coverage
+spec.html

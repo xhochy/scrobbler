@@ -54,8 +54,8 @@ module Scrobbler
         xml.children.each do |child|
           data[:name] = child.content if child.name == 'name'
           data[:url] = child.content if child.name == 'url'
-          data[:weight] = child.content if child.name == 'weight'
-          data[:match] = child.content if child.name == 'match'
+          data[:weight] = child.content.to_i if child.name == 'weight'
+          data[:match] = child.content.to_i if child.name == 'match'
           data[:realname] = child.content if child.name == 'realname'
           if child.name == 'image'
             data[:image_small] = child.content if child['size'] == 'small'
