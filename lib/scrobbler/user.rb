@@ -46,7 +46,7 @@
 #   (34) Stickwitu
 module Scrobbler  
   class User < Base
-    attr_reader :username, :url, :weight, :match, :realname
+    attr_reader :username, :url, :weight, :match, :realname, :name
     
     class << self
       def new_from_libxml(xml)
@@ -78,6 +78,7 @@ module Scrobbler
       data = {:include_profile => false}.merge(input)
       raise ArgumentError if username.blank?
       @username = username
+      @name = @username
       load_profile() if data[:include_profile]
       populate_data(data)
     end
