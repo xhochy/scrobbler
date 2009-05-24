@@ -74,7 +74,7 @@ module Scrobbler
           data[:mbid] = child.content if child.name == 'mbid'
           data[:url] = child.content if child.name == 'url'
           data[:match] = child.content.to_i if child.name == 'match'
-          data[:tagcount] = child.content if child.name == 'tagcount'
+          data[:tagcount] = child.content.to_i if child.name == 'tagcount'
           data[:chartposition] = child.content if child.name == 'chartposition'
           if child.name == 'streamable'
             if ['1', 'true'].include?(child.content)
@@ -99,7 +99,7 @@ module Scrobbler
         
         # Get all information from the root's attributes
         data[:name] = xml['name'] if xml['name']
-        data[:rank] = xml['rank'] if xml['rank']
+        data[:rank] = xml['rank'].to_i if xml['rank']
         data[:streamable] = xml['streamable'] if xml['streamable']
         data[:mbid] = xml['mbid'] if xml['mbid']
         

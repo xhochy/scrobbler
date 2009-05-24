@@ -47,7 +47,7 @@ module Scrobbler
   class Album < Base
     attr_reader :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url
     attr_reader :reach, :release_date, :listeners, :playcount, :top_tags
-    attr_reader :image_large, :image_medium, :image_small
+    attr_reader :image_large, :image_medium, :image_small, :tagcount
     
     # needed on top albums for tag
     attr_reader :count, :streamable
@@ -62,6 +62,7 @@ module Scrobbler
         xml.children.each do |child|
           data[:name] = child.content if child.name == 'name'
           data[:playcount] = child.content.to_i if child.name == 'playcount'
+          data[:tagcount] = child.content.to_i if child.name == 'tagcount'
           data[:mbid] = child.content if child.name == 'mbid'
           data[:url] = child.content if child.name == 'url'
           data[:artist] = Artist.new_from_libxml(child) if child.name == 'artist'
@@ -79,7 +80,7 @@ module Scrobbler
         
         # Get all information from the root's attributes
         data[:mbid] = xml['mbid'] if xml['mbid']
-        data[:rank] = xml['rank'] if xml['rank']
+        data[:rank] = xml['rank'].to_i if xml['rank']
         
         # If there is no name defined, than this was an empty album tag
         return nil if data[:name].empty?
