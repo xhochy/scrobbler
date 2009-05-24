@@ -94,11 +94,11 @@ module Scrobbler
       instance_variable_get("@image_#{which}")
     end
     
-    def fans(force=false)
+    def top_fans(force=false)
       get_response('track.gettopfans', :fans, 'topfans', 'user', {'artist'=>@artist, 'track'=>@name}, force)
     end
     
-    def tags(force=false)
+    def top_tags(force=false)
       get_response('track.gettoptags', :top_tags, 'toptags', 'tag', {'artist'=>@artist, 'track'=>@name}, force)
     end
   end
