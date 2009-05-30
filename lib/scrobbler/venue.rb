@@ -1,13 +1,14 @@
 module Scrobbler
   class Venue < Base
     attr_accessor :name, :city, :country, :street, :postalcode
-    attr_accessor :geo_lat, :geo_long, :timezone, :url
+    attr_accessor :geo_lat, :geo_long, :timezone, :url, :id
 
     class << self
       def new_from_xml(xml)
         data = {}
         xml.children.each do |child|
           data[:name] = child.content if child.name == 'name'
+          data[:id] = child.content.to_i if child.name == 'id'
           data[:url] = child.content if child.name == 'url'
           if child.name == 'location'
             child.children.each do |location_element|

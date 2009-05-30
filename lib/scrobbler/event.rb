@@ -13,7 +13,7 @@ module Scrobbler
         venue = nil
 
         xml.children.each do |child|
-          data[:id] = child.content if child.name == 'id'
+          data[:id] = child.content.to_i if child.name == 'id'
           data[:title] = child.content if child.name == 'title'
 
           if child.name == 'artists'

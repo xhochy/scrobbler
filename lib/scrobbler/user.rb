@@ -92,10 +92,8 @@ module Scrobbler
     # Get a list of upcoming events that this user is attending. 
     #
     # Supports ical, ics or rss as its format  
-    def events(format=:ics)
-      format = :ics if format.to_s == 'ical'
-      raise ArgumentError unless ['ics', 'rss'].include?(format.to_s)
-      "#{API_URL.chop}/2.0/user/#{CGI::escape(@username)}/events.#{format}"
+    def events(force=false)
+      get_response('user.getevents', :events, 'events', 'event', {'user'=>@username}, force)
     end
 
     # Get a list of the user's friends on Last.fm.    
@@ -105,7 +103,7 @@ module Scrobbler
     
     # Get information about a user profile.
     def load_info
-        # This function require authentication, but SimpleAuth is not yet 2.0
+        # This function requires authentication, but SimpleAuth is not yet 2.0
         raise NotImplementedError
     end
     
