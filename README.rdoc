@@ -57,6 +57,27 @@ all functions is available at http://rdoc.info/projects/xhochy/scrobbler
 	puts 'Similar Artists'
 	puts "=" * 15
 	artist.similar.each { |a| puts "(#{a.match}%) #{a.name}" }
+
+==Geo
+
+   geo = Scrobbler::Geo.new('Manchester')
+
+   puts 'Events'
+   puts "=" * 10
+   geo.events.each { |e| puts "(#{e.id}) #{e.title}" }
+
+   puts
+
+   puts 'Top Artists'
+   puts "=" * 10
+   geo.top_artists.each { |a| puts "(#{a.name}) #{a.playcount}" }
+
+   puts
+
+   puts 'Top Tracks'
+   puts "=" * 10
+   geo.top_tracks.each { |t| puts "(#{a.name}) #{a.playcount}" }
+
 	
 ==Tags	
 	
