@@ -18,15 +18,15 @@ describe Scrobbler::Geo do
     end
 
     it 'should find 4 events' do
-      @events.size.should == 4
+      @events.size.should eql 4
     end
    
     it "should have the correct event id's" do
-      @events.collect(&:id).should == @event_ids
+      @events.collect(&:id).should eql @event_ids
     end
 
     it 'should have the correct event titles' do
-      @events.collect(&:title).should == @event_titles
+      @events.collect(&:title).should eql @event_titles
     end
   end
 
@@ -36,11 +36,11 @@ describe Scrobbler::Geo do
     end
 
     it 'should find 6 artists' do
-      @top_artists.size.should == 6
+      @top_artists.size.should eql 6
     end
 
     it 'should have the correct artist names' do      
-      @top_artists.collect(&:name).should == @top_artist_names
+      @top_artists.collect(&:name).should eql @top_artist_names
     end
   end
 
@@ -50,11 +50,11 @@ describe Scrobbler::Geo do
     end
 
     it 'should find 6 top tracks' do
-      @top_tracks.size.should == 6
+      @top_tracks.size.should eql 6
     end
 
     it 'should have the correct top track names' do
-      @top_track_names.should == @top_tracks.collect(&:name)
+      @top_track_names.should eql @top_tracks.collect(&:name)
     end
   end
 end
