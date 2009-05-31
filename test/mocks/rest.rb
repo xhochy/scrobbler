@@ -57,6 +57,7 @@ FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=33&api_key=foo123&user=xhochy&all=true', :file => File.join([FIXTURES_BASE, 'library', 'tracks-p33.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=34&api_key=foo123&user=xhochy&all=true', :file => File.join([FIXTURES_BASE, 'library', 'tracks-p34.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&limit=30&force=false&api_key=foo123&user=xhochy&all=false', :file => File.join([FIXTURES_BASE, 'library', 'tracks-f30.xml']))
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=event.getattendees&event=328799&api_key=foo123', :file => File.join([FIXTURES_BASE, 'event', 'attendees.xml']))
 
 
 module Scrobbler
