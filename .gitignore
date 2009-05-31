@@ -7,3 +7,4 @@ scrobbler-*.gem
 *.rake~
 coverage
 spec.html
+scrobbler.gemspec
