@@ -11,6 +11,14 @@ describe Scrobbler::Geo do
     @top_artist_names = ['The Killers','Coldplay','Radiohead','Muse','Franz Ferdinand','U2']
     @top_track_names = ['Use Somebody','Schwarz zu Blau','Sex on Fire','Alles Neu','Poker Face','Ayo Technology']
   end
+
+  describe 'should implement the method' do
+    [:events,:top_tracks,:top_artists].each do |method_name|
+      it "'#{method_name}'" do
+        @geo.should respond_to(method_name)
+      end
+    end
+  end
  
   describe 'finding events in manchester' do
     before do
@@ -39,7 +47,7 @@ describe Scrobbler::Geo do
       @top_artists.size.should eql 6
     end
 
-    it 'should have the correct artist names' do      
+    it 'should have the correct artist names' do
       @top_artists.collect(&:name).should eql @top_artist_names
     end
   end
