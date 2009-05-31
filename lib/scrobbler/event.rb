@@ -81,6 +81,10 @@ module Scrobbler
       get_response('event.getshouts', :shouts, 'shouts', 'shout', {'event'=>@id}, force)
     end
 
+    def attendees(force = false)
+      get_response('event.getattendees', :attendees, 'attendees', 'user', {'event'=>@id}, force)
+    end
+
     # Load additional informatalbumion about this event
     #
     # Calls "event.getinfo" REST method

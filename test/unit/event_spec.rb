@@ -9,19 +9,56 @@ describe Scrobbler::Event do
   it 'should know its id' do
     @event.id.should eql(328799)
   end
-  
-  it 'should implement all methods from the Last.fm 2.0 API' do
-    @event.should respond_to(:attend)
-    @event.should respond_to(:attendees)
-    @event.should respond_to(:load_info)
-    @event.should respond_to(:shouts)
-    @event.should respond_to(:share)
-    @event.should respond_to(:shout)
+
+  describe 'should implement the Last.fm 2.0 API method' do
+    [:attend, :attendees, :load_info, :shouts, :share, :shout].each do |method_name|
+      it "'#{method_name}'" do
+        @event.should respond_to(method_name)
+      end
+    end
   end
   
   it 'should set user\'s status for attendace'
-  
-  it 'should know its attendees'
+
+  describe 'events attendees' do
+    before do
+      @attendees = ["ikea", "Schrollum", "Alpha1", "japps", "Gomhen", "NTG"]
+    end
+
+    it 'should have 6 attendees' do
+      @event.attendees.size.should eql 6
+    end
+
+    it "should know it's attendees names" do
+      @event.attendees.collect(&:name).should eql @attendees
+    end
+
+    describe 'first attendee' do
+      before do
+        @attendee = @event.attendees.first
+      end
+
+      it "should know it's realname" do
+        @attendee.realname.should eql 'Jane'
+      end
+      
+      it "should know it's small image" do
+        @attendee.image(:small).should eql 'http://userserve-ak.last.fm/serve/34/17805805.jpg'
+      end
+      
+      it "should know it's medium image" do
+        @attendee.image(:medium).should eql 'http://userserve-ak.last.fm/serve/64/17805805.jpg'
+      end
+      
+      it "should know it's large image" do
+        @attendee.image(:large).should eql 'http://userserve-ak.last.fm/serve/126/17805805.jpg'
+      end
+
+      it "should know it's large url" do
+        @attendee.url.should eql 'http://www.last.fm/user/ikea'
+      end
+    end
+  end
   
   it 'should be able to load its info' do
     @event.load_info
