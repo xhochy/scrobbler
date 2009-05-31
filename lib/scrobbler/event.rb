@@ -54,7 +54,7 @@ module Scrobbler
 
       def headliner_alrady_listed_in_artist_list?(artists,headliner)
         artists.each do |artist|
-            return true if artist.name == headliner.name
+          return true if artist.name == headliner.name
         end
         false
       end
@@ -83,6 +83,21 @@ module Scrobbler
 
     def attendees(force = false)
       get_response('event.getattendees', :attendees, 'attendees', 'user', {'event'=>@id}, force)
+    end
+
+    def shout
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def attend
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def share
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
     end
 
     # Load additional informatalbumion about this event
