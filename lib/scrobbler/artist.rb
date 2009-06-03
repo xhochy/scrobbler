@@ -62,7 +62,7 @@ module Scrobbler
   class Artist < Base
     attr_accessor :name, :mbid, :playcount, :rank, :url, :count, :streamable
     attr_accessor :chartposition, :image_small, :image_medium, :image_large
-    attr_accessor :match, :tagcount
+    attr_accessor :match, :tagcount, :listeners
     
     class << self
       def new_from_libxml(xml)
@@ -129,7 +129,12 @@ module Scrobbler
     def image(which=:small)
       which = which.to_s
       raise ArgumentError unless ['small', 'medium', 'large'].include?(which)      
-      instance_variable_get("@image_#{which}")
+      img_url = instance_variable_get("@image_#{which}")
+      if img_url.nil?
+        load_info
+        img_url = instance_variable_get("@image_#{which}")
+      end
+      img_url
     end
     
     def similar(force=false)
@@ -150,6 +155,46 @@ module Scrobbler
     
     def top_tags(force=false)
       get_response('artist.gettoptags', :top_tags, 'toptags', 'tag', {'artist' => @name}, force)
+    end
+    
+    @info_loaded = false
+    # Get the metadata
+    def load_info
+        doc = Base.request('artist.getinfo', {'artist' => @name})
+        doc.root.children.each do |childL1|
+            next unless childL1.name == 'artist'
+            childL1.children.each do |child|
+                @mbid = child.content if child.name == 'mbid'
+                @url = child.content if child.name == 'url'
+                if child.name == 'image'
+                    @image_small = child.content if child['size'] == 'small'
+                    @image_medium = child.content if child['size'] == 'medium'
+                    @image_large = child.content if child['size'] == 'large'
+                end
+                if child.name == 'streamable'
+                    if ['1', 'true'].include?(child.content)
+                        @streamable = true
+                    else
+                        @streamable = false
+                    end
+                end
+                if child.name == 'stats'
+                    child.children.each do |childL3|
+                        @listeners = childL3.content.to_i if childL3.name == 'listeners'
+                        @playcount = childL3.content.to_i if childL3.name == 'playcount'
+                    end
+                end
+            end
+        end
+        @info_loaded = true
+    end # load_info
+    
+    def ==(otherArtist)
+        if otherArtist.is_a?(Scrobbler::Artist)
+            return false if @name != otherArtist.name
+            return true
+        end
+        false
     end
     
   end

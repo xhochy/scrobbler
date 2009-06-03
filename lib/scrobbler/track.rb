@@ -101,5 +101,14 @@ module Scrobbler
     def top_tags(force=false)
       get_response('track.gettoptags', :top_tags, 'toptags', 'tag', {'artist'=>@artist, 'track'=>@name}, force)
     end
+    
+    def ==(otherTrack)
+        if otherTrack.is_a?(Scrobbler::Track)
+            return false if @name != otherTrack.name
+            return false if @artist != otherTrack.artist
+            return true
+        end
+        false
+    end
   end
 end
