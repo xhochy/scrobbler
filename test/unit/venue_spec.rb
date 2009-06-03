@@ -9,10 +9,14 @@ describe Scrobbler::Venue do
   end
 
   describe 'should implement the method' do
-    [:events,:past_events,:search].each do |method_name|
+    [:events,:past_events].each do |method_name|
       it "'#{method_name}'" do
         @venue.should respond_to(method_name)
       end
+    end
+
+    it 'search' do
+      Scrobbler::Venue.should respond_to(:search)
     end
   end
 
@@ -94,5 +98,7 @@ describe Scrobbler::Venue do
     end
   end
 
-  describe 'searching for '
+  describe 'searching for venues' do
+    #TODO
+  end
 end

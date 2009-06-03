@@ -44,6 +44,10 @@ module Scrobbler
       def id_from_url(url)
         url[url.rindex('/')+1,url.length].to_i
       end
+
+      def search(venue, force=false)
+        get_response('venue.search', :venuematches, 'venuematches', 'venue', {'venue'=>venue}, force)
+      end
     end
 
     def initialize(name,data = {})
@@ -54,10 +58,6 @@ module Scrobbler
 
     def events(force=false)
       get_response('venue.getevents', :events, 'events', 'event', {'venue'=>@id}, force)
-    end
-    
-    def search
-      raise NotImplementedError
     end
 
     def past_events(force=false)
