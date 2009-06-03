@@ -34,7 +34,17 @@ describe Scrobbler::Artist do
   
   it 'should be able to get images for this artist in a variety of sizes'
   
-  it 'should be able to load the artist info'
+  it 'should be able to load the artist info' do
+    @artist.load_info
+    @artist.mbid.should eql('bfcc6d75-a6a5-4bc6-8282-47aec8531818')
+    @artist.url.should eql('http://www.last.fm/music/Cher')
+    @artist.image(:small).should eql('http://userserve-ak.last.fm/serve/34/9137697.jpg')
+    @artist.image(:medium).should eql('http://userserve-ak.last.fm/serve/64/9137697.jpg')
+    @artist.image(:large).should eql('http://userserve-ak.last.fm/serve/126/9137697.jpg')
+    @artist.streamable.should be_true
+    @artist.listeners.should eql(383775)
+    @artist.playcount.should eql(3141583)
+  end
   
   it 'should be able to get shouts for this artist'
   

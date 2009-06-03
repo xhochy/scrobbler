@@ -67,6 +67,9 @@ FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=event.ge
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=tag.gettoptags&api_key=foo123', :file => File.join([FIXTURES_BASE, 'tag', 'toptags.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=tag.getsimilar&tag=rock&api_key=foo123', :file => File.join([FIXTURES_BASE, 'tag', 'similar.xml']))
 
+## Artist
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?artist=Metallica&method=artist.getinfo&api_key=foo123', :file => File.join([FIXTURES_BASE, 'artist', 'info.xml']))
+
 module Scrobbler
   module REST
   	class Connection
