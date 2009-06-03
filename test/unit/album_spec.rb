@@ -37,7 +37,7 @@ describe Scrobbler::Album do
     @album.listeners.should eql(131312)
     @album.playcount.should eql(2096260)
     @album.top_tags.should be_kind_of(Array)
-    @album.top_tags.count.should eql(5)
+    @album.should have(5).top_tags
     @album.top_tags.first.should be_kind_of(Scrobbler::Tag)
     @album.top_tags.first.name.should eql('country')
     @album.top_tags.first.url.should eql('http://www.last.fm/tag/country')
