@@ -60,8 +60,8 @@ module Scrobbler
       raise NotImplementedError
     end
 
-    def past_events
-      raise NotImplementedError
-    end    
+    def past_events(force=false)
+      get_response('venue.getpastevents', :events, 'events', 'event', {'venue'=>@id}, force)
+    end
   end
 end

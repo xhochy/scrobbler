@@ -75,4 +75,24 @@ describe Scrobbler::Venue do
       @events.collect(&:title).should eql @event_titles
     end
   end
+
+  describe 'finding past events for Postbahnhof, Berlin' do
+    before do
+      @events = @venue.past_events
+    end
+
+    it 'should find 4 events' do
+      @events.size.should eql 4
+    end
+
+    it "should have the correct event id's" do
+      @events.collect(&:id).should eql @event_ids
+    end
+
+    it 'should have the correct event titles' do
+      @events.collect(&:title).should eql @event_titles
+    end
+  end
+
+  describe 'searching for '
 end

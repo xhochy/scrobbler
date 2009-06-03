@@ -69,6 +69,7 @@ FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=tag.gets
 
 ## Venue
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=venue.getevents&api_key=foo123&venue=9027137', :file => File.join([FIXTURES_BASE, 'venue', 'events.xml']))
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=venue.getpastevents&api_key=foo123&venue=9027137', :file => File.join([FIXTURES_BASE, 'venue', 'events.xml']))
 
 
 module Scrobbler
