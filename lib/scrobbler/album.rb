@@ -154,5 +154,23 @@ module Scrobbler
       end
       img_url
     end
+    
+    # Tag an album using a list of user supplied tags. 
+    def add_tags(tags)
+        # This function require authentication, but SimpleAuth is not yet 2.0
+        raise NotImplementedError
+    end
+
+    # Get the tags applied by an individual user to an album on Last.fm.
+    def tags()
+        # This function require authentication, but SimpleAuth is not yet 2.0
+        raise NotImplementedError
+    end
+
+    # Remove a user's tag from an album.
+    def remove_tag()
+        # This function require authentication, but SimpleAuth is not yet 2.0
+        raise NotImplementedError
+    end
   end
 end
