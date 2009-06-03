@@ -8,3 +8,4 @@ scrobbler-*.gem
 coverage
 spec.html
 scrobbler.gemspec
+catalog.xml

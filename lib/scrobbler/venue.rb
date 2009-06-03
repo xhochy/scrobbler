@@ -9,7 +9,8 @@ module Scrobbler
         xml.children.each do |child|
           data[:name] = child.content if child.name == 'name'
           data[:id] = child.content.to_i if child.name == 'id'
-          data[:url] = child.content if child.name == 'url'
+          data[:url] = child.content if child.name == 'url'          
+
           if child.name == 'location'
             child.children.each do |location_element|
               data[:city] = location_element.content if location_element.name == 'city'
@@ -27,7 +28,21 @@ module Scrobbler
             end
           end
         end
+
+        if data.has_key?(:url) && !data.has_key?(:id)
+          data[:id] = id_from_url(data[:url])
+        end
+
         Venue.new(data[:name], data)
+      end
+
+      # this retrives the venue ID from 
+      # the venue because the venue
+      # ID is not supplied
+      # in the XML apart from
+      # in the venue URL
+      def id_from_url(url)
+        url[url.rindex('/')+1,url.length].to_i
       end
     end
 
@@ -36,5 +51,17 @@ module Scrobbler
       @name = name
       populate_data(data)
     end
+
+    def events(force=false)
+      get_response('venue.getevents', :events, 'events', 'event', {'venue'=>@id}, force)
+    end
+    
+    def search
+      raise NotImplementedError
+    end
+
+    def past_events
+      raise NotImplementedError
+    end    
   end
 end
