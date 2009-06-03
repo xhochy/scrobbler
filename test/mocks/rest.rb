@@ -5,6 +5,8 @@ require 'digest/md5'
 
 FIXTURES_BASE = File.join([File.dirname(__FILE__), '..', 'fixtures', 'xml'])
 FakeWeb.allow_net_connect = false
+
+## Library
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&api_key=foo123&user=xhochy&all=true', :file => File.join([FIXTURES_BASE, 'library', 'albums-p1.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=2&api_key=foo123&user=xhochy&all=true', :file => File.join([FIXTURES_BASE, 'library', 'albums-p2.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=3&api_key=foo123&user=xhochy&all=true', :file => File.join([FIXTURES_BASE, 'library', 'albums-p3.xml']))
@@ -57,8 +59,13 @@ FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=33&api_key=foo123&user=xhochy&all=true', :file => File.join([FIXTURES_BASE, 'library', 'tracks-p33.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=34&api_key=foo123&user=xhochy&all=true', :file => File.join([FIXTURES_BASE, 'library', 'tracks-p34.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&limit=30&force=false&api_key=foo123&user=xhochy&all=false', :file => File.join([FIXTURES_BASE, 'library', 'tracks-f30.xml']))
+
+## Event
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=event.getattendees&event=328799&api_key=foo123', :file => File.join([FIXTURES_BASE, 'event', 'attendees.xml']))
 
+## Tag
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=tag.gettoptags&api_key=foo123', :file => File.join([FIXTURES_BASE, 'tag', 'toptags.xml']))
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=tag.getsimilar&tag=rock&api_key=foo123', :file => File.join([FIXTURES_BASE, 'tag', 'similar.xml']))
 
 module Scrobbler
   module REST

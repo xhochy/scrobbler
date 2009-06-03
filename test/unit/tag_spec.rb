@@ -14,14 +14,21 @@ describe Scrobbler::Tag do
     @tag.should respond_to(:similar)
     @tag.should respond_to(:top_albums)
     @tag.should respond_to(:top_artists)
-    @tag.should respond_to(:top_tags)
+    Scrobbler::Tag.should respond_to(:top_tags)
     @tag.should respond_to(:top_tracks)
     @tag.should respond_to(:weekly_artist_chart)
     @tag.should respond_to(:weekly_chart_list)
-    @tag.should respond_to(:search)
+    Scrobbler::Tag.should respond_to(:search)
   end
   
-  it 'should be able to get similar tags'
+  it 'should be able to get similar tags' do
+    @tag.should have(50).similar
+    first = @tag.similar.first
+    first.should be_kind_of(Scrobbler::Tag)
+    first.name.should eql('classic rock')
+    first.url.should eql('http://www.last.fm/tag/classic%20rock')
+    first.streamable.should be_true
+  end
   
   it 'should be able to find its top albums' do
     @tag.top_albums.should be_kind_of(Array)
@@ -57,12 +64,12 @@ describe Scrobbler::Tag do
   end
   
   it 'should be able to find global top tags' do
-    @tag.top_tags.should be_kind_of(Array)
-    @tag.top_tags.should have(50).items
-    @tag.top_tags.first.should be_kind_of(Scrobbler::Tag)
-    @tag.top_tags.first.name.should eql('rock')
-    @tag.top_tags.first.count.should eql(2401966)
-    @tag.top_tags.first.url.should eql('www.last.fm/tag/rock')
+    Scrobbler::Tag.should have(250).top_tags
+    first = Scrobbler::Tag.top_tags.first
+    first.should be_kind_of(Scrobbler::Tag)
+    first.name.should eql('rock')
+    first.count.should eql(2267576)
+    first.url.should eql('www.last.fm/tag/rock')
   end
   
   it 'should be able to find its top tracks' do
@@ -83,6 +90,12 @@ describe Scrobbler::Tag do
     @tag.top_tracks.first.image(:medium).should eql('http://images.amazon.com/images/P/B00069590Q.01._SCMZZZZZZZ_.jpg')
     @tag.top_tracks.first.image(:large).should eql('http://images.amazon.com/images/P/B00069590Q.01._SCMZZZZZZZ_.jpg')
   end
+  
+  it 'should be able to get the weekly artist chart'
+  
+  it 'should be able to get the weekly chart list'
+  
+  it 'should be able to search for a tag'
   
 end
 
