@@ -113,7 +113,7 @@ module Scrobbler
     # @todo Add language code for wiki translation
     def load_info
       return nil if @info_loaded
-      xml = request('album.getinfo', {'artist' => @artist, 'name' => @name})
+      xml = Base.request('album.getinfo', {'artist' => @artist, 'name' => @name})
       unless xml.root['status'] == 'failed'
         xml.root.children.each do |childL1|
           next unless childL1.name == 'album'
@@ -153,6 +153,24 @@ module Scrobbler
         img_url = instance_variable_get("@image_#{which}")
       end
       img_url
+    end
+    
+    # Tag an album using a list of user supplied tags. 
+    def add_tags(tags)
+        # This function require authentication, but SimpleAuth is not yet 2.0
+        raise NotImplementedError
+    end
+
+    # Get the tags applied by an individual user to an album on Last.fm.
+    def tags()
+        # This function require authentication, but SimpleAuth is not yet 2.0
+        raise NotImplementedError
+    end
+
+    # Remove a user's tag from an album.
+    def remove_tag()
+        # This function require authentication, but SimpleAuth is not yet 2.0
+        raise NotImplementedError
     end
   end
 end

@@ -30,7 +30,7 @@ module Scrobbler
         options[:user] = @user.name
         albums = []
         if options[:all]
-            doc = request('library.getalbums', options)
+            doc = Base.request('library.getalbums', options)
             root = nil
             doc.root.children.each do |child|
                 next unless child.name == 'albums'
@@ -58,7 +58,7 @@ module Scrobbler
         options[:user] = @user.name
         artists = []
         if options[:all]
-            doc = request('library.getartists', options)
+            doc = Base.request('library.getartists', options)
             root = nil
             doc.root.children.each do |child|
                 next unless child.name == 'artists'
@@ -86,7 +86,7 @@ module Scrobbler
         options[:user] = @user.name
         tracks = []
         if options[:all]
-            doc = request('library.gettracks', options)
+            doc = Base.request('library.gettracks', options)
             root = nil
             doc.root.children.each do |child|
                 next unless child.name == 'tracks'
