@@ -53,14 +53,14 @@ module Scrobbler
     attr_reader :count, :streamable
     
     # needed for weekly album charts
-    attr_reader :chartposition
+    attr_reader :chartposition, :position
     
     class << self
       def new_from_libxml(xml)
         data = {}
 
         xml.children.each do |child|
-          data[:name] = child.content if child.name == 'name'
+          data[:name] = child.content if ['name', 'title'].include?(child.name)
           data[:playcount] = child.content.to_i if child.name == 'playcount'
           data[:tagcount] = child.content.to_i if child.name == 'tagcount'
           data[:mbid] = child.content if child.name == 'mbid'
@@ -81,6 +81,7 @@ module Scrobbler
         # Get all information from the root's attributes
         data[:mbid] = xml['mbid'] if xml['mbid']
         data[:rank] = xml['rank'].to_i if xml['rank']
+        data[:position] = xml['position'].to_i if xml['position']
         
         # If there is no name defined, than this was an empty album tag
         return nil if data[:name].empty?

@@ -67,15 +67,15 @@ FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=event.ge
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=tag.gettoptags&api_key=foo123', :file => File.join([FIXTURES_BASE, 'tag', 'toptags.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=tag.getsimilar&tag=rock&api_key=foo123', :file => File.join([FIXTURES_BASE, 'tag', 'similar.xml']))
 
-
 ## Venue
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=venue.getevents&api_key=foo123&venue=9027137', :file => File.join([FIXTURES_BASE, 'venue', 'events.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=venue.getpastevents&api_key=foo123&venue=9027137', :file => File.join([FIXTURES_BASE, 'venue', 'events.xml']))
 
-
 ## Artist
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?artist=Metallica&method=artist.getinfo&api_key=foo123', :file => File.join([FIXTURES_BASE, 'artist', 'info.xml']))
 
+## Track
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?api_key=foo123&method=track.getinfo&artist=Carrie%20Underwood&track=Before%20He%20Cheats', :file => File.join([FIXTURES_BASE, 'track', 'info.xml']))
 
 module Scrobbler
   module REST

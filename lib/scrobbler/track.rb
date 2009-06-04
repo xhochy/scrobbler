@@ -35,14 +35,9 @@
 #   (2169) ajsbabiegirl
 module Scrobbler
   class Track < Base
-    attr_accessor :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url, :reach
-    attr_accessor :streamable, :album, :album_mbid, :date, :date_uts, :now_playing
-    
-    # only seems to be used on top tracks for tag
-    attr_accessor :count, :image_large, :image_small, :image_medium
-    
-    # for weekly top tracks
-    attr_accessor :chartposition, :tagcount
+    attr_accessor :artist, :name, :mbid, :playcount, :rank, :url, :id, :count
+    attr_accessor :streamable, :album, :date, :now_playing, :tagcount
+    attr_accessor :duration, :listeners
     
     class << self
       def new_from_libxml(xml)
@@ -91,15 +86,57 @@ module Scrobbler
     def image(which=:small)
       which = which.to_s
       raise ArgumentError unless ['small', 'medium', 'large'].include?(which)      
-      instance_variable_get("@image_#{which}")
+      img_url = instance_variable_get("@image_#{which}")
+      if img_url.nil?
+        load_info
+        img_url = instance_variable_get("@image_#{which}")
+      end
+      img_url
     end
     
+    def add_tags(tags)
+        # This function requires authentication, but SimpleAuth is not yet 2.0
+        raise NotImplementedError
+    end
+
+    def ban
+        # This function requires authentication, but SimpleAuth is not yet 2.0
+        raise NotImplementedError
+    end
+    
+    @info_loaded = false
+    def load_info
+        return nil if @info_loaded
+        doc = Base.request('track.getinfo', :artist => @artist.name, :track => @name)
+        doc.root.children.each do |childL1|
+            next unless childL1.name == 'track'
+            childL1.children.each do |child|
+                @id = child.content.to_i if child.name == 'id'
+                @mbid = child.content if child.name == 'mbid'
+                @duration = child.content.to_i if child.name == 'duration'
+                @url = child.content if child.name == 'url'
+                if child.name == 'streamable'
+                    if ['1', 'true'].include?(child.content)
+                      @streamable = true
+                    else
+                      @streamable = false
+                    end
+                end
+                @listeners = child.content.to_i if child.name == 'listeners'
+                @playcount = child.content.to_i if child.name == 'playcount'
+                @artist = Artist.new_from_libxml(child) if child.name == 'artist'
+                @album = Album.new_from_libxml(child) if child.name == 'album'
+            end
+        end
+        @info_loaded = true
+    end
+
     def top_fans(force=false)
-      get_response('track.gettopfans', :fans, 'topfans', 'user', {'artist'=>@artist, 'track'=>@name}, force)
+      get_response('track.gettopfans', :fans, 'topfans', 'user', {:artist=>@artist.name, :track=>@name}, force)
     end
     
     def top_tags(force=false)
-      get_response('track.gettoptags', :top_tags, 'toptags', 'tag', {'artist'=>@artist, 'track'=>@name}, force)
+      get_response('track.gettoptags', :top_tags, 'toptags', 'tag', {:artist=>@artist.name.to_s, :track=>@name}, force)
     end
     
     def ==(otherTrack)

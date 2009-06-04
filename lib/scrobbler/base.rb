@@ -45,7 +45,7 @@ class Base
       
       def populate_data(data = {})
         data.each do |key, value|
-          instance_variable_set("@#{key}", value)
+          instance_variable_set("@#{key.to_s}", value)
         end
       end
 
