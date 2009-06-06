@@ -60,23 +60,23 @@ all functions is available at http://rdoc.info/projects/xhochy/scrobbler
 
 ==Geo
 
-   geo = Scrobbler::Geo.new('Manchester')
+   geo = Scrobbler::Geo.new()
 
    puts 'Events'
    puts "=" * 10
-   geo.events.each { |e| puts "(#{e.id}) #{e.title}" }
+   geo.events(:location => 'Manchester').each { |e| puts "(#{e.id}) #{e.title}" }
 
    puts
 
    puts 'Top Artists'
    puts "=" * 10
-   geo.top_artists.each { |a| puts "(#{a.name}) #{a.playcount}" }
+   geo.top_artists(:location => 'Manchester').each { |a| puts "(#{a.name}) #{a.playcount}" }
 
    puts
 
    puts 'Top Tracks'
    puts "=" * 10
-   geo.top_tracks.each { |t| puts "(#{a.name}) #{a.playcount}" }
+   geo.top_tracks(:location => 'Manchester').each { |t| puts "(#{a.name}) #{a.playcount}" }
 
 	
 ==Tags	
