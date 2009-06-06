@@ -77,6 +77,21 @@ FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?artist=Metallic
 ## Track
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?api_key=foo123&method=track.getinfo&artist=Carrie%20Underwood&track=Before%20He%20Cheats', :file => File.join([FIXTURES_BASE, 'track', 'info.xml']))
 
+
+## Geo
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.getevents&api_key=foo123&page=1&force=false&location=Manchester', :file => File.join([FIXTURES_BASE, 'geo', 'events-p1.xml']))
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.getevents&api_key=foo123&page=2&force=false&location=Manchester', :file => File.join([FIXTURES_BASE, 'geo', 'events-p2.xml']))
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.getevents&api_key=foo123&page=3&force=false&location=Manchester', :file => File.join([FIXTURES_BASE, 'geo', 'events-p3.xml']))
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?distance=15&method=geo.getevents&api_key=foo123&page=1&force=false', :file => File.join([FIXTURES_BASE, 'geo', 'events-distance-p1.xml']))
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?long=-74.00639&method=geo.getevents&api_key=foo123&page=1&lat=40.71417&force=false', :file => File.join([FIXTURES_BASE, 'geo', 'events-lat-long.xml']))
+
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.gettopartists&api_key=foo123&page=1&force=false&location=Spain', :file => File.join([FIXTURES_BASE, 'geo', 'top_artists-p1.xml']))
+
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.gettoptracks&api_key=foo123&page=1&force=false&location=Germany', :file => File.join([FIXTURES_BASE, 'geo', 'top_tracks-p1.xml']))
+                            
+
+
+
 module Scrobbler
   module REST
   	class Connection
@@ -152,12 +167,6 @@ module Scrobbler
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/neighbours.xml")
             elsif pieces.last =~ /[?&]method=user\.getrecenttracks/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/user/recenttracks.xml")
-            elsif pieces.last =~ /[?&]method=geo\.getevents/
-              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/geo/events.xml")
-            elsif pieces.last =~ /[?&]method=geo\.gettopartists/
-              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/geo/top_artists.xml")
-            elsif pieces.last =~ /[?&]method=geo\.gettoptracks/
-              return File.read(File.dirname(__FILE__) + "/../fixtures/xml/geo/top_tracks.xml")
             elsif pieces.last =~ /[?&]method=event\.getinfo/
               return File.read(File.dirname(__FILE__) + "/../fixtures/xml/event/event.xml")
             elsif pieces.last =~ /[?&]method=event\.getshouts/
