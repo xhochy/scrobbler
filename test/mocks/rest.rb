@@ -84,11 +84,11 @@ FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.gete
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.getevents&api_key=foo123&page=3&force=false&location=Manchester', :file => File.join([FIXTURES_BASE, 'geo', 'events-p3.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?distance=15&method=geo.getevents&api_key=foo123&page=1&force=false', :file => File.join([FIXTURES_BASE, 'geo', 'events-distance-p1.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?long=-74.00639&method=geo.getevents&api_key=foo123&page=1&lat=40.71417&force=false', :file => File.join([FIXTURES_BASE, 'geo', 'events-lat-long.xml']))
-
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.gettopartists&api_key=foo123&page=1&force=false&location=Spain', :file => File.join([FIXTURES_BASE, 'geo', 'top_artists-p1.xml']))
-
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.gettoptracks&api_key=foo123&page=1&force=false&location=Germany', :file => File.join([FIXTURES_BASE, 'geo', 'top_tracks-p1.xml']))
-                            
+
+#user
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=user.getplaylists&api_key=foo123&user=jnunemaker', :file => File.join([FIXTURES_BASE, 'user', 'playlists.xml']))
 
 
 
