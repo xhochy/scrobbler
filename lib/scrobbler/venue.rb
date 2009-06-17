@@ -19,10 +19,10 @@ module Scrobbler
               data[:postalcode] = location_element.content if location_element.name == 'postalcode'
               data[:timezone] = location_element.content if location_element.name == 'timezone'
 
-              if location_element.name == 'point'
+              if location_element.name == 'point' || location_element.name == 'geo:point'
                 location_element.children.each do |geo_element|
-                  data[:geo_lat] = geo_element.content if geo_element.name == 'lat'
-                  data[:geo_long] = geo_element.content if geo_element.name == 'long'
+                  data[:geo_lat] = geo_element.content if ['lat', 'geo:lat'].include?(geo_element.name)
+                  data[:geo_long] = geo_element.content if ['long', 'geo:long'].include?(geo_element.name)
                 end
               end
             end

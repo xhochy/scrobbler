@@ -1,5 +1,7 @@
 $KCODE = 'u'
 
+include LibXML
+
 module Scrobbler
   
   API_URL     = 'http://ws.audioscrobbler.com/'
@@ -38,7 +40,7 @@ class Base
         end
         
         url = '/2.0/?' + paramlist.join('&')
-        LibXML::XML::Document.string(self.connection.get(url))
+        XML::Document.string(self.connection.get(url))
     end
     
     private
