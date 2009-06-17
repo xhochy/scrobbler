@@ -124,9 +124,9 @@ module Scrobbler
     end
     
     # Get a list of a user's playlists on Last.fm. 
-    def playlists
-      # This needs a Playlist class which is yet not available
-      raise NotImplementedError
+    def playlists(force=false)
+                          #(api_method, instance_name, parent, element, parameters, force=false)
+      get_response('user.getplaylists', :playlist, 'playlists', 'playlist', {'user'=>@username}, force)
     end
     
     # Get a list of the recent tracks listened to by this user. Indicates now 

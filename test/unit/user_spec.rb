@@ -60,15 +60,15 @@ describe Scrobbler::User do
   end
   
   it 'should be able to get a list of its friends' do
-     @user.friends.should be_kind_of(Array)
-     @user.friends.should have(3).items
-     @user.friends.first.should be_kind_of(Scrobbler::User)
-     @user.friends.first.name.should eql('lobsterclaw')
-     @user.friends.first.realname.should eql('Laura Weiss')
-     @user.friends.first.image(:small).should eql('http://userserve-ak.last.fm/serve/34/1733471.jpg')
-     @user.friends.first.image(:medium).should eql('http://userserve-ak.last.fm/serve/64/1733471.jpg')
-     @user.friends.first.image(:large).should eql('http://userserve-ak.last.fm/serve/126/1733471.jpg')
-     @user.friends.first.url.should eql('http://www.last.fm/user/lobsterclaw')
+    @user.friends.should be_kind_of(Array)
+    @user.friends.should have(3).items
+    @user.friends.first.should be_kind_of(Scrobbler::User)
+    @user.friends.first.name.should eql('lobsterclaw')
+    @user.friends.first.realname.should eql('Laura Weiss')
+    @user.friends.first.image(:small).should eql('http://userserve-ak.last.fm/serve/34/1733471.jpg')
+    @user.friends.first.image(:medium).should eql('http://userserve-ak.last.fm/serve/64/1733471.jpg')
+    @user.friends.first.image(:large).should eql('http://userserve-ak.last.fm/serve/126/1733471.jpg')
+    @user.friends.first.url.should eql('http://www.last.fm/user/lobsterclaw')
   end
   
   it 'should be able to load additional information'
@@ -102,8 +102,36 @@ describe Scrobbler::User do
   end
   
   it 'should be able to list the attened events'
+
+  describe 'retrieving a users playlist' do
+
+    before do
+      @playlists = @user.playlists
+      @firstplaylist = @playlists.first
+    end
+
+    it 'should return 4 playlists' do
+      @playlists.size.should eql(4)
+    end
+
+    it 'should have the correct attributes in the first playlist' do
+      #@firstplaylist.id.should eql(5606)
+      require 'pp'
+      pp @firstplaylist.id
+      @firstplaylist.title.should eql('Misc gubbins')
+      @firstplaylist.description.should eql('This is a misc test playlist with a few random tracks in it.')
+      @firstplaylist.date.should eql(Time.mktime(2006, 11, 15, 13, 05, 48))
+      @firstplaylist.size.should eql(10)
+      @firstplaylist.duration.should eql(2771)
+      @firstplaylist.streamable.should be_false
+      @firstplaylist.creator.should eql('http://www.last.fm/user/RJ')
+      @firstplaylist.url.should eql('http://www.last.fm/user/RJ/library/playlists/4bq_misc_gubbins')
+      @firstplaylist.image(:small).should eql('http://userserve-ak.last.fm/serve/34/4218758.jpg')
+      @firstplaylist.image(:medium).should eql('http://userserve-ak.last.fm/serve/64/4218758.jpg')
+      @firstplaylist.image(:large).should eql('http://userserve-ak.last.fm/serve/126/4218758.jpg')
+    end
+  end
   
-  it 'should be able to get the playlists'
   
   it 'should be able to fetch the recent tracks' do
     @user.should have(10).recent_tracks
