@@ -71,6 +71,9 @@ FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=tag.gets
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=venue.getevents&api_key=foo123&venue=9027137', :file => File.join([FIXTURES_BASE, 'venue', 'events.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=venue.getpastevents&api_key=foo123&venue=9027137', :file => File.join([FIXTURES_BASE, 'venue', 'events.xml']))
 
+## Auth
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?api_key=foo123&method=token&api_sig=39dab3a9fd50e89177a2090fc059e8e1', :file => File.join([FIXTURES_BASE, 'auth', 'token.xml']))
+
 ## Artist
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?artist=Metallica&method=artist.getinfo&api_key=foo123', :file => File.join([FIXTURES_BASE, 'artist', 'info.xml']))
 
@@ -87,7 +90,7 @@ FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?long=-74.00639&
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.gettopartists&api_key=foo123&page=1&force=false&location=Spain', :file => File.join([FIXTURES_BASE, 'geo', 'top_artists-p1.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.gettoptracks&api_key=foo123&page=1&force=false&location=Germany', :file => File.join([FIXTURES_BASE, 'geo', 'top_tracks-p1.xml']))
 
-#user
+# User
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=user.getplaylists&api_key=foo123&user=jnunemaker', :file => File.join([FIXTURES_BASE, 'user', 'playlists.xml']))
 
 

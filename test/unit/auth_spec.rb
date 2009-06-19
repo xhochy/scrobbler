@@ -17,7 +17,9 @@ describe Scrobbler::Auth do
   
   it 'should be able to fetch a session key'
   
-  it 'should be able to fetch a request token'
+  it 'should be able to fetch a request token' do
+    @auth.token.should eql('0e6af5cd2fff6b314994af5b0c58ecc1')
+  end
   
   it 'should be able to start a web session'
 

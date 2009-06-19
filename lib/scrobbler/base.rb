@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 $KCODE = 'u'
 
 include LibXML
@@ -11,8 +13,16 @@ class Base
         @@api_key = api_key
     end
 
+    def Base.secret=(secret)
+        @@secret = secret
+    end
+
     def Base.connection
         @connection ||= REST::Connection.new(API_URL)
+    end
+    
+    def Base.sanitize(param)
+      URI.escape(param.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
     end
     
     def Base.get(api_method, parent, element, parameters = {})
@@ -30,17 +40,31 @@ class Base
     end
     
     def Base.request(api_method, parameters = {})
-        parameters['api_key'] = @@api_key
-        parameters['method'] = api_method.to_s
-        paramlist = []
-        parameters.each do |key, value|
-            good_key = URI.escape(key.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
-            good_value = URI.escape(value.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
-            paramlist << "#{good_key}=#{good_value}"
+      parameters = {:signed => false}.merge(parameters)
+      parameters['api_key'] = @@api_key
+      parameters['method'] = api_method.to_s
+      paramlist = []
+      # Check if we want a signed call and pop :signed
+      if parameters.delete :signed
+        #1: Sort alphabetically
+        params = parameters.sort
+        #2: concat them into one string
+        str = params.join('')
+        #3: Append secret
+        str = str + @@secret
+        #4: Make a md5 hash
+        md5 = Digest::MD5.hexdigest(str)
+        params << [:api_sig, md5]
+        params.each do |a|
+          paramlist << "#{sanitize(a[0])}=#{sanitize(a[1])}"
         end
-        
-        url = '/2.0/?' + paramlist.join('&')
-        XML::Document.string(self.connection.get(url))
+      else
+        parameters.each do |key, value|
+          paramlist << "#{sanitize(key)}=#{sanitize(value)}"
+        end
+      end
+      url = '/2.0/?' + paramlist.join('&')
+      XML::Document.string(self.connection.get(url))
     end
     
     private
