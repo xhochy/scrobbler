@@ -47,7 +47,7 @@ class Base
       # Check if we want a signed call and pop :signed
       if parameters.delete :signed
         #1: Sort alphabetically
-        params = parameters.sort
+        params = parameters.sort{|a,b| a[0].to_s<=>b[0].to_s}
         #2: concat them into one string
         str = params.join('')
         #3: Append secret

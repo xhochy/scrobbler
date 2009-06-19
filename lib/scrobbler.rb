@@ -11,6 +11,7 @@ require 'scrobbler/shout'
 require 'scrobbler/venue'
 require 'scrobbler/geo'
 require 'scrobbler/user'
+require 'scrobbler/session'
 require 'scrobbler/tag'
 require 'scrobbler/track'
 
