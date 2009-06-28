@@ -38,8 +38,12 @@ class Base
         end
         elements
     end
-    
-    def Base.request(api_method, parameters = {})
+
+    def Base.post_request(api_method, parameters = {}, request_method = 'get')
+      Base.request(api_method, parameters, 'post')
+    end
+
+    def Base.request(api_method, parameters = {}, request_method = 'get')
       parameters = {:signed => false}.merge(parameters)
       parameters['api_key'] = @@api_key
       parameters['method'] = api_method.to_s
@@ -64,7 +68,7 @@ class Base
         end
       end
       url = '/2.0/?' + paramlist.join('&')
-      XML::Document.string(self.connection.get(url))
+      XML::Document.string(self.connection.send(request_method,url))
     end
     
     private

@@ -90,9 +90,8 @@ module Scrobbler
       raise NotImplementedError
     end
 
-    def attend
-      # This function require authentication, but SimpleAuth is not yet 2.0
-      raise NotImplementedError
+    def attend(session, attendance_status)
+      doc = Base.post_request('event.attend',{:event => @id, :signed => true, :status => attendance_status, :sk => session.key})
     end
 
     def share
