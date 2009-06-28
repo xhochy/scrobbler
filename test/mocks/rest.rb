@@ -62,7 +62,7 @@ FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.
 
 ## Event
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=event.getattendees&event=328799&api_key=foo123', :file => File.join([FIXTURES_BASE, 'event', 'attendees.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?api_key=foo123&event=328799&method=event.attend&sk=d580d57f32848f5dcf574d1ce18d78b2&status=1&api_sig=c476ec753082205327b0f6ef922d82c8', :file => File.join([FIXTURES_BASE, 'event', 'attend.xml']))
+FakeWeb.register_uri(:post, 'http://ws.audioscrobbler.com:80/2.0/?api_key=foo123&event=328799&method=event.attend&sk=d580d57f32848f5dcf574d1ce18d78b2&status=1&api_sig=c476ec753082205327b0f6ef922d82c8', :file => File.join([FIXTURES_BASE, 'event', 'attend.xml']))
 
 
 ## Tag
