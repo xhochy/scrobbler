@@ -119,7 +119,7 @@ module Scrobbler
     # @todo Add language code for wiki translation
     def load_info
       return nil if @info_loaded
-      xml = Base.request('album.getinfo', {'artist' => @artist, 'name' => @name})
+      xml = Base.request('album.getinfo', {'artist' => @artist, 'album' => @name})
       unless xml.root['status'] == 'failed'
         xml.root.children.each do |childL1|
           next unless childL1.name == 'album'
