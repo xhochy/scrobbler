@@ -28,21 +28,13 @@ all functions is available at http://rdoc.info/projects/xhochy/scrobbler
 	
 == Albums
 	
-	album = Scrobbler::Album.new('Carrie Underwood', 'Some Hearts', :include_info => true)
+	album = Scrobbler::Album.new('Some Hearts', :artist => 'Carrie Underwood', :include_info => true)
 
 	puts "Album: #{album.name}"
 	puts "Artist: #{album.artist}"
-	puts "Reach: #{album.reach}"
+	puts "Playcount: #{album.playcount}"
 	puts "URL: #{album.url}"
 	puts "Release Date: #{album.release_date.strftime('%m/%d/%Y')}"
-
-	puts
-	puts
-
-	puts "Tracks"
-	longest_track_name = album.tracks.collect(&:name).sort { |x, y| y.length <=> x.length }.first.length
-	puts "=" * longest_track_name
-	album.tracks.each { |t| puts t.name }
 	
 ==Artists
 	
@@ -50,7 +42,7 @@ all functions is available at http://rdoc.info/projects/xhochy/scrobbler
 
 	puts 'Top Tracks'
 	puts "=" * 10
-	artist.top_tracks.each { |t| puts "(#{t.reach}) #{t.name}" }
+	artist.top_tracks.each { |t| puts "(#{t.playcount}) #{t.name}" }
 
 	puts
 
@@ -96,40 +88,17 @@ all functions is available at http://rdoc.info/projects/xhochy/scrobbler
 	track = Scrobbler::Track.new('Carrie Underwood', 'Before He Cheats')
 	puts 'Fans'
 	puts "=" * 4
-	track.fans.each { |u| puts "(#{u.weight}) #{u.username}" }
+	track.top_fans.each { |u| puts "(#{u.weight}) #{u.username}" }
 	
 == Simple Authentication (for Scrobbling)
 
-    auth = Scrobbler::SimpleAuth.new(:user => 'chunky', :password => 'bacon')
-    auth.handshake!
-
-    puts "Auth Status: #{auth.status}"
-    puts "Session ID: #{auth.session_id}"
-    puts "Now Playing URL: #{auth.now_playing_url}"
-    puts "Submission URL: #{auth.submission_url}"
-
+  work in progress...
+    
 == Scrobbling
 
-    scrobble = Scrobbler::Scrobble.new(:session_id => auth.session_id,
-                                       :submission_url => auth.submission_url,
-                                       :artist => 'Coldplay',
-                                       :track => 'Viva La Vida',
-                                       :album => "Viva La Vida",
-                                       :time => Time.new,
-                                       :length => 244,
-                                       :track_number => 7)
-    scrobble.submit!
-    puts "Scrobbler Submission Status: #{scrobble.status}"
+  work in progress...
 
 == Now Playing Submission
 
-    playing = Scrobbler::Playing.new(:session_id => auth.session_id,
-                                     :now_playing_url => auth.now_playing_url,
-                                     :artist => 'Anberlin',
-                                     :track => 'Readyfuels',
-                                     :album => 'Blueprints For the Black Market',
-                                     :length => 218,
-                                     :track_number => 1)
+  work in progress...
 
-    playing.submit!         
-    puts "Playing Submission Status: #{playing.status}"
