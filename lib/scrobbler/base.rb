@@ -9,7 +9,7 @@ module Scrobbler
   API_URL     = 'http://ws.audioscrobbler.com/'
   
 class Base
-    def Base.api_key=(api_key)
+    def Base.api_key=(api_key) 
         @@api_key = api_key
     end
 
@@ -38,13 +38,20 @@ class Base
         end
         elements
     end
+
+    # Check if the given libxml node is defining if the given content is 
+    # streamable. If so, set the flag in the given hash
+    def Base.maybe_streamable_node(data, node)
+      if node.name == 'streamable'
+        data[:streamable] = ['1', 'true'].include?(node.content)
+      end
+    end
     
-    # Read a image node and 
-    def Base.maybe_image_node(data, node)
-      if node.name == 'image'
-        data[:image_small] = node.content if node['size'] == 'small'
-        data[:image_medium] = node.content if node['size'] == 'medium'
-        data[:image_large] = node.content if node['size'] == 'large'
+    # Check if the given libxml node is defining if the given content is 
+    # streamable. If so, set the flag in the object
+    def check_streamable_node(node)
+      if node.name == 'streamable'
+        @streamable = ['1', 'true'].include?(node.content)
       end
     end
 

@@ -3,7 +3,11 @@ require 'digest/md5'
 
 $: << File.expand_path(File.dirname(__FILE__))
 
+# Load base class
 require 'scrobbler/base'
+
+# Load helper modules
+require 'scrobbler/image'
 
 require 'scrobbler/album'
 require 'scrobbler/artist'

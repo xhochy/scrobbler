@@ -60,6 +60,10 @@ module Scrobbler
   # @todo Add missing functions that require authentication
   # @todo Integrate search functionality into this class which is already implemented in Scrobbler::Search
   class Artist < Base
+    # Load Helper modules
+    include ImageObjectFuncs
+    extend  ImageClassFuncs
+    
     attr_accessor :name, :mbid, :playcount, :rank, :url, :count, :streamable
     attr_accessor :chartposition, :image_small, :image_medium, :image_large
     attr_accessor :match, :tagcount, :listeners
@@ -76,16 +80,9 @@ module Scrobbler
           data[:match] = child.content.to_i if child.name == 'match'
           data[:tagcount] = child.content.to_i if child.name == 'tagcount'
           data[:chartposition] = child.content if child.name == 'chartposition'
-          if child.name == 'streamable'
-            if ['1', 'true'].include?(child.content)
-              data[:streamable] = true
-            else
-              data[:streamable] = false
-            end
-          end
           data[:name] = child.content if child.name == 'name'
-
-          Base::maybe_image_node(data, child)
+          Base::maybe_streamable_node(data, child)
+          maybe_image_node(data, child)
         end        
         
         # If we have not found anything in the content of this node yet then
@@ -98,8 +95,6 @@ module Scrobbler
         data[:rank] = xml['rank'].to_i if xml['rank']
         data[:streamable] = xml['streamable'] if xml['streamable']
         data[:mbid] = xml['mbid'] if xml['mbid']
-        
-        
         
         # Step 3 fill the object
         Artist.new(data[:name], data)
@@ -121,17 +116,6 @@ module Scrobbler
       format = :ics if format.to_s == 'ical'
       raise ArgumentError unless ['ics', 'rss'].include?(format.to_s)
       "#{API_URL.chop}/2.0/artist/#{CGI::escape(@name)}/events.#{format}"
-    end
-    
-    def image(which=:small)
-      which = which.to_s
-      raise ArgumentError unless ['small', 'medium', 'large'].include?(which)      
-      img_url = instance_variable_get("@image_#{which}")
-      if img_url.nil?
-        load_info
-        img_url = instance_variable_get("@image_#{which}")
-      end
-      img_url
     end
     
     def similar(force=false)
@@ -163,18 +147,8 @@ module Scrobbler
             childL1.children.each do |child|
                 @mbid = child.content if child.name == 'mbid'
                 @url = child.content if child.name == 'url'
-                if child.name == 'image'
-                    @image_small = child.content if child['size'] == 'small'
-                    @image_medium = child.content if child['size'] == 'medium'
-                    @image_large = child.content if child['size'] == 'large'
-                end
-                if child.name == 'streamable'
-                    if ['1', 'true'].include?(child.content)
-                        @streamable = true
-                    else
-                        @streamable = false
-                    end
-                end
+                check_image_node child
+                check_streamable_node child
                 if child.name == 'stats'
                     child.children.each do |childL3|
                         @listeners = childL3.content.to_i if childL3.name == 'listeners'
@@ -188,8 +162,7 @@ module Scrobbler
     
     def ==(otherArtist)
         if otherArtist.is_a?(Scrobbler::Artist)
-            return false if @name != otherArtist.name
-            return true
+            return (@name == otherArtist.name)
         end
         false
     end

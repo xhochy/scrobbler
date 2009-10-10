@@ -45,6 +45,10 @@
 module Scrobbler
   # @todo Add missing functions that require authentication
   class Album < Base
+    # Load Helper modules
+    include ImageObjectFuncs
+    extend  ImageClassFuncs
+    
     attr_reader :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url
     attr_reader :reach, :release_date, :listeners, :playcount, :top_tags
     attr_reader :image_large, :image_medium, :image_small, :tagcount
@@ -125,13 +129,8 @@ module Scrobbler
             @url = childL2.content if childL2.name == 'url'
             @id = childL2.content if childL2.name == 'id'
             @mbid = childL2.content if childL2.name == 'mbid'
-            @release_date = Time.parse(childL2.content.strip) if childL2.name == 'releasedate'            
-            if childL2.name == 'image'
-              @image_small = childL2.content if childL2['size'] == 'small'
-              @image_medium = childL2.content if childL2['size'] == 'medium'
-              @image_large = childL2.content if childL2['size'] == 'large'
-              @image_extralarge = childL2.content if childL2['size'] == 'extralarge'
-            end
+            @release_date = Time.parse(childL2.content.strip) if childL2.name == 'releasedate'
+            check_image_node childL2
             @listeners = childL2.content.to_i if childL2.name == 'listeners'
             @playcount = childL2.content.to_i if childL2.name == 'playcount'
             if childL2.name == 'toptags'
@@ -145,17 +144,6 @@ module Scrobbler
         end # xml.children.each do |childL1|
         @info_loaded  = true
       end
-    end
-    
-    def image(which=:small)
-      which = which.to_s
-      raise ArgumentError unless ['small', 'medium', 'large', 'extralarge'].include?(which)      
-      img_url = instance_variable_get("@image_#{which}")
-      if img_url.nil?
-        load_info
-        img_url = instance_variable_get("@image_#{which}")
-      end
-      img_url
     end
     
     # Tag an album using a list of user supplied tags. 
