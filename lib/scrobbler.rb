@@ -7,7 +7,8 @@ $: << File.expand_path(File.dirname(__FILE__))
 require 'scrobbler/base'
 
 # Load helper modules
-require 'scrobbler/image'
+require 'scrobbler/helper/image'
+require 'scrobbler/helper/streamable'
 
 require 'scrobbler/album'
 require 'scrobbler/artist'

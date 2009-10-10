@@ -54,7 +54,7 @@ module Scrobbler
     attr_reader :image_large, :image_medium, :image_small, :tagcount
     
     # needed on top albums for tag
-    attr_reader :count, :streamable
+    attr_reader :count
     
     # needed for weekly album charts
     attr_reader :chartposition, :position

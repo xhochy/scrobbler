@@ -60,12 +60,10 @@ module Scrobbler
   # @todo Add missing functions that require authentication
   # @todo Integrate search functionality into this class which is already implemented in Scrobbler::Search
   class Artist < Base
-    # Load Helper modules
-    include ImageObjectFuncs
-    extend  ImageClassFuncs
+    mixins :image, :streamable
     
-    attr_accessor :name, :mbid, :playcount, :rank, :url, :count, :streamable
-    attr_accessor :chartposition, :image_small, :image_medium, :image_large
+    attr_accessor :name, :mbid, :playcount, :rank, :url, :count
+    attr_accessor :chartposition
     attr_accessor :match, :tagcount, :listeners
     
     class << self
@@ -81,7 +79,7 @@ module Scrobbler
           data[:tagcount] = child.content.to_i if child.name == 'tagcount'
           data[:chartposition] = child.content if child.name == 'chartposition'
           data[:name] = child.content if child.name == 'name'
-          Base::maybe_streamable_node(data, child)
+          maybe_streamable_node(data, child)
           maybe_image_node(data, child)
         end        
         
@@ -93,7 +91,7 @@ module Scrobbler
         # Get all information from the root's attributes
         data[:name] = xml['name'] if xml['name']
         data[:rank] = xml['rank'].to_i if xml['rank']
-        data[:streamable] = xml['streamable'] if xml['streamable']
+        maybe_streamable_attribute data, xml
         data[:mbid] = xml['mbid'] if xml['mbid']
         
         # Step 3 fill the object
@@ -161,10 +159,10 @@ module Scrobbler
     end # load_info
     
     def ==(otherArtist)
-        if otherArtist.is_a?(Scrobbler::Artist)
-            return (@name == otherArtist.name)
-        end
-        false
+      if otherArtist.is_a?(Scrobbler::Artist)
+        return (@name == otherArtist.name)
+      end
+      false
     end
     
   end

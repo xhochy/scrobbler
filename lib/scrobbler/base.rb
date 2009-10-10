@@ -39,22 +39,6 @@ class Base
         elements
     end
 
-    # Check if the given libxml node is defining if the given content is 
-    # streamable. If so, set the flag in the given hash
-    def Base.maybe_streamable_node(data, node)
-      if node.name == 'streamable'
-        data[:streamable] = ['1', 'true'].include?(node.content)
-      end
-    end
-    
-    # Check if the given libxml node is defining if the given content is 
-    # streamable. If so, set the flag in the object
-    def check_streamable_node(node)
-      if node.name == 'streamable'
-        @streamable = ['1', 'true'].include?(node.content)
-      end
-    end
-
     def Base.post_request(api_method, parameters = {}, request_method = 'get')
       Base.request(api_method, parameters, 'post')
     end
@@ -87,8 +71,24 @@ class Base
       XML::Document.string(self.connection.send(request_method,url))
     end
     
+    
     private
       
+    def Base.mixins(*args)
+      args.each do |arg|
+        if arg == :image
+          extend Scrobbler::ImageClassFuncs
+          include Scrobbler::ImageObjectFuncs
+        elsif arg == :streamable
+          attr_reader :streamable
+          extend StreamableClassFuncs
+          include StreamableObjectFuncs
+        else
+          raise ArgumentError, "#{arg} is not a known mixin"
+        end
+      end
+    end
+    
       def populate_data(data = {})
         data.each do |key, value|
           instance_variable_set("@#{key.to_s}", value)
