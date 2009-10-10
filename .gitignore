@@ -9,3 +9,4 @@ coverage
 spec.html
 scrobbler.gemspec
 catalog.xml
+.yardoc
