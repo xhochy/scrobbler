@@ -35,6 +35,10 @@
 #   (2169) ajsbabiegirl
 module Scrobbler
   class Track < Base
+    # Load Helper modules
+    include ImageObjectFuncs
+    extend  ImageClassFuncs
+    
     attr_accessor :artist, :name, :mbid, :playcount, :rank, :url, :id, :count
     attr_accessor :streamable, :album, :date, :now_playing, :tagcount
     attr_accessor :duration, :listeners
@@ -51,7 +55,7 @@ module Scrobbler
           data[:album] = Album.new_from_libxml(child) if child.name == 'album'
           data[:playcount] = child.content.to_i if child.name == 'playcount'
           data[:tagcount] = child.content.to_i if child.name == 'tagcount'
-          Base::maybe_image_node(data, child)
+          maybe_image_node(data, child)
           if child.name == 'streamable'
             if ['1', 'true'].include?(child.content)
               data[:streamable] = true
@@ -77,17 +81,6 @@ module Scrobbler
       @artist = artist
       @name = name
       populate_data(data)
-    end
-    
-    def image(which=:small)
-      which = which.to_s
-      raise ArgumentError unless ['small', 'medium', 'large'].include?(which)      
-      img_url = instance_variable_get("@image_#{which}")
-      if img_url.nil?
-        load_info
-        img_url = instance_variable_get("@image_#{which}")
-      end
-      img_url
     end
     
     def add_tags(tags)
@@ -136,12 +129,10 @@ module Scrobbler
     end
     
     def ==(otherTrack)
-        if otherTrack.is_a?(Scrobbler::Track)
-            return false if @name != otherTrack.name
-            return false if @artist != otherTrack.artist
-            return true
-        end
-        false
+      if otherTrack.is_a?(Scrobbler::Track)
+        return ((@name == otherTrack.name) && (@artist == otherTrack.artist))
+      end
+      false
     end
   end
 end

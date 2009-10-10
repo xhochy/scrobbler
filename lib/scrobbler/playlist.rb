@@ -1,6 +1,10 @@
 module Scrobbler
   # @todo everything
   class Playlist < Base
+    # Load Helper modules
+    include ImageObjectFuncs
+    extend  ImageClassFuncs
+    
     attr_reader :url, :id, :title, :date, :creator
     attr_reader :description, :size, :duration, :streamable
     class << self
@@ -11,7 +15,7 @@ module Scrobbler
           data[:id] = child.content.to_i if child.name == 'id'
           data[:title] = child.content if child.name == 'title'
 
-          Base::maybe_image_node(data, child)
+          maybe_image_node(data, child)
           data[:date] = Time.parse(child.content) if child.name == 'date'
 
           data[:size] = child.content.to_i if child.name == 'size'
@@ -35,12 +39,6 @@ module Scrobbler
     def initialize(url,data={})
       @url = url
       populate_data(data)
-    end
-
-    def image(which=:small)
-      which = which.to_s
-      raise ArgumentError unless ['small', 'medium', 'large'].include?(which)
-      instance_variable_get("@image_#{which}")
     end
   end
 end

@@ -70,7 +70,7 @@ module Scrobbler
           data[:mbid] = child.content if child.name == 'mbid'
           data[:url] = child.content if child.name == 'url'
           data[:artist] = Artist.new_from_libxml(child) if child.name == 'artist'
-          Base::maybe_image_node(data, child)
+          maybe_image_node(data, child)
         end
         
         # If we have not found anything in the content of this node yet then

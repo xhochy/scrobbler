@@ -1,5 +1,9 @@
 module Scrobbler
   class Event < Base
+    # Load Helper modules
+    include ImageObjectFuncs
+    extend  ImageClassFuncs
+    
     attr_accessor :id, :title, :start_date, :start_time, :description
     attr_accessor :reviews, :tag, :url, :artists, :headliner, :image_small
     attr_accessor :image_medium, :image_large, :attendance, :venue
@@ -24,7 +28,7 @@ module Scrobbler
             artists << headliner unless headliner.nil? || headliner_alrady_listed_in_artist_list?(artists,headliner)
           end
 
-          Base::maybe_image_node(data, child)
+          maybe_image_node(data, child)
           data[:url] = child.content if child.name == 'url'
           data[:description] = child.content if child.name == 'description'
           data[:attendance] = child.content.to_i if child.name == 'attendance'
@@ -64,12 +68,6 @@ module Scrobbler
       @id = id
       populate_data(input)
       load_info() if input[:include_info]
-    end
-
-    def image(which=:small)
-      which = which.to_s
-      raise ArgumentError unless ['small', 'medium', 'large'].include?(which)      
-      instance_variable_get("@image_#{which}")
     end
 
     def shouts(force = false)

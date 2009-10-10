@@ -46,6 +46,10 @@
 #   (34) Stickwitu
 module Scrobbler  
   class User < Base
+    # Load Helper modules
+    include ImageObjectFuncs
+    extend  ImageClassFuncs
+    
     attr_reader :username, :url, :weight, :match, :realname, :name
     
     class << self
@@ -57,7 +61,7 @@ module Scrobbler
           data[:weight] = child.content.to_i if child.name == 'weight'
           data[:match] = child.content if child.name == 'match'
           data[:realname] = child.content if child.name == 'realname'
-          Base::maybe_image_node(data, child)
+          maybe_image_node(data, child)
         end
         User.new(data[:name], data)
       end
@@ -77,12 +81,6 @@ module Scrobbler
       @name = @username
       load_profile() if data[:include_profile]
       populate_data(data)
-    end
-    
-    def image(which=:small)
-      which = which.to_s
-      raise ArgumentError unless ['small', 'medium', 'large'].include?(which)      
-      instance_variable_get("@image_#{which}")
     end
     
     # Get a list of upcoming events that this user is attending. 
