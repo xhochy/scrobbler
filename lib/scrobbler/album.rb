@@ -45,9 +45,7 @@
 module Scrobbler
   # @todo Add missing functions that require authentication
   class Album < Base
-    # Load Helper modules
-    include ImageObjectFuncs
-    extend  ImageClassFuncs
+    mixins :image
     
     attr_reader :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url
     attr_reader :reach, :release_date, :listeners, :playcount, :top_tags
