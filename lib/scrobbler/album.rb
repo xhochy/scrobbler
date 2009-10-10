@@ -66,11 +66,7 @@ module Scrobbler
           data[:mbid] = child.content if child.name == 'mbid'
           data[:url] = child.content if child.name == 'url'
           data[:artist] = Artist.new_from_libxml(child) if child.name == 'artist'
-          if child.name == 'image'
-            data[:image_small] = child.content if child['size'] == 'small'
-            data[:image_medium] = child.content if child['size'] == 'medium'
-            data[:image_large] = child.content if child['size'] == 'large'
-          end
+          Base::maybe_image_node(data, child)
         end
         
         # If we have not found anything in the content of this node yet then
@@ -95,6 +91,7 @@ module Scrobbler
     #
     # @todo Albums should be able to be created via a MusicBrainz id too
     def initialize(name, input={})
+      super()      
       # Support old version of initialize where we had (artist_name, album_name)
       if input.class == String
         data = {:artist => name, :name => input}

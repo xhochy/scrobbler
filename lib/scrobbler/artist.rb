@@ -85,11 +85,7 @@ module Scrobbler
           end
           data[:name] = child.content if child.name == 'name'
 
-          if child.name == 'image'
-            data[:image_small] = child.content if child['size'] == 'small'
-            data[:image_medium] = child.content if child['size'] == 'medium'
-            data[:image_large] = child.content if child['size'] == 'large'
-          end
+          Base::maybe_image_node(data, child)
         end        
         
         # If we have not found anything in the content of this node yet then

@@ -38,6 +38,15 @@ class Base
         end
         elements
     end
+    
+    # Read a image node and 
+    def Base.maybe_image_node(data, node)
+      if node.name == 'image'
+        data[:image_small] = node.content if node['size'] == 'small'
+        data[:image_medium] = node.content if node['size'] == 'medium'
+        data[:image_large] = node.content if node['size'] == 'large'
+      end
+    end
 
     def Base.post_request(api_method, parameters = {}, request_method = 'get')
       Base.request(api_method, parameters, 'post')

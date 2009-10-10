@@ -57,11 +57,7 @@ module Scrobbler
           data[:weight] = child.content.to_i if child.name == 'weight'
           data[:match] = child.content if child.name == 'match'
           data[:realname] = child.content if child.name == 'realname'
-          if child.name == 'image'
-            data[:image_small] = child.content if child['size'] == 'small'
-            data[:image_medium] = child.content if child['size'] == 'medium'
-            data[:image_large] = child.content if child['size'] == 'large'
-          end
+          Base::maybe_image_node(data, child)
         end
         User.new(data[:name], data)
       end

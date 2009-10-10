@@ -51,11 +51,7 @@ module Scrobbler
           data[:album] = Album.new_from_libxml(child) if child.name == 'album'
           data[:playcount] = child.content.to_i if child.name == 'playcount'
           data[:tagcount] = child.content.to_i if child.name == 'tagcount'
-          if child.name == 'image'
-            data[:image_small] = child.content if child['size'] == 'small'
-            data[:image_medium] = child.content if child['size'] == 'medium'
-            data[:image_large] = child.content if child['size'] == 'large'
-          end
+          Base::maybe_image_node(data, child)
           if child.name == 'streamable'
             if ['1', 'true'].include?(child.content)
               data[:streamable] = true

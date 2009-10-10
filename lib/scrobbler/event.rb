@@ -24,12 +24,7 @@ module Scrobbler
             artists << headliner unless headliner.nil? || headliner_alrady_listed_in_artist_list?(artists,headliner)
           end
 
-          if child.name == 'image'
-            data[:image_small] = child.content if child['size'] == 'small'
-            data[:image_medium] = child.content if child['size'] == 'medium'
-            data[:image_large] = child.content if child['size'] == 'large'
-          end
-
+          Base::maybe_image_node(data, child)
           data[:url] = child.content if child.name == 'url'
           data[:description] = child.content if child.name == 'description'
           data[:attendance] = child.content.to_i if child.name == 'attendance'

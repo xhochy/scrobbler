@@ -11,11 +11,7 @@ module Scrobbler
           data[:id] = child.content.to_i if child.name == 'id'
           data[:title] = child.content if child.name == 'title'
 
-          if child.name == 'image'
-            data[:image_small] = child.content if child['size'] == 'small'
-            data[:image_medium] = child.content if child['size'] == 'medium'
-            data[:image_large] = child.content if child['size'] == 'large'
-          end
+          Base::maybe_image_node(data, child)
           data[:date] = Time.parse(child.content) if child.name == 'date'
 
           data[:size] = child.content.to_i if child.name == 'size'
