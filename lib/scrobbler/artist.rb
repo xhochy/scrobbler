@@ -107,6 +107,7 @@ module Scrobbler
     end
     
     def initialize(name, data = {})
+      super()
       raise ArgumentError, "Name is required" if name.blank?
       @name = name
       populate_data(data)

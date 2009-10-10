@@ -3,36 +3,37 @@ module Scrobbler
   class Auth < Base
   
     def initialize(username)
+      super()
       @username = username
     end
     
     def session(token)
       doc = Base.request('auth.getsession', :signed => true, :token => token)
-      session = {}
+      asession = {}
       doc.root.children.each do |child1|
         next unless child1.name == 'session'
         child1.children.each do |child2|
           if child2.name == 'name'
-            session[:name] = child2.content
+            asession[:name] = child2.content
           elsif child2.name == 'key'
-            session[:key] = child2.content
+            asession[:key] = child2.content
           elsif child2.name == 'subscriber'
-            session[:subscriber] = true if child2.content == '1'
-            session[:subscriber] = false unless child2.content == '1'
+            asession[:subscriber] = true if child2.content == '1'
+            asession[:subscriber] = false unless child2.content == '1'
           end   
         end
       end
-      Scrobbler::Session.new(session)
+      Scrobbler::Session.new(asession)
     end
     
     def token
       doc = Base.request('auth.gettoken', :signed => true)
-      token = ''
+      stoken = ''
       doc.root.children.each do |child|
         next unless child.name == 'token'
-        token = child.content
+        stoken = child.content
       end
-      token
+      stoken
     end
     
     def url(options={})
