@@ -64,7 +64,7 @@ module Scrobbler
     end
 
     def initialize(id,input={})
-      raise ArgumentError if id.blank?
+      raise ArgumentError if id.nil?
       @id = id
       populate_data(input)
       load_info() if input[:include_info]

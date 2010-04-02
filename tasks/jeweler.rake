@@ -7,7 +7,6 @@ begin
     s.homepage = "http://github.com/xhochy/scrobbler"
     s.description = "A ruby library for accessing the last.fm v2 webservices"
     s.authors = ['John Nunemaker', 'Jonathan Rudenberg', 'Uwe L. Korn']
-    s.add_dependency 'activesupport', '>=1.4.2'
     if RUBY_PLATFORM =~ /\bjava\b/
       s.add_dependency 'libxml-jruby'
     else

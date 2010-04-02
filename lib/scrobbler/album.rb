@@ -101,7 +101,7 @@ module Scrobbler
       end
       data = {:include_profile => false}.merge(input)
       raise ArgumentError, "Artist or mbid is required" if data[:artist].nil? && data[:mbid].nil?
-      raise ArgumentError, "Name is required" if name.blank?
+      raise ArgumentError, "Name is required" if name.empty?
       @name = name
       populate_data(data)
       load_info() if data[:include_info]

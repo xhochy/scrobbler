@@ -80,7 +80,7 @@ module Scrobbler
     end
     
     def initialize(name, data={})
-      raise ArgumentError, "Name is required" if name.blank?
+      raise ArgumentError, "Name is required" if name.empty?
       @name = name
       @url = data[:url] unless data[:url].nil?
       @count = data[:count] unless data[:count].nil?

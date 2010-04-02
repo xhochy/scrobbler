@@ -51,7 +51,7 @@ module Scrobbler
     end
 
     def initialize(name,data = {})
-      raise ArgumentError if name.blank?
+      raise ArgumentError if name.empty?
       @name = name
       populate_data(data)
     end

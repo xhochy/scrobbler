@@ -21,7 +21,7 @@ module Scrobbler
       @client_id = 'rbs' # Client ID assigned by last.fm; Don't change this!
       @client_ver = '0.2.13'
 
-      raise ArgumentError, 'Missing required argument' if @user.blank? || @password.blank?
+      raise ArgumentError, 'Missing required argument' if @user.empty? || @password.empty?
 
       @connection = REST::Connection.new(AUTH_URL)
     end
