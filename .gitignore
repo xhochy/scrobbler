@@ -7,6 +7,5 @@ scrobbler-*.gem
 *.rake~
 coverage
 spec.html
-scrobbler.gemspec
 catalog.xml
 .yardoc
