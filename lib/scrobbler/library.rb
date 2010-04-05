@@ -1,11 +1,22 @@
 module Scrobbler
-  # @todo everything
+  # Class for invocation of library.* API functions.
   class Library < Base
     attr_reader :user
   
+    # Create a new Scrobber::Library instance.
+    #
+    # @param [String, Symbol, Scrobbler::User] user The user who's library data
+    #   is requested.
+    # @raise ArgumentError If a not supported type is given as user.
     def initialize(user)
-      @user = user if user.class == Scrobbler::User
-      @user = Scrobbler::User.new(user.to_s) unless user.class == Scrobbler::User
+      case user.class
+        when user.class == Scrobbler::User
+          @user = user
+        when [String, Symbol].contains?(user.class)
+          @user = Scrobbler::User.new(user.to_s)
+        else
+          raise ArgumentError("Invalid argument for user.")
+      end
     end
     
     def add_album
