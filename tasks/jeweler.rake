@@ -1,7 +1,7 @@
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |s|
-    s.name = "scrobbler"
+    s.name = "scrobbler-ng"
     s.summary = "A ruby library for accessing the last.fm v2 webservices"
     s.email = "uwelk@xhochy.org"
     s.homepage = "http://github.com/xhochy/scrobbler"

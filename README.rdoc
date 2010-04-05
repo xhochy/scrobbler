@@ -1,6 +1,6 @@
-=Scrobbler
+=Scrobbler-ng
 
-Scrobbler is a wrapper for the audioscrobbler web services (http://www.audioscrobbler.net/data/webservices/). 
+Scrobbler-ng is a wrapper for the audioscrobbler web services (http://www.audioscrobbler.net/data/webservices/). 
 
 Currently updating to use the 2.0 API. It is very much a work in progress.
 
