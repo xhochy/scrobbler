@@ -106,6 +106,52 @@ module Scrobbler
       populate_data(data)
     end
     
+
+    def search
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def share
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def shout
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def add_tags
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def events
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def images
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def shouts
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def tags
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def remove_tag
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+    
     # Get the URL to the ical or rss representation of the current events that
     # a artist will play
     #

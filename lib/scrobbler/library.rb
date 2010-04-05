@@ -9,13 +9,12 @@ module Scrobbler
     #   is requested.
     # @raise ArgumentError If a not supported type is given as user.
     def initialize(user)
-      case user.class
-        when user.class == Scrobbler::User
-          @user = user
-        when [String, Symbol].contains?(user.class)
-          @user = Scrobbler::User.new(user.to_s)
-        else
-          raise ArgumentError("Invalid argument for user.")
+      if user.kind_of?(Scrobbler::User)
+        @user = user
+      elsif user.kind_of?(String)
+        @user = Scrobbler::User.new(user.to_s)
+      else
+        raise ArgumentError, "Invalid argument for user: #{user.class}"
       end
     end
     

@@ -41,6 +41,18 @@ module Scrobbler
       options[:api_key] = @@api_key
       "http://www.last.fm/api/auth/?api_key=#{options[:api_key]}&token=#{options[:token]}"
     end
+
+    def mobile_session
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+    
+    def websession
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+
     
   end
 end

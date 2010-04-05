@@ -128,6 +128,36 @@ module Scrobbler
       get_response('track.gettoptags', :top_tags, 'toptags', 'tag', {:artist=>@artist.name.to_s, :track=>@name}, force)
     end
     
+    def similar
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def tags
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def love
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+    
+    def remove_tag
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def search
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def share
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
     def ==(otherTrack)
       if otherTrack.is_a?(Scrobbler::Track)
         return ((@name == otherTrack.name) && (@artist == otherTrack.artist))

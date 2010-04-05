@@ -40,6 +40,23 @@ module Scrobbler
       @url = url
       populate_data(data)
     end
+    
+    def add_track
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def self.create
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+    
+    def fetch
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+
   end
 end
 

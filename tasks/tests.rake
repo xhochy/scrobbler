@@ -9,5 +9,6 @@ Spec::Rake::SpecTask.new('test:unit') do |t|
   end
   t.spec_opts << '--format' << 'html:spec.html'
   t.spec_opts << '--format' << 'progress'
+  t.spec_opts << '-b'
   t.spec_files = FileList['test/unit/*_spec.rb']
 end

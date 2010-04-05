@@ -7,7 +7,12 @@ module Scrobbler
   module ImageClassFuncs
     # Check if the given libxml node is an image referencing node and in case
     # of, read it into that given hash of data 
+    #
+    # @param [Hash<Symbol, String>] data The data extracted from an API response
+    # @param [LibXML::XML::Node] node XML node, part of the API response
     def maybe_image_node(data, node)
+      raise ArgumentError unless data.class == Hash
+      raise ArgumentError unless node.class == LibXML::XML::Node
       if node.name == 'image'
         data[:image_small] = node.content if node['size'] == 'small'
         data[:image_medium] = node.content if node['size'] == 'medium'

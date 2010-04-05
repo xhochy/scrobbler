@@ -1,6 +1,5 @@
 
 %w{uri rubygems libxml time}.each { |x| require x }
-require 'digest/md5'
 
 $: << File.expand_path(File.dirname(__FILE__))
 

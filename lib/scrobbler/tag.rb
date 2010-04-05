@@ -99,9 +99,15 @@ module Scrobbler
       get_response('tag.gettoptracks', :top_tracks, 'toptracks', 'track', {'tag'=>@name}, force)
     end
 
-    def Tag.top_tags
-        self.get('tag.gettoptags', :toptags, :tag)
+    def self.top_tags
+        Base.get('tag.gettoptags', :toptags, :tag)
     end
+    
+    def self.search
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
     
     # Search for tags similar to this one. Returns tags ranked by similarity, 
     # based on listening data.
@@ -109,5 +115,16 @@ module Scrobbler
         params = {:tag => @name}
         get_response('tag.getsimilar', :similar, 'similartags', 'tag', params, force)
     end
+
+    def weekly_artist_chart
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def weekly_chart_list
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
   end
 end

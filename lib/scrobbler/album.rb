@@ -88,6 +88,11 @@ module Scrobbler
       end
     end
       
+    def search
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
     # If the additional parameter :include_info is set to true, additional 
     # information is loaded
     #
