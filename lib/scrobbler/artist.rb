@@ -63,7 +63,7 @@ module Scrobbler
     mixins :image, :streamable
     
     attr_accessor :name, :mbid, :playcount, :rank, :url, :count
-    attr_accessor :chartposition
+    attr_accessor :chartposition, :streamable
     attr_accessor :match, :tagcount, :listeners
     
     class << self

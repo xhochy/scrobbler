@@ -14,12 +14,21 @@ module Scrobbler
       raise ArgumentError unless data.class == Hash
       raise ArgumentError unless node.class == LibXML::XML::Node
       if node.name == 'image'
-        data[:image_small] = node.content if node['size'] == 'small'
-        data[:image_medium] = node.content if node['size'] == 'medium'
-        data[:image_large] = node.content if node['size'] == 'large'
-        data[:image_extralarge] = node.content if node['size'] == 'extralarge'
-      end
-    end
+        case node['size'].to_s # convert to string to fix libxml-ruby bug
+          when 'small'
+            data[:image_small] = node.content
+          when 'medium'
+            data[:image_medium] = node.content
+          when 'large'
+            data[:image_large] = node.content
+          when 'extralarge'
+            data[:image_extralarge] = node.content
+          else
+            raise NotImplementedError, "Image size '#{node['size'].to_s}' not supported."
+        end #^ case
+      end #^ if
+    end #^ maybe_ ...
+
   end
   
   # Defines some functions that are used nearly all Scrobbler classes which
