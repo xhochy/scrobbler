@@ -1,12 +1,27 @@
 require File.dirname(__FILE__) + '/../../lib/scrobbler/rest'
 require 'rubygems'
 require 'fakeweb'
-require 'digest/md5'
 
 FIXTURES_BASE = File.join([File.dirname(__FILE__), '..', 'fixtures', 'xml'])
 FakeWeb.allow_net_connect = false
 
 ## Library
+## ## library.getartists
+{
+'api_key=foo123&user=xhochy&all=true' => 'artists-p1.xml',
+'page=2&api_key=foo123&user=xhochy&all=true' => 'artists-p2.xml',
+'page=3&api_key=foo123&user=xhochy&all=true' => 'artists-p3.xml',
+'page=4&api_key=foo123&user=xhochy&all=true' => 'artists-p4.xml',
+'page=5&api_key=foo123&user=xhochy&all=true' => 'artists-p5.xml',
+'page=6&api_key=foo123&user=xhochy&all=true' => 'artists-p6.xml',
+'page=7&api_key=foo123&user=xhochy&all=true' => 'artists-p7.xml',
+'limit=30&api_key=foo123&user=xhochy&all=false' => 'artists-f30.xml'
+}.each do |url, file|
+  FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?' +
+    'method=library.getartists&' + url,
+    :body => File.join([FIXTURES_BASE, 'library', file]))
+end
+
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p1.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=2&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p2.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=3&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p3.xml']))
@@ -16,14 +31,6 @@ FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=7&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p7.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=8&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p8.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&limit=30&force=false&api_key=foo123&user=xhochy&all=false', :body => File.join([FIXTURES_BASE, 'library', 'albums-f30.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getartists&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'artists-p1.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getartists&page=2&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'artists-p2.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getartists&page=3&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'artists-p3.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getartists&page=4&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'artists-p4.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getartists&page=5&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'artists-p5.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getartists&page=6&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'artists-p6.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getartists&page=7&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'artists-p7.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getartists&limit=30&api_key=foo123&user=xhochy&all=false', :body => File.join([FIXTURES_BASE, 'library', 'artists-f30.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p1.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=2&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p2.xml']))
 FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=3&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p3.xml']))
