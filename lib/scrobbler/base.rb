@@ -112,8 +112,27 @@ class Base
       end
     end
 
-    def get_response(api_method, instance_name, parent, element, params, force=true)
-      Base.get(api_method, parent, element, params)
-    end
+  def get_response(api_method, instance_name, parent, element, params, force=true)
+    Base.get(api_method, parent, element, params)
+  end
+
+  # Execute a request to the Audioscrobbler webservice
+  #
+  # @param [String,Symbol] api_method The method which shall be called.
+  # @param [Hash] parameter The parameters passed as URL params.
+  def request(api_method, parameters = {}, request_method = 'get')
+    Base.request(api_method, parameters, request_method)
+  end
+
+  # Call a API method
+  #
+  # @param [String,Symbol] api_method The method which shall be called.
+  # @param [Hash] params The parameters passed as URL params.
+  # @param [String,Symbol] parent the parent XML node to look for.
+  # @param [String,Symbol] elemen The xml node name which shall be converted
+  #   into an object.
+  def call(api_method, parent, element, params)
+    Base.get(api_method, parent, element, params)
+  end
 end # class Base
 end # module Scrobbler

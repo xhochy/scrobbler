@@ -67,14 +67,15 @@ module Scrobbler
     # counts. 
     #
     # @param [Hash<Symbol>] options The options to configure this API call.
+    # @return [Array<Scrobbler::Artist>] The artists included in this library.
     def artists(options={})
         raise ArgumentError unless options.class == Hash
-
-        options = {:force => false, :all => true}.merge options
+        options = {:all => true}.merge options
         options[:user] = @user.name
+
         artists = []
         if options[:all]
-            doc = Base.request('library.getartists', options)
+            doc = request('library.getartists', options)
             root = nil
             doc.root.children.each do |child|
                 next unless child.name == 'artists'
@@ -87,10 +88,10 @@ module Scrobbler
             end
             for i in 2..total_pages do
                 options[:page] = i
-                artists.concat get_response('library.getartists', :none, 'artists', 'artist', options)
+                artists.concat call('library.getartists', 'artists', 'artist', options)
             end
         else
-            artists = get_response('library.getartists', :get_albums, 'artists', 'artist', options)
+            artists = call('library.getartists', 'artists', 'artist', options)
         end
         artists
     end
