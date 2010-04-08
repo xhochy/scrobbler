@@ -26,7 +26,9 @@ class Base
     end
 
     def Base.constanize(word)
-      names = word.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }.split('::')
+      names = word.to_s.gsub(/\/(.?)/) do
+        "::#{$1.upcase}"
+      end.gsub(/(?:^|_)(.)/) { $1.upcase }.split('::')
       names.shift if names.empty? || names.first.empty?
 
       constant = Object
