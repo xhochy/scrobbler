@@ -41,10 +41,18 @@ module Scrobbler
     # of, read it into the object
     def check_image_node(node)
       if node.name == 'image'
-        @image_small = node.content if node['size'] == 'small'
-        @image_medium = node.content if node['size'] == 'medium'
-        @image_large = node.content if node['size'] == 'large'
-        @image_extralarge = node.content if node['size'] == 'extralarge'
+        case node['size'].to_s # convert to string to fix libxml-ruby bug
+          when 'small'
+            @image_small = node.content
+          when 'medium'
+            @image_medium = node.content
+          when 'large'
+            @image_large = node.content
+          when 'extralarge'
+            @image_extralarge = node.content
+          else
+            raise NotImplementedError, "Image size '#{node['size'].to_s}' not supported."
+        end #^ case
       end
     end
     

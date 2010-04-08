@@ -51,7 +51,7 @@ module Scrobbler
           data[:mbid] = child.content if child.name == 'mbid'
           data[:url] = child.content if child.name == 'url'
           data[:date] = Time.parse(child.content) if child.name == 'date'
-          data[:artist] = Artist.new_from_libxml(child) if child.name == 'artist'
+          data[:artist] = Artist.new(:xml => child) if child.name == 'artist'
           data[:album] = Album.new_from_libxml(child) if child.name == 'album'
           data[:playcount] = child.content.to_i if child.name == 'playcount'
           data[:tagcount] = child.content.to_i if child.name == 'tagcount'

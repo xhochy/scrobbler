@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/../spec_helper.rb'
 describe Scrobbler::Artist do
 
   before(:each) do 
-    @artist = Scrobbler::Artist.new('Metallica')
+    @artist = Scrobbler::Artist.new(:name => 'Metallica')
   end
   
   it 'should know its name' do

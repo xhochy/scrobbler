@@ -67,7 +67,7 @@ module Scrobbler
           data[:tagcount] = child.content.to_i if child.name == 'tagcount'
           data[:mbid] = child.content if child.name == 'mbid'
           data[:url] = child.content if child.name == 'url'
-          data[:artist] = Artist.new_from_libxml(child) if child.name == 'artist'
+          data[:artist] = Artist.new(:xml => child) if child.name == 'artist'
           maybe_image_node(data, child)
         end
         

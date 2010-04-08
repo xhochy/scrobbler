@@ -36,5 +36,13 @@ module Scrobbler
         @streamable = ['1', 'true'].include?(node.content)
       end
     end
+
+    # Check if the given libxml node has a streamable attribute defining if the
+    # given content is streamable. If so, set the flag in the given hash
+    def maybe_streamable_attribute(node)
+      if node['streamable']
+        @streamable = ['1', 'true'].include?(node['streamable'])
+      end
+    end
   end
 end

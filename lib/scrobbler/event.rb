@@ -22,8 +22,8 @@ module Scrobbler
 
           if child.name == 'artists'
             child.children.each do |artist_element|
-              artists << Artist.new(artist_element.content) if artist_element.name == 'artist'
-              headliner = Artist.new(artist_element.content) if artist_element.name == 'headliner'
+              artists << Artist.new(:name => artist_element.content) if artist_element.name == 'artist'
+              headliner = Artist.new(:name => artist_element.content) if artist_element.name == 'headliner'
             end
             artists << headliner unless headliner.nil? || headliner_alrady_listed_in_artist_list?(artists,headliner)
           end

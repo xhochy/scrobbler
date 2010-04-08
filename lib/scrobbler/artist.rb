@@ -67,89 +67,71 @@ module Scrobbler
     attr_reader :name, :mbid, :playcount, :rank, :url, :count, :listeners
     attr_reader :chartposition, :streamable, :match, :tagcount
     
+    # Alias for Artist.new(:xml => xml)
+    #
+    # @deprecated
     def self.new_from_libxml(xml)
-      data = {}
+      Artist.new(:xml => xml)
+    end
 
-      # Get all information from the root's children nodes
-      xml.children.each do |child|
-        data[:playcount] = child.content.to_i if child.name == 'playcount'
-        data[:mbid] = child.content if child.name == 'mbid'
-        data[:url] = child.content if child.name == 'url'
-        data[:match] = child.content.to_i if child.name == 'match'
-        data[:tagcount] = child.content.to_i if child.name == 'tagcount'
-        data[:chartposition] = child.content if child.name == 'chartposition'
-        data[:name] = child.content if child.name == 'name'
-        maybe_streamable_node(data, child)
-        maybe_image_node(data, child)
+    # Create a new Scrobbler::Artist instance
+    #
+    # @param [Hash] data The options to initialize the class
+    def initialize(data = {})
+      raise ArgumentError unless data.kind_of?(Hash)
+      # Load data out of a XML node
+      unless data[:xml].nil?
+        load_from_xml(data[:xml])
+        data.delete(:xml)
       end
+      # Load data given as method-parameter
+      populate_data(data)
+      raise ArgumentError, "Name is required" if @name.nil? || @name.strip.empty?
+    end
+    
+    # Load the data for this object out of a XML-Node
+    #
+    # @param [LibXML::XML::Node] node The XML node containing the information
+    def load_from_xml(node)
+      # Get all information from the root's children nodes
+      node.children.each do |child|
+        case child.name
+          when 'playcount'
+            @playcount = child.content.to_i
+          when 'mbid'
+            @mbid = child.content
+          when 'url'
+            @url = child.content
+          when 'match'
+            @match = child.content.to_i
+          when 'tagcount'
+            @tagcount = child.content.to_i
+          when 'chartposition'
+            @chartposition = child.content
+          when 'name'
+            @name = child.content.to_s
+          when 'image'
+            check_image_node(child)
+          when 'streamable'
+            check_streamable_node(child)
+          when 'text'
+            # ignore, these are only blanks
+          else
+            raise NotImplementedError, "Field '#{child.name}' not known (#{child.content})"
+        end #^ case
+      end #^ do |child|
+
+      # Get all information from the root's attributes
+      @name = node['name'].to_s unless node['name'].nil?
+      @rank = node['rank'].to_i unless node['rank'].nil?
+      maybe_streamable_attribute(node)
+      @mbid = node['mbid'] unless node['mbid'].nil?
 
       # If we have not found anything in the content of this node yet then
       # this must be a simple artist node which has the name of the artist
       # as its content
-      data[:name] = xml.content if data == {}
-
-      # Get all information from the root's attributes
-      data[:name] = xml['name'] if xml['name']
-      data[:rank] = xml['rank'].to_i if xml['rank']
-      maybe_streamable_attribute data, xml
-      data[:mbid] = xml['mbid'] if xml['mbid']
-
-      # Step 3 fill the object
-      Artist.new(data[:name], data)
-    end
-    
-    def initialize(name, data = {})
-      super()
-      raise ArgumentError, "Name is required" if name.nil? || name.strip.empty?
-      @name = name
-      populate_data(data)
-    end
-    
-
-    def search
-      # This function require authentication, but SimpleAuth is not yet 2.0
-      raise NotImplementedError
-    end
-
-    def share
-      # This function require authentication, but SimpleAuth is not yet 2.0
-      raise NotImplementedError
-    end
-
-    def shout
-      # This function require authentication, but SimpleAuth is not yet 2.0
-      raise NotImplementedError
-    end
-
-    def add_tags
-      # This function require authentication, but SimpleAuth is not yet 2.0
-      raise NotImplementedError
-    end
-
-    def events
-      # This function require authentication, but SimpleAuth is not yet 2.0
-      raise NotImplementedError
-    end
-
-    def images
-      # This function require authentication, but SimpleAuth is not yet 2.0
-      raise NotImplementedError
-    end
-
-    def shouts
-      # This function require authentication, but SimpleAuth is not yet 2.0
-      raise NotImplementedError
-    end
-
-    def tags
-      # This function require authentication, but SimpleAuth is not yet 2.0
-      raise NotImplementedError
-    end
-
-    def remove_tag
-      # This function require authentication, but SimpleAuth is not yet 2.0
-      raise NotImplementedError
-    end
+      @name = node.content if @name.nil?
+    end #^ load_from_xml
     
     # Get the URL to the ical or rss representation of the current events that
     # a artist will play
@@ -208,6 +190,51 @@ module Scrobbler
         return (@name == otherArtist.name)
       end
       false
+    end
+
+    def search
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def share
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def shout
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def add_tags
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def events
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def images
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def shouts
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def tags
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
+    end
+
+    def remove_tag
+      # This function require authentication, but SimpleAuth is not yet 2.0
+      raise NotImplementedError
     end
     
   end
