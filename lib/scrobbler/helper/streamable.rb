@@ -7,7 +7,7 @@ module Scrobbler
   module StreamableClassFuncs
     # Check if the given libxml node is defining if the given content is 
     # streamable. If so, set the flag in the given hash
-    def Base.maybe_streamable_node(data, node)
+    def maybe_streamable_node(data, node)
       if node.name == 'streamable'
         data[:streamable] = ['1', 'true'].include?(node.content)
       end
@@ -15,7 +15,7 @@ module Scrobbler
     
     # Check if the given libxml node has a streamable attribute defining if the
     # given content is streamable. If so, set the flag in the given hash
-    def Base.maybe_streamable_attribute(data, node)
+    def maybe_streamable_attribute(data, node)
       if node['streamable']
         data[:streamable] = ['1', 'true'].include?(node['streamable'])
       end

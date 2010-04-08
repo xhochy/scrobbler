@@ -25,7 +25,6 @@ class Base
       URI.escape(param.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
     end
 
-    # @private
     def Base.constanize(word)
       names = word.to_s.gsub(/\/(.?)/) do
         "::#{$1.upcase}"
@@ -53,7 +52,7 @@ class Base
         elements
     end
 
-    def Base.post_request(api_method, parameters = {}, request_method = 'get')
+    def Base.post_request(api_method, parameters = {})
       Base.request(api_method, parameters, 'post')
     end
 
@@ -92,6 +91,7 @@ class Base
       XML::Document.string(self.connection.send(request_method,url))
     end
     
+    # @deprecated
     def Base.mixins(*args)
       args.each do |arg|
         if arg == :image
@@ -106,21 +106,27 @@ class Base
         end
       end
     end
-    
-    def populate_data(data = {})
-      data.each do |key, value|
-        instance_variable_set("@#{key.to_s}", value)
-      end
-    end
 
+  # @deprecated
   def get_response(api_method, instance_name, parent, element, params, force=true)
     Base.get(api_method, parent, element, params)
+  end
+
+  # Load information into instance variables.
+  #
+  # @param [Hash<String,Symbol>] data Each entry will be stored as a variable.
+  # @return [nil]
+  def populate_data(data = {})
+    data.each do |key, value|
+      instance_variable_set("@#{key.to_s}", value)
+    end
   end
 
   # Execute a request to the Audioscrobbler webservice
   #
   # @param [String,Symbol] api_method The method which shall be called.
   # @param [Hash] parameter The parameters passed as URL params.
+  # @return [LibXML::XML::Document]
   def request(api_method, parameters = {}, request_method = 'get')
     Base.request(api_method, parameters, request_method)
   end
@@ -132,6 +138,7 @@ class Base
   # @param [String,Symbol] parent the parent XML node to look for.
   # @param [String,Symbol] elemen The xml node name which shall be converted
   #   into an object.
+  # @return [Array]
   def call(api_method, parent, element, params)
     Base.get(api_method, parent, element, params)
   end

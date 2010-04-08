@@ -62,7 +62,8 @@ module Scrobbler
   # @todo Add missing functions that require authentication
   # @todo Integrate search functionality into this class which is already implemented in Scrobbler::Search
   class Artist < Base
-    mixins :image, :streamable
+    include Scrobbler::ImageObjectFuncs
+    include Scrobbler::StreamableObjectFuncs
     
     attr_reader :name, :mbid, :playcount, :rank, :url, :count, :listeners
     attr_reader :chartposition, :streamable, :match, :tagcount
@@ -92,6 +93,7 @@ module Scrobbler
     # Load the data for this object out of a XML-Node
     #
     # @param [LibXML::XML::Node] node The XML node containing the information
+    # @return [nil]
     def load_from_xml(node)
       # Get all information from the root's children nodes
       node.children.each do |child|
@@ -114,6 +116,17 @@ module Scrobbler
             check_image_node(child)
           when 'streamable'
             check_streamable_node(child)
+          when 'stats'
+            child.children.each do |childL2|
+              @listeners = childL2.content.to_i if childL2.name == 'listeners'
+              @playcount = childL2.content.to_i if childL2.name == 'playcount'
+            end
+          when 'similar'
+            # Ignore them for the moment, they are not stored.
+          when 'bio'
+            child.children.each do |childL2|
+              @bio = childL2.content if childL2.name == 'content'
+            end
           when 'text'
             # ignore, these are only blanks
           else
@@ -137,57 +150,71 @@ module Scrobbler
     # a artist will play
     #
     # @todo Use the API function and parse that into a common ruby structure
+    # @return [String]
     def current_events(format=:ics)
       format = :ics if format.to_s == 'ical'
       raise ArgumentError unless ['ics', 'rss'].include?(format.to_s)
       "#{API_URL.chop}/2.0/artist/#{CGI::escape(@name)}/events.#{format}"
     end
     
-    def similar(force=false)
-      get_response('artist.getsimilar', :similar, 'similarartists', 'artist', {'artist' => @name}, force)
+    # Get all the artists similar to this artist
+    #
+    # @return [Array<Scrobbler::Artist>]
+    def similar
+      call('artist.getsimilar', 'similarartists', 'artist', {'artist' => @name})
+    end
+
+    # Get the top fans for an artist on Last.fm, based on listening data.
+    #
+    # @return [Array<Scrobbler::User>]
+    def top_fans
+      call('artist.gettopfans', 'topfans', 'user', {'artist' => @name})
     end
     
-    def top_fans(force=false)
-      get_response('artist.gettopfans', :top_fans, 'topfans', 'user', {'artist' => @name}, force)
+    # Get the top tracks by an artist on Last.fm, ordered by popularity
+    #
+    # @return [Array<Scrobbler:Track>]
+    def top_tracks
+      call('artist.gettoptracks', 'toptracks', 'track', {'artist' => @name})
     end
     
-    def top_tracks(force=false)
-      get_response('artist.gettoptracks', :top_tracks, 'toptracks', 'track', {'artist'=>@name}, force)
+    # Get the top albums for an artist on Last.fm, ordered by popularity.
+    #
+    # @return [Array<Scrobbler::Album>]
+    def top_albums
+      call('artist.gettopalbums', 'topalbums', 'album', {'artist' => @name})
     end
     
-    def top_albums(force=false)
-      get_response('artist.gettopalbums', :top_albums, 'topalbums', 'album', {'artist'=>@name}, force)
-    end
-    
-    def top_tags(force=false)
-      get_response('artist.gettoptags', :top_tags, 'toptags', 'tag', {'artist' => @name}, force)
+    # Get the top tags for an artist on Last.fm, ordered by popularity.
+    #
+    # @return [Array<Scrobbler::Tags>]
+    def top_tags
+      call('artist.gettoptags', 'toptags', 'tag', {'artist' => @name})
     end
     
     @info_loaded = false
-    # Get the metadata
-    def load_info
-        doc = Base.request('artist.getinfo', {'artist' => @name})
-        doc.root.children.each do |childL1|
-            next unless childL1.name == 'artist'
-            childL1.children.each do |child|
-                @mbid = child.content if child.name == 'mbid'
-                @url = child.content if child.name == 'url'
-                check_image_node child
-                check_streamable_node child
-                if child.name == 'stats'
-                    child.children.each do |childL3|
-                        @listeners = childL3.content.to_i if childL3.name == 'listeners'
-                        @playcount = childL3.content.to_i if childL3.name == 'playcount'
-                    end
-                end
-            end
-        end
-        @info_loaded = true
-    end # load_info
     
-    def ==(otherArtist)
-      if otherArtist.is_a?(Scrobbler::Artist)
-        return (@name == otherArtist.name)
+    # Get the metadata for an artist on Last.fm. Includes biography.
+    #
+    # @return [nil]
+    def load_info
+      doc = request('artist.getinfo', {'artist' => @name})
+      doc.root.children.each do |childL1|
+        next unless childL1.name == 'artist'
+        load_from_xml(childL1)
+      end
+      @info_loaded = true
+    end # load_info
+
+    # Compare two Artists
+    #
+    # They are equal if their names are equal.
+    #
+    # @param [Scrobbler::Artist] other_artist
+    # @return [Boolean]
+    def ==(other_artist)
+      if other_artist.is_a?(Scrobbler::Artist)
+        return (@name == other_artist.name)
       end
       false
     end
