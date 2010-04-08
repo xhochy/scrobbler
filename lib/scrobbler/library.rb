@@ -69,7 +69,7 @@ module Scrobbler
     # @param [Hash<Symbol>] options The options to configure this API call.
     # @return [Array<Scrobbler::Artist>] The artists included in this library.
     def artists(options={})
-        raise ArgumentError unless options.class == Hash
+        raise ArgumentError unless options.kind_of?(Hash)
         options = {:all => true}.merge options
         options[:user] = @user.name
 

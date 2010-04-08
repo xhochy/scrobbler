@@ -25,6 +25,7 @@ class Base
       URI.escape(param.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
     end
 
+    # @private
     def Base.constanize(word)
       names = word.to_s.gsub(/\/(.?)/) do
         "::#{$1.upcase}"
@@ -62,7 +63,7 @@ class Base
     # @param [Hash] parameter The parameters passed as URL params.
     def Base.request(api_method, parameters = {}, request_method = 'get')
       raise ArgumentError unless [String, Symbol].member?(api_method.class)
-      raise ArgumentError unless parameters.class == Hash
+      raise ArgumentError unless parameters.kind_of?(Hash)
 
       parameters = {:signed => false}.merge(parameters)
       parameters['api_key'] = @@api_key
