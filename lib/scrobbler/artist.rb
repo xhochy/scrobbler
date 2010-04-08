@@ -1,3 +1,5 @@
+# encoding: utf-8
+#
 # Below are examples of how to find an artists top tracks and similar artists.
 # 
 #   artist = Scrobbler::Artist.new('Carrie Underwood')
@@ -62,46 +64,43 @@ module Scrobbler
   class Artist < Base
     mixins :image, :streamable
     
-    attr_accessor :name, :mbid, :playcount, :rank, :url, :count
-    attr_accessor :chartposition, :streamable
-    attr_accessor :match, :tagcount, :listeners
+    attr_reader :name, :mbid, :playcount, :rank, :url, :count, :listeners
+    attr_reader :chartposition, :streamable, :match, :tagcount
     
-    class << self
-      def new_from_libxml(xml)
-        data = {}
-      
-        # Get all information from the root's children nodes
-        xml.children.each do |child|
-          data[:playcount] = child.content.to_i if child.name == 'playcount'
-          data[:mbid] = child.content if child.name == 'mbid'
-          data[:url] = child.content if child.name == 'url'
-          data[:match] = child.content.to_i if child.name == 'match'
-          data[:tagcount] = child.content.to_i if child.name == 'tagcount'
-          data[:chartposition] = child.content if child.name == 'chartposition'
-          data[:name] = child.content if child.name == 'name'
-          maybe_streamable_node(data, child)
-          maybe_image_node(data, child)
-        end        
-        
-        # If we have not found anything in the content of this node yet then
-        # this must be a simple artist node which has the name of the artist
-        # as its content
-        data[:name] = xml.content if data == {}
-        
-        # Get all information from the root's attributes
-        data[:name] = xml['name'] if xml['name']
-        data[:rank] = xml['rank'].to_i if xml['rank']
-        maybe_streamable_attribute data, xml
-        data[:mbid] = xml['mbid'] if xml['mbid']
-        
-        # Step 3 fill the object
-        Artist.new(data[:name], data)
+    def self.new_from_libxml(xml)
+      data = {}
+
+      # Get all information from the root's children nodes
+      xml.children.each do |child|
+        data[:playcount] = child.content.to_i if child.name == 'playcount'
+        data[:mbid] = child.content if child.name == 'mbid'
+        data[:url] = child.content if child.name == 'url'
+        data[:match] = child.content.to_i if child.name == 'match'
+        data[:tagcount] = child.content.to_i if child.name == 'tagcount'
+        data[:chartposition] = child.content if child.name == 'chartposition'
+        data[:name] = child.content if child.name == 'name'
+        maybe_streamable_node(data, child)
+        maybe_image_node(data, child)
       end
+
+      # If we have not found anything in the content of this node yet then
+      # this must be a simple artist node which has the name of the artist
+      # as its content
+      data[:name] = xml.content if data == {}
+
+      # Get all information from the root's attributes
+      data[:name] = xml['name'] if xml['name']
+      data[:rank] = xml['rank'].to_i if xml['rank']
+      maybe_streamable_attribute data, xml
+      data[:mbid] = xml['mbid'] if xml['mbid']
+
+      # Step 3 fill the object
+      Artist.new(data[:name], data)
     end
     
     def initialize(name, data = {})
       super()
-      raise ArgumentError, "Name is required" if name.empty?
+      raise ArgumentError, "Name is required" if name.nil? || name.strip.empty?
       @name = name
       populate_data(data)
     end

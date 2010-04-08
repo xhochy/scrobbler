@@ -25,16 +25,8 @@ class Base
       URI.escape(param.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
     end
 
-    def Base.camelize(lower_case_and_underscored_word, first_letter_in_uppercase = true)
-      if first_letter_in_uppercase
-        lower_case_and_underscored_word.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
-      else
-        lower_case_and_underscored_word.first.downcase + camelize(lower_case_and_underscored_word)[1..-1]
-      end
-    end
-
-    def Base.constanize(camel_cased_word)
-      names = camel_cased_word.split('::')
+    def Base.constanize(word)
+      names = word.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }.split('::')
       names.shift if names.empty? || names.first.empty?
 
       constant = Object
@@ -45,7 +37,7 @@ class Base
     end
     
     def Base.get(api_method, parent, element, parameters = {})
-        scrobbler_class = constanize(camelize("scrobbler/#{element.to_s}"))
+        scrobbler_class = constanize("scrobbler/#{element.to_s}")
         doc = request(api_method, parameters)
         elements = []
         doc.root.children.each do |child|
@@ -90,9 +82,6 @@ class Base
       XML::Document.string(self.connection.send(request_method,url))
     end
     
-    
-    private
-      
     def Base.mixins(*args)
       args.each do |arg|
         if arg == :image
@@ -108,17 +97,14 @@ class Base
       end
     end
     
-      def populate_data(data = {})
-        data.each do |key, value|
-          instance_variable_set("@#{key.to_s}", value)
-        end
+    def populate_data(data = {})
+      data.each do |key, value|
+        instance_variable_set("@#{key.to_s}", value)
       end
+    end
 
-      def get_response(api_method, instance_name, parent, element, params, force=false)
-        if instance_variable_get("@#{instance_name}").nil? || force
-            instance_variable_set("@#{instance_name}", Base.get(api_method, parent, element, params))
-        end
-        instance_variable_get("@#{instance_name}")
-      end
+    def get_response(api_method, instance_name, parent, element, params, force=false)
+      Base.get(api_method, parent, element, params)
+    end
 end # class Base
 end # module Scrobbler

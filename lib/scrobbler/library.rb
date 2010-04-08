@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Scrobbler
   # Class for invocation of library.* API functions.
   class Library < Base
