@@ -56,7 +56,14 @@ class Base
       Base.request(api_method, parameters, 'post')
     end
 
+    # Execute a request to the Audioscrobbler webservice
+    #
+    # @param [String,Symbol] api_method The method which shall be called.
+    # @param [Hash] parameter The parameters passed as URL params.
     def Base.request(api_method, parameters = {}, request_method = 'get')
+      raise ArgumentError unless [String, Symbol].member?(api_method.class)
+      raise ArgumentError unless parameters.class == Hash
+
       parameters = {:signed => false}.merge(parameters)
       parameters['api_key'] = @@api_key
       parameters['method'] = api_method.to_s
@@ -105,7 +112,7 @@ class Base
       end
     end
 
-    def get_response(api_method, instance_name, parent, element, params, force=false)
+    def get_response(api_method, instance_name, parent, element, params, force=true)
       Base.get(api_method, parent, element, params)
     end
 end # class Base

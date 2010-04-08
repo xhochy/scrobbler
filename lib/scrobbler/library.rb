@@ -65,7 +65,11 @@ module Scrobbler
 
     # A list of all the artists in a user's library, with play counts and tag
     # counts. 
+    #
+    # @param [Hash<Symbol>] options The options to configure this API call.
     def artists(options={})
+        raise ArgumentError unless options.class == Hash
+
         options = {:force => false, :all => true}.merge options
         options[:user] = @user.name
         artists = []
@@ -83,10 +87,10 @@ module Scrobbler
             end
             for i in 2..total_pages do
                 options[:page] = i
-                artists.concat get_response('library.getartists', :none, 'artists', 'artist', options, true)
+                artists.concat get_response('library.getartists', :none, 'artists', 'artist', options)
             end
         else
-            artists = get_response('library.getartists', :get_albums, 'artists', 'artist', options, true)
+            artists = get_response('library.getartists', :get_albums, 'artists', 'artist', options)
         end
         artists
     end
