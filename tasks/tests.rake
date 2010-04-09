@@ -12,3 +12,10 @@ Spec::Rake::SpecTask.new('test:unit') do |t|
   t.spec_opts << '-b'
   t.spec_files = FileList['test/unit/*_spec.rb']
 end
+
+Spec::Rake::SpecTask.new(:rcov) do |spec|
+  spec.libs << 'lib' << 'spec'
+  spec.pattern = 'test/unit/*_spec.rb'
+  spec.rcov = true
+end
+
