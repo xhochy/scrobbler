@@ -9,6 +9,7 @@ begin
     s.authors = ['John Nunemaker', 'Jonathan Rudenberg', 'Uwe L. Korn']
     s.add_development_dependency "rspec", ">= 1.2.9"
     s.add_development_dependency "yard", ">= 0"
+    s.add_development_dependency "fakeweb", ">= 0"
     #if RUBY_PLATFORM =~ /\bjava\b/
     #  s.add_dependency 'libxml-jruby'
     #else
