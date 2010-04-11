@@ -129,6 +129,8 @@ module Scrobbler
             end
           when 'text'
             # ignore, these are only blanks
+          when '#text'
+            # libxml-jruby version of blanks
           else
             raise NotImplementedError, "Field '#{child.name}' not known (#{child.content})"
         end #^ case
