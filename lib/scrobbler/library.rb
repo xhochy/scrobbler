@@ -84,7 +84,7 @@ module Scrobbler
             total_pages = root['totalPages'].to_i
             root.children.each do |child|
                 next unless child.name == 'artist'
-                artists << Scrobbler::Artist.new_from_libxml(child)
+                artists << Scrobbler::Artist.new(:xml => child)
             end
             (2..total_pages).each do |i|
                 options[:page] = i

@@ -56,12 +56,6 @@ module Scrobbler
     #
     # @todo Albums should be able to be created via a MusicBrainz id too
     def initialize(name, input={})
-      super()      
-      # Support old version of initialize where we had (artist_name, album_name)
-      if input.class == String
-        data = {:artist => name, :name => input}
-        name = input, input = data
-      end
       data = {:include_profile => false}.merge(input)
       raise ArgumentError, "Artist or mbid is required" if data[:artist].nil? && data[:mbid].nil?
       raise ArgumentError, "Name is required" if name.empty?
