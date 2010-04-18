@@ -1,47 +1,5 @@
-# Getting information about an album such as release date and the tracks on it is very easy.
-# 
-#   album = Scrobbler::Album.new('Carrie Underwood', 'Some Hearts', :include_info => true)
-# 
-#   puts "Album: #{album.name}"
-#   puts "Artist: #{album.artist}"
-#   puts "Reach: #{album.reach}"
-#   puts "URL: #{album.url}"
-#   puts "Release Date: #{album.release_date.strftime('%m/%d/%Y')}"
-# 
-#   puts
-#   puts
-# 
-#   puts "Tracks"
-#   longest_track_name = album.tracks.collect(&:name).sort { |x, y| y.length <=> x.length }.first.length
-#   puts "=" * longest_track_name
-#   album.tracks.each { |t| puts t.name }
-#
-# Would output:
-#
-#   Album: Some Hearts
-#   Artist: Carrie Underwood
-#   Reach: 18729
-#   URL: http://www.last.fm/music/Carrie+Underwood/Some+Hearts
-#   Release Date: 11/15/2005
-# 
-# 
-#   Tracks
-#   ===============================
-#   Wasted
-#   Don't Forget to Remember Me
-#   Some Hearts
-#   Jesus, Take the Wheel
-#   The Night Before (Life Goes On)
-#   Lessons Learned
-#   Before He Cheats
-#   Starts With Goodbye
-#   I Just Can't Live a Lie
-#   We're Young and Beautiful
-#   That's Where It Is
-#   Whenever You Remember
-#   I Ain't in Checotah Anymore
-#   Inside Your Heaven
-#
+# encoding: utf-8
+
 module Scrobbler
   # @todo Add missing functions that require authentication
   class Album < Base
