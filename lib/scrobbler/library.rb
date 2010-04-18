@@ -53,7 +53,7 @@ module Scrobbler
                 next unless child.name == 'album'
                 albums << Scrobbler::Album.new_from_libxml(child)
             end
-            for i in 2..total_pages do
+            (2..total_pages).each do |i|
                 options[:page] = i
                 albums.concat get_response('library.getalbums', :none, 'albums', 'album', options, true)
             end
@@ -86,7 +86,7 @@ module Scrobbler
                 next unless child.name == 'artist'
                 artists << Scrobbler::Artist.new_from_libxml(child)
             end
-            for i in 2..total_pages do
+            (2..total_pages).each do |i|
                 options[:page] = i
                 artists.concat call('library.getartists', 'artists', 'artist', options)
             end
@@ -114,7 +114,7 @@ module Scrobbler
                 next unless child.name == 'track'
                 tracks << Scrobbler::Track.new_from_libxml(child)
             end
-            for i in 2..total_pages do
+            (2..total_pages).each do |i|
                 options[:page] = i
                 tracks.concat get_response('library.gettracks', :none, 'tracks', 'track', options, true)
             end
