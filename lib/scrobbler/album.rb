@@ -15,35 +15,33 @@ module Scrobbler
     # needed for weekly album charts
     attr_reader :chartposition, :position
     
-    class << self
-      def new_from_libxml(xml)
-        data = {}
+    def self.new_from_libxml(xml)
+      data = {}
 
-        xml.children.each do |child|
-          data[:name] = child.content if ['name', 'title'].include?(child.name)
-          data[:playcount] = child.content.to_i if child.name == 'playcount'
-          data[:tagcount] = child.content.to_i if child.name == 'tagcount'
-          data[:mbid] = child.content if child.name == 'mbid'
-          data[:url] = child.content if child.name == 'url'
-          data[:artist] = Artist.new(:xml => child) if child.name == 'artist'
-          maybe_image_node(data, child)
-        end
-        
-        # If we have not found anything in the content of this node yet then
-        # this must be a simple artist node which has the name of the artist
-        # as its content
-        data[:name] = xml.content if data == {}
-        
-        # Get all information from the root's attributes
-        data[:mbid] = xml['mbid'] if xml['mbid']
-        data[:rank] = xml['rank'].to_i if xml['rank']
-        data[:position] = xml['position'].to_i if xml['position']
-        
-        # If there is no name defined, than this was an empty album tag
-        return nil if data[:name].empty?
-        
-        Album.new(data[:name], data)
+      xml.children.each do |child|
+        data[:name] = child.content if ['name', 'title'].include?(child.name)
+        data[:playcount] = child.content.to_i if child.name == 'playcount'
+        data[:tagcount] = child.content.to_i if child.name == 'tagcount'
+        data[:mbid] = child.content if child.name == 'mbid'
+        data[:url] = child.content if child.name == 'url'
+        data[:artist] = Artist.new(:xml => child) if child.name == 'artist'
+        maybe_image_node(data, child)
       end
+      
+      # If we have not found anything in the content of this node yet then
+      # this must be a simple artist node which has the name of the artist
+      # as its content
+      data[:name] = xml.content if data == {}
+      
+      # Get all information from the root's attributes
+      data[:mbid] = xml['mbid'] if xml['mbid']
+      data[:rank] = xml['rank'].to_i if xml['rank']
+      data[:position] = xml['position'].to_i if xml['position']
+      
+      # If there is no name defined, than this was an empty album tag
+      return nil if data[:name].empty?
+      
+      Album.new(data[:name], data)
     end
       
     def search
