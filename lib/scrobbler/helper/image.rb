@@ -50,6 +50,8 @@ module Scrobbler
             @image_large = node.content
           when 'extralarge'
             @image_extralarge = node.content
+          when 'mega'
+            @image_mega = node.content
           else
             raise NotImplementedError, "Image size '#{node['size'].to_s}' not supported."
         end #^ case
@@ -62,7 +64,8 @@ module Scrobbler
     # 'load_info'-function is defined, it will be called.
     def image(which=:small)
       which = which.to_s
-      raise ArgumentError unless ['small', 'medium', 'large', 'extralarge'].include?(which)      
+      raise ArgumentError unless ['small', 'medium', 'large', 'extralarge',
+        'mega'].include?(which)      
       img_url = instance_variable_get("@image_#{which}")
       if img_url.nil? && responds_to?(:load_info) 
         load_info 
