@@ -64,6 +64,7 @@ module Scrobbler
         xml.children.each do |child|
           data[:name] = child.content if ['name', 'title'].include?(child.name)
           data[:playcount] = child.content.to_i if child.name == 'playcount'
+          data[:listeners] = child.content.to_i if child.name == 'listeners'
           data[:tagcount] = child.content.to_i if child.name == 'tagcount'
           data[:mbid] = child.content if child.name == 'mbid'
           data[:url] = child.content if child.name == 'url'
