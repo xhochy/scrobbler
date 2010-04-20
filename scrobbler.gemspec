@@ -16,12 +16,6 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
-    ".gitignore",
-     ".loadpath",
-     ".project",
-     ".settings/com.aptana.rdt.prefs",
-     ".settings/org.radrails.rails.core.prefs",
-     ".settings/org.rubypeople.rdt.core.prefs",
      "History.txt",
      "MIT-LICENSE",
      "Manifest",
