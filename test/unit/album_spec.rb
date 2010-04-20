@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper.rb'
 describe Scrobbler::Album do
 
   before(:each) do 
-    @album = Scrobbler::Album.new('Some Hearts', :artist=>'Carrie Underwood')
+    @album = Scrobbler::Album.new(:name => 'Some Hearts', :artist => 'Carrie Underwood')
   end
   
   it 'should know the artist' do

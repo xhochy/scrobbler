@@ -14,29 +14,6 @@ module Scrobbler
     #
     # @deprecated
     def self.new_from_libxml(xml)
-      xml.children.each do |child|
-        data[:name] = child.content if ['name', 'title'].include?(child.name)
-        data[:playcount] = child.content.to_i if child.name == 'playcount'
-        data[:tagcount] = child.content.to_i if child.name == 'tagcount'
-        data[:mbid] = child.content if child.name == 'mbid'
-        data[:url] = child.content if child.name == 'url'
-        data[:artist] = Artist.new(:xml => child) if child.name == 'artist'
-        maybe_image_node(data, child)
-      end
-      
-      # If we have not found anything in the content of this node yet then
-      # this must be a simple artist node which has the name of the artist
-      # as its content
-      data[:name] = xml.content if data == {}
-      
-      # Get all information from the root's attributes
-      data[:mbid] = xml['mbid'] if xml['mbid']
-      data[:rank] = xml['rank'].to_i if xml['rank']
-      data[:position] = xml['position'].to_i if xml['position']
-      
-      # If there is no name defined, than this was an empty album tag
-      return nil if data[:name].empty?
-      
       Album.new(:xml => xml)
     end
       
@@ -77,12 +54,54 @@ module Scrobbler
       # Get all information from the root's children nodes
       node.children.each do |child|
         case child.name
-        
+          when 'name'
+            @name = child.content
+          when 'title'
+            @name = child.content
+          when 'playcount'
+            @playcount = child.content.to_i
+          when 'tagcount'
+            @tagcount = child.content.to_i
+          when 'mbid'
+            @mbid = child.content
+          when 'url'
+            @url = child.content
+          when 'artist'
+            @artist = Artist.new(:xml => child)
+          when 'image'
+            check_image_node(child)
+          when 'id'
+            @id = child.content.to_s
+          when 'releasedate'
+            @release_date = Time.parse(child.content.strip)
+          when 'listeners'
+            @listeners = child.content.to_i
+          when 'toptags'
+            @top_tags = [] if @top_tags.nil?
+            child.children.each do |tag|
+              next unless tag.name == 'tag'
+              @top_tags << Tag.new_from_libxml(tag)
+            end
+          when 'wiki'
+            # @todo Handle wiki entries
+          when 'text'
+            # ignore, these are only blanks
+          when '#text'
+            # libxml-jruby version of blanks
           else
             raise NotImplementedError, "Field '#{child.name}' not known (#{child.content})"
         end #^ case
       end #^ do |child|
 
+      # Get all information from the root's attributes
+      @mbid = node['mbid'].to_s unless node['mbid'].nil?
+      @rank = node['rank'].to_i unless node['rank'].nil?
+      @position = node['position'].to_i unless node['position'].nil?
+
+      # If we have not found anything in the content of this node yet then
+      # this must be a simple artist node which has the name of the artist
+      # as its content
+      @name = node.content if @name.nil?
     end #^ load_from_xml
 
     # Indicates if the info was already loaded
@@ -100,23 +119,7 @@ module Scrobbler
       unless xml.root['status'] == 'failed'
         xml.root.children.each do |childL1|
           next unless childL1.name == 'album'
-          
-          childL1.children.each do |childL2|
-            @url = childL2.content if childL2.name == 'url'
-            @id = childL2.content if childL2.name == 'id'
-            @mbid = childL2.content if childL2.name == 'mbid'
-            @release_date = Time.parse(childL2.content.strip) if childL2.name == 'releasedate'
-            check_image_node childL2
-            @listeners = childL2.content.to_i if childL2.name == 'listeners'
-            @playcount = childL2.content.to_i if childL2.name == 'playcount'
-            if childL2.name == 'toptags'
-              @top_tags = []
-              childL2.children.each do |childL3|
-                next unless childL3.name == 'tag'
-                @top_tags << Tag.new_from_libxml(childL3)
-              end # childL2.children.each do |childL3|
-            end # if childL2.name == 'toptags'
-          end # childL1.children.each do |childL2|
+          load_from_xml(childL1)
         end # xml.children.each do |childL1|
         @info_loaded  = true
       end
