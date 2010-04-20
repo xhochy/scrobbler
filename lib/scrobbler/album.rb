@@ -3,21 +3,17 @@
 module Scrobbler
   # @todo Add missing functions that require authentication
   class Album < Base
-    mixins :image
+    include Scrobbler::ImageObjectFuncs
     
     attr_reader :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url
     attr_reader :reach, :release_date, :listeners, :playcount, :top_tags
     attr_reader :image_large, :image_medium, :image_small, :tagcount
+    attr_reader :count, :chartposition, :position
     
-    # needed on top albums for tag
-    attr_reader :count
-    
-    # needed for weekly album charts
-    attr_reader :chartposition, :position
-    
+    # Alias for Album.new(:xml => xml)
+    #
+    # @deprecated
     def self.new_from_libxml(xml)
-      data = {}
-
       xml.children.each do |child|
         data[:name] = child.content if ['name', 'title'].include?(child.name)
         data[:playcount] = child.content.to_i if child.name == 'playcount'
@@ -41,7 +37,7 @@ module Scrobbler
       # If there is no name defined, than this was an empty album tag
       return nil if data[:name].empty?
       
-      Album.new(data[:name], data)
+      Album.new(:xml => xml)
     end
       
     def search
@@ -49,19 +45,46 @@ module Scrobbler
       raise NotImplementedError
     end
 
+    # Create a new Scrobbler::Artist instance
+    #
     # If the additional parameter :include_info is set to true, additional 
     # information is loaded
     #
     # @todo Albums should be able to be created via a MusicBrainz id too
-    def initialize(name, input={})
-      data = {:include_profile => false}.merge(input)
-      raise ArgumentError, "Artist or mbid is required" if data[:artist].nil? && data[:mbid].nil?
-      raise ArgumentError, "Name is required" if name.empty?
-      @name = name
+    #
+    # @param [Hash] data The options to initialize the class
+    def initialize(data={})
+      raise ArgumentError unless data.kind_of?(Hash)
+      data = {:include_info => false}.merge(data)
+      # Load data out of a XML node
+      unless data[:xml].nil?
+        load_from_xml(data[:xml])
+        data.delete(:xml)
+      end
+      # Load data given as method-parameter
       populate_data(data)
       load_info() if data[:include_info]
+      
+      raise ArgumentError, "Artist or mbid is required" if @artist.nil? && @mbid.nil?
+      raise ArgumentError, "Name is required" if @name.empty?
     end
     
+    # Load the data for this object out of a XML-Node
+    #
+    # @param [LibXML::XML::Node] node The XML node containing the information
+    # @return [nil]
+    def load_from_xml(node)
+      # Get all information from the root's children nodes
+      node.children.each do |child|
+        case child.name
+        
+          else
+            raise NotImplementedError, "Field '#{child.name}' not known (#{child.content})"
+        end #^ case
+      end #^ do |child|
+
+    end #^ load_from_xml
+
     # Indicates if the info was already loaded
     @info_loaded = false 
     
