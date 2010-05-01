@@ -107,13 +107,13 @@ module Scrobbler
     
     # Get the top albums listened to by a user. You can stipulate a time period. 
     # Sends the overall chart by default. 
-    def top_albums(period='overall')
+    def top_albums(period=:overall)
       call('user.gettopalbums', :topalbums, :album, {:user => @username, :period => period})
     end
 
     # Get the top artists listened to by a user. You can stipulate a time 
     # period. Sends the overall chart by default. 
-    def top_artists(period='overall')
+    def top_artists(period=:overall)
       call('user.gettopartists', :topartists, :artist, {:user => @username, :period => period})
     end
 
@@ -124,7 +124,7 @@ module Scrobbler
 
     # Get the top tracks listened to by a user. You can stipulate a time period. 
     # Sends the overall chart by default. 
-    def top_tracks(period='overall')
+    def top_tracks(period=:overall)
       call('user.gettoptracks', :toptracks, :track, {:user => @username, :period => period})
     end
 

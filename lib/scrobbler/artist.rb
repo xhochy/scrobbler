@@ -96,44 +96,43 @@ module Scrobbler
     # @todo Use the API function and parse that into a common ruby structure
     # @return [String]
     def current_events(format=:ics)
-      format = :ics if format.to_s == 'ical'
       raise ArgumentError unless ['ics', 'rss'].include?(format.to_s)
-      "#{API_URL.chop}/2.0/artist/#{CGI::escape(@name)}/events.#{format}"
+      "#{API_URL.chop}/2.0/artist/#{CGI::escape(@name)}/events.#{format.to_s}"
     end
     
     # Get all the artists similar to this artist
     #
     # @return [Array<Scrobbler::Artist>]
     def similar
-      call('artist.getsimilar', 'similarartists', 'artist', {'artist' => @name})
+      call('artist.getsimilar', :similarartists, :artist, {:artist => @name})
     end
 
     # Get the top fans for an artist on Last.fm, based on listening data.
     #
     # @return [Array<Scrobbler::User>]
     def top_fans
-      call('artist.gettopfans', 'topfans', 'user', {'artist' => @name})
+      call('artist.gettopfans', :topfans, :user, {:artist => @name})
     end
     
     # Get the top tracks by an artist on Last.fm, ordered by popularity
     #
     # @return [Array<Scrobbler:Track>]
     def top_tracks
-      call('artist.gettoptracks', 'toptracks', 'track', {'artist' => @name})
+      call('artist.gettoptracks', :toptracks, :track, {:artist => @name})
     end
     
     # Get the top albums for an artist on Last.fm, ordered by popularity.
     #
     # @return [Array<Scrobbler::Album>]
     def top_albums
-      call('artist.gettopalbums', 'topalbums', 'album', {'artist' => @name})
+      call('artist.gettopalbums', :topalbums, :album, {:artist => @name})
     end
     
     # Get the top tags for an artist on Last.fm, ordered by popularity.
     #
     # @return [Array<Scrobbler::Tags>]
     def top_tags
-      call('artist.gettoptags', 'toptags', 'tag', {'artist' => @name})
+      call('artist.gettoptags', :toptags, :tag, {:artist => @name})
     end
     
     @info_loaded = false
