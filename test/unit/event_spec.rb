@@ -5,7 +5,7 @@ describe Scrobbler::Event do
   before(:all) do
     @auth = Scrobbler::Auth.new('user')
     @session = @auth.session('test123token')
-    @event = Scrobbler::Event.new(328799)
+    @event = Scrobbler::Event.new(:id => 328799)
   end
   
   it 'should know its id' do
