@@ -73,8 +73,9 @@ module Scrobbler
         options = {:all => true}.merge options
         options[:user] = @user.name
 
-        artists = []
+        result = []
         if options[:all]
+            options.delete(:all)
             doc = request('library.getartists', options)
             root = nil
             doc.root.children.each do |child|
@@ -84,16 +85,17 @@ module Scrobbler
             total_pages = root['totalPages'].to_i
             root.children.each do |child|
                 next unless child.name == 'artist'
-                artists << Scrobbler::Artist.new(:xml => child)
+                result << Scrobbler::Artist.new(:xml => child)
             end
             (2..total_pages).each do |i|
                 options[:page] = i
-                artists.concat call('library.getartists', 'artists', 'artist', options)
+                result.concat call('library.getartists', :artists, Artist, options)
             end
         else
-            artists = call('library.getartists', 'artists', 'artist', options)
+          options.delete(:all)
+          result = call('library.getartists', :artists, Artist, options)
         end
-        artists
+        result
     end
     
     # A list of all the tracks in a user's library, with play counts and tag
@@ -101,8 +103,9 @@ module Scrobbler
     def tracks(options={})
         options = {:force => false, :all => true}.merge options
         options[:user] = @user.name
-        tracks = []
+        result = []
         if options[:all]
+            options.delete(:all)
             doc = Base.request('library.gettracks', options)
             root = nil
             doc.root.children.each do |child|
@@ -112,16 +115,17 @@ module Scrobbler
             total_pages = root['totalPages'].to_i
             root.children.each do |child|
                 next unless child.name == 'track'
-                tracks << Scrobbler::Track.new_from_libxml(child)
+                result << Scrobbler::Track.new_from_libxml(child)
             end
             (2..total_pages).each do |i|
                 options[:page] = i
-                tracks.concat get_response('library.gettracks', :none, 'tracks', 'track', options, true)
+                result.concat call('library.gettracks', :tracks, Track, options)
             end
         else
-            tracks = get_response('library.gettracks', :get_albums, 'tracks', 'track', options, true)
+            options.delete(:all)
+            result = call('library.gettracks', :tracks, Track, options)
         end
-        tracks
+        result
     end
     
   end

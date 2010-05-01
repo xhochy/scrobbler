@@ -62,21 +62,27 @@ class Base
     constant
   end
 
-  # Initiate a API and parse it.
-  #
-  # @param [String,Symbol] api_method The API method to call.
-  # @param [String,Symbol] parent The parent node to inspect.
-  # @param [String,Symbol] element The name of the node to turn into objects.
-  # @param [Hash<String,Symbol>] parameters The parameters for the method call.
-  # @return [Array<Scrobbler::Base>]
-  def Base.get(api_method, parent, element, parameters = {})
-      scrobbler_class = constanize("scrobbler/#{element.to_s}")
+    # Initiate a API and parse it.
+    #
+    # @param [String,Symbol] api_method The API method to call.
+    # @param [String,Symbol] parent The parent node to inspect.
+    # @param [Class,String,Symbol] element The name of the node to turn into objects.
+    # @param [Hash<String,Symbol>] parameters The parameters for the method call.
+    # @return [Array<Scrobbler::Base>]
+    def Base.get(api_method, parent, element, parameters = {})
+      if (element.is_a?(Class))
+        scrobbler_class = element
+        element = element.to_s.sub("Scrobbler::","").downcase
+      else
+        element = element.to_s
+        scrobbler_class = constanize("scrobbler/#{element}")
+      end
       doc = request(api_method, parameters)
       elements = []
       doc.root.children.each do |child|
           next unless child.name == parent.to_s
           child.children.each do |child2|
-              next unless child2.name == element.to_s
+              next unless child2.name == element
               elements << scrobbler_class.new_from_libxml(child2)
           end
       end
@@ -159,7 +165,7 @@ class Base
   # @param [String,Symbol] api_method The method which shall be called.
   # @param [Hash] params The parameters passed as URL params.
   # @param [String,Symbol] parent the parent XML node to look for.
-  # @param [String,Symbol] elemen The xml node name which shall be converted
+  # @param [Class,String,Symbol] elemen The xml node name which shall be converted
   #   into an object.
   # @return [Array]
   def call(api_method, parent, element, params)
