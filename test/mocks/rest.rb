@@ -70,13 +70,13 @@ FakeWeb.register_uri(:get, WEB_BASE + 'api_key=foo123&method=track.getinfo&artis
 
 
 ## Geo
-FakeWeb.register_uri(:get, WEB_BASE + 'method=geo.getevents&api_key=foo123&page=1&force=false&location=Manchester', :body => File.join([FIXTURES_BASE, 'geo', 'events-p1.xml']))
-FakeWeb.register_uri(:get, WEB_BASE + 'method=geo.getevents&api_key=foo123&page=2&force=false&location=Manchester', :body => File.join([FIXTURES_BASE, 'geo', 'events-p2.xml']))
-FakeWeb.register_uri(:get, WEB_BASE + 'method=geo.getevents&api_key=foo123&page=3&force=false&location=Manchester', :body => File.join([FIXTURES_BASE, 'geo', 'events-p3.xml']))
-FakeWeb.register_uri(:get, WEB_BASE + 'distance=15&method=geo.getevents&api_key=foo123&page=1&force=false', :body => File.join([FIXTURES_BASE, 'geo', 'events-distance-p1.xml']))
-FakeWeb.register_uri(:get, WEB_BASE + 'long=-74.00639&method=geo.getevents&api_key=foo123&page=1&lat=40.71417&force=false', :body => File.join([FIXTURES_BASE, 'geo', 'events-lat-long.xml']))
-FakeWeb.register_uri(:get, WEB_BASE + 'method=geo.gettopartists&api_key=foo123&page=1&force=false&location=Spain', :body => File.join([FIXTURES_BASE, 'geo', 'top_artists-p1.xml']))
-FakeWeb.register_uri(:get, WEB_BASE + 'method=geo.gettoptracks&api_key=foo123&page=1&force=false&location=Germany', :body => File.join([FIXTURES_BASE, 'geo', 'top_tracks-p1.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'location=Manchester&api_key=foo123&method=geo.getevents', :body => File.join([FIXTURES_BASE, 'geo', 'events-p1.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'location=Manchester&page=2&api_key=foo123&method=geo.getevents', :body => File.join([FIXTURES_BASE, 'geo', 'events-p2.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'location=Manchester&page=3&api_key=foo123&method=geo.getevents', :body => File.join([FIXTURES_BASE, 'geo', 'events-p3.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'distance=15&api_key=foo123&method=geo.getevents', :body => File.join([FIXTURES_BASE, 'geo', 'events-distance-p1.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'lat=40.71417&long=-74.00639&api_key=foo123&method=geo.getevents', :body => File.join([FIXTURES_BASE, 'geo', 'events-lat-long.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'location=Spain&api_key=foo123&method=geo.gettopartists', :body => File.join([FIXTURES_BASE, 'geo', 'top_artists-p1.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'location=Germany&api_key=foo123&method=geo.gettoptracks', :body => File.join([FIXTURES_BASE, 'geo', 'top_tracks-p1.xml']))
 
 # User
 FakeWeb.register_uri(:get, WEB_BASE + 'method=user.getplaylists&api_key=foo123&user=jnunemaker', :body => File.join([FIXTURES_BASE, 'user', 'playlists.xml']))

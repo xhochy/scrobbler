@@ -4,24 +4,16 @@ module Scrobbler
     # Gets a list of events based on the location that
     # the Geo object is set to
     def events(options={})
-      options = set_default_options(options)
-      get_response('geo.getevents', :events, 'events', 'event', options, options[:force])
+      call('geo.getevents', :events, Event, options)
     end
 
     def top_artists(options={})
-      options = set_default_options(options)
-      get_response('geo.gettopartists', :artists, 'topartists', 'artist', options, options[:force])
+      call('geo.gettopartists', :topartists, Artist, options)
     end
 
     def top_tracks(options={})
-      options = set_default_options(options)
-      get_response('geo.gettoptracks', :tracks, 'toptracks', 'track', options, options[:force])
+      call('geo.gettoptracks', :toptracks, Track, options)
     end
 
-    private
-
-    def set_default_options(options={})
-      {:force => false, :page => 1}.merge options
-    end
   end
 end
