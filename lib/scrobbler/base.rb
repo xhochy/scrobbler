@@ -131,22 +131,6 @@ class Base
   end
   
   # @deprecated
-  def Base.mixins(*args)
-    args.each do |arg|
-      if arg == :image
-        extend Scrobbler::ImageClassFuncs
-        include Scrobbler::ImageObjectFuncs
-      elsif arg == :streamable
-        attr_reader :streamable
-        extend StreamableClassFuncs
-        include StreamableObjectFuncs
-      else
-        raise ArgumentError, "#{arg} is not a known mixin"
-      end
-    end
-  end
-
-  # @deprecated
   def get_response(api_method, instance_name, parent, element, params, force=true)
     Base.get(api_method, parent, element, params)
   end

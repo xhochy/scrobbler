@@ -1,9 +1,11 @@
 # encoding: utf-8
 
+require File.expand_path('basexml.rb', File.dirname(__FILE__))
+
 module Scrobbler
   # @todo Add missing functions that require authentication
   # @todo Integrate search functionality into this class which is already implemented in Scrobbler::Search
-  class Artist < Base
+  class Artist < BaseXml
     include Scrobbler::ImageObjectFuncs
     include Scrobbler::StreamableObjectFuncs
     
@@ -22,11 +24,7 @@ module Scrobbler
     # @param [Hash] data The options to initialize the class
     def initialize(data = {})
       raise ArgumentError unless data.kind_of?(Hash)
-      # Load data out of a XML node
-      unless data[:xml].nil?
-        load_from_xml(data[:xml])
-        data.delete(:xml)
-      end
+      super(data)
       # Load data given as method-parameter
       populate_data(data)
       raise ArgumentError, "Name is required" if @name.nil? || @name.strip.empty?
