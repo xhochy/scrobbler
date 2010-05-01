@@ -11,3 +11,4 @@ catalog.xml
 .yardoc
 scrobbler-ng.gemspec
 tmp
+.project
