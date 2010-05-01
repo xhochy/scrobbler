@@ -36,8 +36,8 @@ module Scrobbler
       super(data)
       data = {:include_info => false}.merge(data)
       # Load data given as method-parameter
-      populate_data(data)
-      load_info() if data[:include_info]
+      load_info() if data.delete(:include_info)
+      populate_data(data)      
       
       raise ArgumentError, "Artist or mbid is required" if @artist.nil? && @mbid.nil?
       raise ArgumentError, "Name is required" if @name.empty?
@@ -50,7 +50,7 @@ module Scrobbler
     def load_from_xml(node)
       # Get all information from the root's children nodes
       node.children.each do |child|
-        case child.name
+        case child.name.to_s
           when 'name'
             @name = child.content
           when 'title'

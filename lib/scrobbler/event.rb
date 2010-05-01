@@ -26,8 +26,8 @@ module Scrobbler
       super(data)
       data = {:include_info => false}.merge(data)
       # Load data given as method-parameter
+      load_info() if data.delete(:include_info)
       populate_data(data)
-      load_info() if data[:include_info]
 
       raise ArgumentError, "ID is required" if @id.nil?
     end
