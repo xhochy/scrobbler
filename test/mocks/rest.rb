@@ -3,6 +3,7 @@ require 'rubygems'
 require 'fakeweb'
 
 FIXTURES_BASE = File.join([File.dirname(__FILE__), '..', 'fixtures', 'xml'])
+WEB_BASE = 'http://ws.audioscrobbler.com:80/2.0/?'
 FakeWeb.allow_net_connect = false
 
 ## Library
@@ -22,86 +23,63 @@ FakeWeb.allow_net_connect = false
     :body => File.join([FIXTURES_BASE, 'library', file]))
 end
 
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p1.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=2&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p2.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=3&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p3.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=4&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p4.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=5&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p5.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=6&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p6.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=7&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p7.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&force=false&page=8&api_key=foo123&user=xhochy&all=true', :body => File.join([FIXTURES_BASE, 'library', 'albums-p8.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.getalbums&limit=30&force=false&api_key=foo123&user=xhochy&all=false', :body => File.join([FIXTURES_BASE, 'library', 'albums-f30.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p1.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=2&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p2.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=3&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p3.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=4&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p4.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=5&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p5.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=6&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p6.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=7&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p7.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=8&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p8.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=9&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p9.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=10&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p10.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=11&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p11.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=12&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p12.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=13&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p13.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=14&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p14.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=15&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p15.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=16&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p16.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=17&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p17.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=18&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p18.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=19&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p19.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=20&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p20.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=21&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p21.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=22&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p22.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=23&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p23.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=24&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p24.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=25&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p25.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=26&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p26.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=27&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p27.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=28&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p28.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=29&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p29.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=30&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p30.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=31&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p31.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=32&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p32.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=33&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p33.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&force=false&page=34&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p34.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&limit=30&force=false&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-f30.xml']))
+## ## library.gettracks
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-p1.xml']))
+FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=library.gettracks&limit=30&api_key=foo123&user=xhochy', :body => File.join([FIXTURES_BASE, 'library', 'tracks-f30.xml']))
+(2..34).each do |n|
+  FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?' +
+    'user=xhochy&page=' + n.to_s + 
+    '&api_key=foo123&method=library.gettracks', 
+    :body => File.join([FIXTURES_BASE, 'library', 'tracks-p' + n.to_s + 
+    '.xml']))
+end
+
+## ## library.getalbums
+FakeWeb.register_uri(:get, WEB_BASE + 'limit=30&user=xhochy&api_key=foo123&method=library.getalbums', :body => File.join([FIXTURES_BASE, 'library', 'albums-f30.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'user=xhochy&api_key=foo123&method=library.getalbums', :body => File.join([FIXTURES_BASE, 'library', 'albums-p1.xml']))
+(2..8).each do |n|
+  FakeWeb.register_uri(:get, WEB_BASE + 'method=library.getalbums&page=' + 
+    n.to_s + '&api_key=foo123&user=xhochy', 
+    :body => File.join([FIXTURES_BASE, 'library', 'albums-p' +
+    n.to_s + '.xml']))  
+end
+
 
 ## Event
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=event.getattendees&event=328799&api_key=foo123', :body => File.join([FIXTURES_BASE, 'event', 'attendees.xml']))
-FakeWeb.register_uri(:post, 'http://ws.audioscrobbler.com:80/2.0/?api_key=foo123&event=328799&method=event.attend&sk=d580d57f32848f5dcf574d1ce18d78b2&status=1&api_sig=c476ec753082205327b0f6ef922d82c8', :body => File.join([FIXTURES_BASE, 'event', 'attend.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'method=event.getattendees&event=328799&api_key=foo123', :body => File.join([FIXTURES_BASE, 'event', 'attendees.xml']))
+FakeWeb.register_uri(:post, WEB_BASE + 'api_key=foo123&event=328799&method=event.attend&sk=d580d57f32848f5dcf574d1ce18d78b2&status=1&api_sig=c476ec753082205327b0f6ef922d82c8', :body => File.join([FIXTURES_BASE, 'event', 'attend.xml']))
 
 
 ## Tag
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=tag.gettoptags&api_key=foo123', :body => File.join([FIXTURES_BASE, 'tag', 'toptags.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=tag.getsimilar&tag=rock&api_key=foo123', :body => File.join([FIXTURES_BASE, 'tag', 'similar.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'method=tag.gettoptags&api_key=foo123', :body => File.join([FIXTURES_BASE, 'tag', 'toptags.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'method=tag.getsimilar&tag=rock&api_key=foo123', :body => File.join([FIXTURES_BASE, 'tag', 'similar.xml']))
 
 ## Venue
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=venue.getevents&api_key=foo123&venue=9027137', :body => File.join([FIXTURES_BASE, 'venue', 'events.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=venue.getpastevents&api_key=foo123&venue=9027137', :body => File.join([FIXTURES_BASE, 'venue', 'events.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'method=venue.getevents&api_key=foo123&venue=9027137', :body => File.join([FIXTURES_BASE, 'venue', 'events.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'method=venue.getpastevents&api_key=foo123&venue=9027137', :body => File.join([FIXTURES_BASE, 'venue', 'events.xml']))
 
 ## Auth
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?api_key=foo123&method=auth.gettoken&api_sig=d062b3b3fa109d048732819d27d04689', :body => File.join([FIXTURES_BASE, 'auth', 'token.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?api_key=foo123&method=auth.getsession&token=test123token&api_sig=f4a839c10a010368bd1058725c253dfb', :body => File.join([FIXTURES_BASE, 'auth', 'session.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'api_key=foo123&method=auth.gettoken&api_sig=d062b3b3fa109d048732819d27d04689', :body => File.join([FIXTURES_BASE, 'auth', 'token.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'api_key=foo123&method=auth.getsession&token=test123token&api_sig=f4a839c10a010368bd1058725c253dfb', :body => File.join([FIXTURES_BASE, 'auth', 'session.xml']))
 
 ## Artist
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?artist=Metallica&method=artist.getinfo&api_key=foo123', :body => File.join([FIXTURES_BASE, 'artist', 'info.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'artist=Metallica&method=artist.getinfo&api_key=foo123', :body => File.join([FIXTURES_BASE, 'artist', 'info.xml']))
 
 ## Track
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?api_key=foo123&method=track.getinfo&artist=Carrie%20Underwood&track=Before%20He%20Cheats', :body => File.join([FIXTURES_BASE, 'track', 'info.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'api_key=foo123&method=track.getinfo&artist=Carrie%20Underwood&track=Before%20He%20Cheats', :body => File.join([FIXTURES_BASE, 'track', 'info.xml']))
 
 
 ## Geo
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.getevents&api_key=foo123&page=1&force=false&location=Manchester', :body => File.join([FIXTURES_BASE, 'geo', 'events-p1.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.getevents&api_key=foo123&page=2&force=false&location=Manchester', :body => File.join([FIXTURES_BASE, 'geo', 'events-p2.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.getevents&api_key=foo123&page=3&force=false&location=Manchester', :body => File.join([FIXTURES_BASE, 'geo', 'events-p3.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?distance=15&method=geo.getevents&api_key=foo123&page=1&force=false', :body => File.join([FIXTURES_BASE, 'geo', 'events-distance-p1.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?long=-74.00639&method=geo.getevents&api_key=foo123&page=1&lat=40.71417&force=false', :body => File.join([FIXTURES_BASE, 'geo', 'events-lat-long.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.gettopartists&api_key=foo123&page=1&force=false&location=Spain', :body => File.join([FIXTURES_BASE, 'geo', 'top_artists-p1.xml']))
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=geo.gettoptracks&api_key=foo123&page=1&force=false&location=Germany', :body => File.join([FIXTURES_BASE, 'geo', 'top_tracks-p1.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'method=geo.getevents&api_key=foo123&page=1&force=false&location=Manchester', :body => File.join([FIXTURES_BASE, 'geo', 'events-p1.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'method=geo.getevents&api_key=foo123&page=2&force=false&location=Manchester', :body => File.join([FIXTURES_BASE, 'geo', 'events-p2.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'method=geo.getevents&api_key=foo123&page=3&force=false&location=Manchester', :body => File.join([FIXTURES_BASE, 'geo', 'events-p3.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'distance=15&method=geo.getevents&api_key=foo123&page=1&force=false', :body => File.join([FIXTURES_BASE, 'geo', 'events-distance-p1.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'long=-74.00639&method=geo.getevents&api_key=foo123&page=1&lat=40.71417&force=false', :body => File.join([FIXTURES_BASE, 'geo', 'events-lat-long.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'method=geo.gettopartists&api_key=foo123&page=1&force=false&location=Spain', :body => File.join([FIXTURES_BASE, 'geo', 'top_artists-p1.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'method=geo.gettoptracks&api_key=foo123&page=1&force=false&location=Germany', :body => File.join([FIXTURES_BASE, 'geo', 'top_tracks-p1.xml']))
 
 # User
-FakeWeb.register_uri(:get, 'http://ws.audioscrobbler.com:80/2.0/?method=user.getplaylists&api_key=foo123&user=jnunemaker', :body => File.join([FIXTURES_BASE, 'user', 'playlists.xml']))
+FakeWeb.register_uri(:get, WEB_BASE + 'method=user.getplaylists&api_key=foo123&user=jnunemaker', :body => File.join([FIXTURES_BASE, 'user', 'playlists.xml']))
 
 
 

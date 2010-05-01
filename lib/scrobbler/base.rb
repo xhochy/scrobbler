@@ -116,7 +116,7 @@ class Base
     # Check if we want a signed call and pop :signed
     if parameters.delete :signed
       #1: Sort alphabetically
-      params = parameters.sort{|a,b| a[0].to_s<=>b[0].to_s}
+      params = parameters.sort{|a,b| a.at(0).to_s<=>b.at(0).to_s}
       #2: concat them into one string
       str = params.join('')
       #3: Append secret
@@ -125,7 +125,7 @@ class Base
       md5 = Digest::MD5.hexdigest(str)
       params << [:api_sig, md5]
       params.each do |a|
-        paramlist << "#{sanitize(a[0])}=#{sanitize(a[1])}"
+        paramlist << "#{sanitize(a.at(0))}=#{sanitize(a.at(1))}"
       end
     else
       parameters.each do |key, value|
@@ -165,8 +165,8 @@ class Base
   # @param [String,Symbol] api_method The method which shall be called.
   # @param [Hash] params The parameters passed as URL params.
   # @param [String,Symbol] parent the parent XML node to look for.
-  # @param [Class,String,Symbol] elemen The xml node name which shall be converted
-  #   into an object.
+  # @param [Class,String,Symbol] element The xml node name which shall
+  #   be converted into an object.
   # @return [Array]
   def call(api_method, parent, element, params)
     Base.get(api_method, parent, element, params)
