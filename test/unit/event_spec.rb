@@ -98,7 +98,7 @@ describe Scrobbler::Event do
     @event.shouts.first.should be_kind_of(Scrobbler::Shout)
     @event.shouts.first.body.should eql('test')
     @event.shouts.first.author.should be_kind_of(Scrobbler::User)
-    @event.shouts.first.author.username.should eql('kaypey')
+    @event.shouts.first.author.name.should eql('kaypey')
     @event.shouts.first.date.should eql(Time.mktime(2009, 4, 28, 5, 35, 11))
   end
   

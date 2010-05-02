@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper.rb'
 describe Scrobbler::User do
 
   before(:all) do 
-    @user = Scrobbler::User.new('jnunemaker')
+    @user = Scrobbler::User.new(:name => 'jnunemaker')
   end
   
   it 'should know its name' do

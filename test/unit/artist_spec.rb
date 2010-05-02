@@ -88,7 +88,7 @@ describe Scrobbler::Artist do
     @artist.top_fans.should be_kind_of(Array)
     @artist.top_fans.should have(6).items
     @artist.top_fans.first.should be_kind_of(Scrobbler::User)
-    @artist.top_fans.first.username.should eql('Slide15')
+    @artist.top_fans.first.name.should eql('Slide15')
     @artist.top_fans.first.url.should eql('http://www.last.fm/user/Slide15')
     @artist.top_fans.first.image(:small).should eql('http://userserve-ak.last.fm/serve/34/4477633.jpg')
     @artist.top_fans.first.image(:medium).should eql('http://userserve-ak.last.fm/serve/64/4477633.jpg')

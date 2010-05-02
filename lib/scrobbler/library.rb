@@ -17,7 +17,7 @@ module Scrobbler
       if user.kind_of?(Scrobbler::User)
         @user = user
       elsif user.kind_of?(String)
-        @user = Scrobbler::User.new(user.to_s)
+        @user = Scrobbler::User.new(:name => user.to_s)
       else
         raise ArgumentError, "Invalid argument for user: #{user.class}"
       end
