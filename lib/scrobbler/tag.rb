@@ -1,82 +1,25 @@
-# Below is code samples for how to find the top albums and tracks for a tag.
-# 
-#   tag = Scrobbler::Tag.new('country')
-# 
-#   puts 'Top Albums'
-#   tag.top_albums.each { |a| puts "(#{a.count}) #{a.name} by #{a.artist}" }
-# 
-#   puts
-# 
-#   puts 'Top Tracks'
-#   tag.top_tracks.each { |t| puts "(#{t.count}) #{t.name} by #{t.artist}" }
-#   
-# Which would output something similar to:
-# 
-#   Top Albums
-#   (29) American IV: The Man Comes Around by Johnny Cash
-#   (14) Folks Pop In at the Waterhouse by Various Artists
-#   (13) Hapless by Flowers From The Man Who Shot Your Cousin
-#   (9) Taking The Long Way by Dixie Chicks
-#   (8) Unchained by Johnny Cash
-#   (8) American III: Solitary Man by Johnny Cash
-#   (8) Wide Open Spaces by Dixie Chicks
-#   (7) It's Now or Later by Tangled Star
-#   (7) Greatest Hits by Hank Williams
-#   (7) American Recordings by Johnny Cash
-#   (6) Forgotten Landscape by theNoLifeKing
-#   (6) At Folsom Prison by Johnny Cash
-#   (6) Fox Confessor Brings the Flood by Neko Case
-#   (6) Murder by Johnny Cash
-#   (5) Gloom by theNoLifeKing
-#   (5) Set This Circus Down by Tim McGraw
-#   (5) Blacklisted by Neko Case
-#   (5) Breathe by Faith Hill
-#   (5) Unearthed (disc 4: My Mother's Hymn Book) by Johnny Cash
-#   (4) Home by Dixie Chicks
-# 
-#   Top Tracks
-#   (221) Hurt by Johnny Cash
-#   (152) I Walk the Line by Johnny Cash
-#   (147) Ring of Fire by Johnny Cash
-#   (125) Folsom Prison Blues by Johnny Cash
-#   (77) The Man Comes Around by Johnny Cash
-#   (67) Personal Jesus by Johnny Cash
-#   (65) Not Ready To Make Nice by Dixie Chicks
-#   (63) Before He Cheats by Carrie Underwood
-#   (62) Give My Love to Rose by Johnny Cash
-#   (49) Jackson by Johnny Cash
-#   (49) What Hurts The Most by Rascal Flatts
-#   (48) Big River by Johnny Cash
-#   (46) Man in Black by Johnny Cash
-#   (46) Jolene by Dolly Parton
-#   (46) Friends in Low Places by Garth Brooks
-#   (46) One by Johnny Cash
-#   (44) Cocaine Blues by Johnny Cash
-#   (41) Get Rhythm by Johnny Cash
-#   (41) I Still Miss Someone by Johnny Cash
-#   (40) The Devil Went Down to Georgia by Charlie Daniels Band
+# encoding: utf-8
+
 module Scrobbler
   class Tag < Base
-    attr_accessor :name, :count, :url, :streamable
+    attr_reader :name, :count, :url, :streamable
     
-    class << self
-      def new_from_libxml(xml)
-        data = {}
-        xml.children.each do |child|
-          data[:name] = child.content if child.name == 'name'
-          data[:count] = child.content.to_i if child.name == 'count'
-          data[:url] = child.content if child.name == 'url'
-          if child.name == 'streamable'
-            if ['1', 'true'].include?(child.content)
-              data[:streamable] = true
-            else
-              data[:streamable] = false
-            end
+    def self.new_from_libxml(xml)
+      data = {}
+      xml.children.each do |child|
+        data[:name] = child.content if child.name == 'name'
+        data[:count] = child.content.to_i if child.name == 'count'
+        data[:url] = child.content if child.name == 'url'
+        if child.name == 'streamable'
+          if ['1', 'true'].include?(child.content)
+            data[:streamable] = true
+          else
+            data[:streamable] = false
           end
         end
-        
-        Tag.new(data[:name], data)
       end
+      
+      Tag.new(data[:name], data)
     end
     
     def initialize(name, data={})
