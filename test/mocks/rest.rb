@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'fakeweb'
-require File.expand_path('/../../lib/scrobbler/rest', File.dirname(__FILE__))
+require File.expand_path('../../lib/scrobbler/rest', File.dirname(__FILE__))
 
 FIXTURES_BASE = File.join([File.dirname(__FILE__), '..', 'fixtures', 'xml'])
 WEB_BASE = 'http://ws.audioscrobbler.com:80/2.0/?'
