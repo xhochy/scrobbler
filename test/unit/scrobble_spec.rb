@@ -1,7 +1,7 @@
 describe Scrobbler::Scrobble do
   before do
     Scrobbler::Scrobble.client_id = 'spec'
-    @user = Scrobbler::User.new('TestUser')
+    @user = Scrobbler::User.new(:name => 'TestUser')
     @session = Scrobbler::Session.new(:key => 'testKey', :name => 'testName', :subscriber => true)
     @scrobble = Scrobbler::Scrobble.new(:handshake_on_init => false, :user => @user, :session => @session)
   end

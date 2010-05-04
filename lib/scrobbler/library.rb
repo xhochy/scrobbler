@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require File.expand_path('base.rb', File.dirname(__FILE__))
+
 module Scrobbler
   # Class for invocation of library.* API functions.
   class Library < Base
@@ -11,10 +13,11 @@ module Scrobbler
     #   is requested.
     # @raise ArgumentError If a not supported type is given as user.
     def initialize(user)
+      super()
       if user.kind_of?(Scrobbler::User)
         @user = user
       elsif user.kind_of?(String)
-        @user = Scrobbler::User.new(user.to_s)
+        @user = Scrobbler::User.new(:name => user.to_s)
       else
         raise ArgumentError, "Invalid argument for user: #{user.class}"
       end
@@ -38,29 +41,7 @@ module Scrobbler
     # A list of all the albums in a user's library, with play counts and tag 
     # counts. 
     def albums(options={})
-        options = {:force => false, :all => true}.merge options
-        options[:user] = @user.name
-        albums = []
-        if options[:all]
-            doc = Base.request('library.getalbums', options)
-            root = nil
-            doc.root.children.each do |child|
-                next unless child.name == 'albums'
-                root = child
-            end
-            total_pages = root['totalPages'].to_i
-            root.children.each do |child|
-                next unless child.name == 'album'
-                albums << Scrobbler::Album.new_from_libxml(child)
-            end
-            (2..total_pages).each do |i|
-                options[:page] = i
-                albums.concat get_response('library.getalbums', :none, 'albums', 'album', options, true)
-            end
-        else
-            albums = get_response('library.getalbums', :get_albums, 'albums', 'album', options, true)
-        end
-        albums
+      request_library('library.getalbums', :albums, Album, options)
     end
 
     # A list of all the artists in a user's library, with play counts and tag
@@ -69,59 +50,46 @@ module Scrobbler
     # @param [Hash<Symbol>] options The options to configure this API call.
     # @return [Array<Scrobbler::Artist>] The artists included in this library.
     def artists(options={})
-        raise ArgumentError unless options.kind_of?(Hash)
-        options = {:all => true}.merge options
-        options[:user] = @user.name
-
-        artists = []
-        if options[:all]
-            doc = request('library.getartists', options)
-            root = nil
-            doc.root.children.each do |child|
-                next unless child.name == 'artists'
-                root = child
-            end
-            total_pages = root['totalPages'].to_i
-            root.children.each do |child|
-                next unless child.name == 'artist'
-                artists << Scrobbler::Artist.new(:xml => child)
-            end
-            (2..total_pages).each do |i|
-                options[:page] = i
-                artists.concat call('library.getartists', 'artists', 'artist', options)
-            end
-        else
-            artists = call('library.getartists', 'artists', 'artist', options)
-        end
-        artists
+      request_library('library.getartists', :artists, Artist, options)
     end
     
     # A list of all the tracks in a user's library, with play counts and tag
     # counts. 
     def tracks(options={})
-        options = {:force => false, :all => true}.merge options
-        options[:user] = @user.name
-        tracks = []
-        if options[:all]
-            doc = Base.request('library.gettracks', options)
-            root = nil
-            doc.root.children.each do |child|
-                next unless child.name == 'tracks'
-                root = child
-            end
-            total_pages = root['totalPages'].to_i
-            root.children.each do |child|
-                next unless child.name == 'track'
-                tracks << Scrobbler::Track.new_from_libxml(child)
-            end
-            (2..total_pages).each do |i|
-                options[:page] = i
-                tracks.concat get_response('library.gettracks', :none, 'tracks', 'track', options, true)
-            end
-        else
-            tracks = get_response('library.gettracks', :get_albums, 'tracks', 'track', options, true)
+        request_library('library.gettracks', :tracks, Track, options)
+    end
+    
+    # Generic request method for the most Library funtions
+    #
+    # @param [String,Symbol] api_method The method which shall be called.
+    # @param [Hash] options The parameters passed as URL params.
+    # @param [String,Symbol] parent the parent XML node to look for.
+    # @param [Class] element The xml node name which shall be converted
+    #   into an object.
+    # @return [Array]
+    def request_library(method, parent, element, options={})
+      options = {:all => true, :user => @user.name}.merge options
+      result = []
+      if options.delete(:all)
+        doc = Base.request(method, options)
+        root = nil
+        doc.root.children.each do |child|
+          next unless child.name == parent.to_s
+          root = child
         end
-        tracks
+        total_pages = root['totalPages'].to_i
+        root.children.each do |child|
+          next unless child.name == element.to_s.sub("Scrobbler::","").downcase
+          result << element.new_from_libxml(child)
+        end
+        (2..total_pages).each do |i|
+          options[:page] = i
+          result.concat call(method, parent, element, options)
+        end
+      else
+        result = call(method, parent, element, options)
+      end
+      result
     end
     
   end

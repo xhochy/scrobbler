@@ -1,14 +1,15 @@
 # encoding: utf-8
 
+require File.expand_path('basexml.rb', File.dirname(__FILE__))
+
 module Scrobbler
   # @todo Add missing functions that require authentication
-  class Album < Base
+  class Album < BaseXml
     include Scrobbler::ImageObjectFuncs
     
     attr_reader :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url
     attr_reader :reach, :release_date, :listeners, :playcount, :top_tags
-    attr_reader :image_large, :image_medium, :image_small, :tagcount
-    attr_reader :count, :chartposition, :position
+    attr_reader :count, :chartposition, :position, :tagcount
     
     # Alias for Album.new(:xml => xml)
     #
@@ -32,15 +33,11 @@ module Scrobbler
     # @param [Hash] data The options to initialize the class
     def initialize(data={})
       raise ArgumentError unless data.kind_of?(Hash)
+      super(data)
       data = {:include_info => false}.merge(data)
-      # Load data out of a XML node
-      unless data[:xml].nil?
-        load_from_xml(data[:xml])
-        data.delete(:xml)
-      end
       # Load data given as method-parameter
-      populate_data(data)
-      load_info() if data[:include_info]
+      load_info() if data.delete(:include_info)
+      populate_data(data)      
       
       raise ArgumentError, "Artist or mbid is required" if @artist.nil? && @mbid.nil?
       raise ArgumentError, "Name is required" if @name.empty?
@@ -53,7 +50,7 @@ module Scrobbler
     def load_from_xml(node)
       # Get all information from the root's children nodes
       node.children.each do |child|
-        case child.name
+        case child.name.to_s
           when 'name'
             @name = child.content
           when 'title'
@@ -115,7 +112,7 @@ module Scrobbler
     # @todo Add language code for wiki translation
     def load_info
       return nil if @info_loaded
-      xml = Base.request('album.getinfo', {'artist' => @artist, 'album' => @name})
+      xml = Base.request('album.getinfo', {:artist => @artist, :album => @name})
       unless xml.root['status'] == 'failed'
         xml.root.children.each do |childL1|
           next unless childL1.name == 'album'
