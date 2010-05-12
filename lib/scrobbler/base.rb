@@ -43,24 +43,6 @@ module Scrobbler
       URI.escape(param.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
     end
   
-    # Camelize and Constanize a string.
-    #
-    # @param [String,Symbol] word The word which should be camelized and
-    #   constanized.
-    # @return [Constant]
-    def Base.constanize(word)
-      names = word.to_s.gsub(/\/(.?)/) do
-        "::#{$1.upcase}"
-      end.gsub(/(?:^|_)(.)/) { $1.upcase }.split('::')
-      names.shift if names.empty? || names.first.empty?
-  
-      constant = Object
-      names.each do |name|
-        constant = constant.const_defined?(name) ? constant.const_get(name) : constant.const_missing(name)
-      end
-      constant
-    end
-
     # Initiate a API and parse it.
     #
     # @param [String,Symbol] api_method The API method to call.
@@ -69,13 +51,8 @@ module Scrobbler
     # @param [Hash<String,Symbol>] parameters The parameters for the method call.
     # @return [Array<Scrobbler::Base>]
     def Base.get(api_method, parent, element, parameters = {})
-      if (element.is_a?(Class))
-        scrobbler_class = element
-        element = element.to_s.sub("Scrobbler::","").downcase
-      else
-        element = element.to_s
-        scrobbler_class = constanize("scrobbler/#{element}")
-      end
+      scrobbler_class = element
+      element = element.to_s.sub("Scrobbler::","").downcase
       doc = request(api_method, parameters)
       elements = []
       doc.root.children.each do |child|
@@ -138,11 +115,6 @@ module Scrobbler
       doc
     end
     
-    # @deprecated
-    def get_response(api_method, instance_name, parent, element, params, force=true)
-      Base.get(api_method, parent, element, params)
-    end
-  
     # Load information into instance variables.
     #
     # @param [Hash<String,Symbol>] data Each entry will be stored as a variable.

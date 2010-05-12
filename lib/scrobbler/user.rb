@@ -68,12 +68,12 @@ module Scrobbler
     #
     # Supports ical, ics or rss as its format  
     def events
-      call('user.getevents', :events, :event, {:user => @name})
+      call('user.getevents', :events, Event, {:user => @name})
     end
 
     # Get a list of the user's friends on Last.fm.    
     def friends(page=1, limit=50)
-      call('user.getfriends', :friends, :user, {:user => @name, :page => page, :limit => limit})
+      call('user.getfriends', :friends, User, {:user => @name, :page => page, :limit => limit})
     end
     
     # Get information about a user profile.
@@ -84,12 +84,12 @@ module Scrobbler
     
     # Get the last 50 tracks loved by a user.
     def loved_tracks
-        call('user.getlovedtracks', :lovedtracks, :track, {:user => @name})
+        call('user.getlovedtracks', :lovedtracks, Track, {:user => @name})
     end
 
     # Get a list of a user's neighbours on Last.fm.
     def neighbours
-      call('user.getneighbours', :neighbours, :user, {:user => @name})
+      call('user.getneighbours', :neighbours, User, {:user => @name})
     end
 
     # Get a paginated list of all events a user has attended in the past. 
@@ -100,7 +100,7 @@ module Scrobbler
     
     # Get a list of a user's playlists on Last.fm. 
     def playlists
-      call('user.getplaylists', :playlists, :playlist, {:user => @name})
+      call('user.getplaylists', :playlists, Playlist, {:user => @name})
     end
     
     # Get a list of the recent tracks listened to by this user. Indicates now 
@@ -110,7 +110,7 @@ module Scrobbler
     #   - limit: An integer used to limit the number of tracks returned.
     def recent_tracks(parameters={})
       parameters.merge!({:user => @name})
-      call('user.getrecenttracks', :recenttracks, :track, parameters)
+      call('user.getrecenttracks', :recenttracks, Track, parameters)
     end
     
     # Get Last.fm artist recommendations for a user
@@ -135,24 +135,24 @@ module Scrobbler
     # Get the top albums listened to by a user. You can stipulate a time period. 
     # Sends the overall chart by default. 
     def top_albums(period=:overall)
-      call('user.gettopalbums', :topalbums, :album, {:user => @name, :period => period})
+      call('user.gettopalbums', :topalbums, Album, {:user => @name, :period => period})
     end
 
     # Get the top artists listened to by a user. You can stipulate a time 
     # period. Sends the overall chart by default. 
     def top_artists(period=:overall)
-      call('user.gettopartists', :topartists, :artist, {:user => @name, :period => period})
+      call('user.gettopartists', :topartists, Artist, {:user => @name, :period => period})
     end
 
     #  Get the top tags used by this user.
     def top_tags
-      call('user.gettoptags', :toptags, :tag, {:user => @name})
+      call('user.gettoptags', :toptags, Tag, {:user => @name})
     end
 
     # Get the top tracks listened to by a user. You can stipulate a time period. 
     # Sends the overall chart by default. 
     def top_tracks(period=:overall)
-      call('user.gettoptracks', :toptracks, :track, {:user => @name, :period => period})
+      call('user.gettoptracks', :toptracks, Track, {:user => @name, :period => period})
     end
 
     # Setup the parameters for a *chart API call
