@@ -30,16 +30,16 @@ module Scrobbler
       @streamable = data[:streamable] unless data[:streamable].nil?
     end
     
-    def top_artists(force=false)
-      get_response('tag.gettopartists', :top_artists, 'topartists', 'artist', {'tag'=>@name}, force)
+    def top_artists
+      call('tag.gettopartists', :topartists, Artist, {:tag => @name})
     end
     
-    def top_albums(force=false)
-      get_response('tag.gettopalbums', :top_albums, 'topalbums', 'album', {'tag'=>@name}, force)
+    def top_albums
+      call('tag.gettopalbums', :topalbums, Album, {:tag => @name})
     end
 
-    def top_tracks(force=false)
-      get_response('tag.gettoptracks', :top_tracks, 'toptracks', 'track', {'tag'=>@name}, force)
+    def top_tracks
+      call('tag.gettoptracks', :toptracks, Track, {:tag => @name})
     end
 
     def self.top_tags
@@ -54,9 +54,8 @@ module Scrobbler
     
     # Search for tags similar to this one. Returns tags ranked by similarity, 
     # based on listening data.
-    def similar(force=false)
-        params = {:tag => @name}
-        get_response('tag.getsimilar', :similar, 'similartags', 'tag', params, force)
+    def similar
+        call('tag.getsimilar', :similartags, Tag, {:tag => @name})
     end
 
     def weekly_artist_chart
