@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/../spec_helper.rb'
 describe Scrobbler::Tag do
 
   before(:all) do 
-    @tag = Scrobbler::Tag.new('rock')
+    @tag = Scrobbler::Tag.new(:name => 'rock')
   end
   
   it 'should know its name' do

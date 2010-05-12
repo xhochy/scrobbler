@@ -32,7 +32,7 @@ module Scrobbler
     
     # Load the data for this object out of a XML-Node
     #
-    # @param [LibXML::XML::Node] node The XML node containing the information
+    # @param [XML::Node] node The XML node containing the information
     # @return [nil]
     def load_from_xml(node)
       # Get all information from the root's children nodes
@@ -51,7 +51,7 @@ module Scrobbler
           when 'chartposition'
             @chartposition = child.content
           when 'name'
-            @name = child.content.to_s
+            @name = child.content
           when 'image'
             check_image_node(child)
           when 'streamable'
@@ -77,7 +77,7 @@ module Scrobbler
       end #^ do |child|
 
       # Get all information from the root's attributes
-      @name = node['name'].to_s unless node['name'].nil?
+      @name = node['name'] unless node['name'].nil?
       @rank = node['rank'].to_i unless node['rank'].nil?
       maybe_streamable_attribute(node)
       @mbid = node['mbid'] unless node['mbid'].nil?
