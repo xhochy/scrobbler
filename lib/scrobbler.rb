@@ -1,5 +1,5 @@
 # encoding: utf-8
-%w{uri rubygems libxml time}.each { |x| require x }
+%w{uri rubygems time}.each { |x| require x }
 
 $: << File.expand_path(File.dirname(__FILE__))
 

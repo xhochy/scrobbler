@@ -9,10 +9,9 @@ module Scrobbler
     # of, read it into that given hash of data 
     #
     # @param [Hash<Symbol, String>] data The data extracted from an API response
-    # @param [LibXML::XML::Node] node XML node, part of the API response
+    # @param [(LibXML::)XML::Node] node XML node, part of the API response
     def maybe_image_node(data, node)
       raise ArgumentError unless data.kind_of?(Hash)
-      raise ArgumentError unless node.kind_of?(LibXML::XML::Node)
       if node.name == 'image'
         case node['size'].to_s # convert to string to fix libxml-ruby bug
           when 'small'

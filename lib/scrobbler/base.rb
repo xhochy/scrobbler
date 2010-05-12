@@ -1,8 +1,7 @@
 require 'digest/md5'
+require 'nokogiri'
 
 $KCODE = 'u'
-
-include LibXML
 
 module Scrobbler
  
@@ -131,8 +130,12 @@ module Scrobbler
           paramlist << "#{sanitize(key)}=#{sanitize(value)}"
         end
       end
-      url = '/2.0/?' + paramlist.join('&')
-      XML::Document.string(self.connection.send(request_method,url))
+      url = "/2.0/?#{paramlist.join('&')}"
+      xml = self.connection.send(request_method, url)
+      doc = Nokogiri::XML(xml) do |config|
+        config.noent.noblanks.nonet
+      end
+      doc
     end
     
     # @deprecated
