@@ -16,8 +16,6 @@ module Scrobbler
     def initialize(data={})
       raise ArgumentError unless data.kind_of?(Hash)
       super(data)
-      # Load data given as method-parameter
-      populate_data(data)
     end
     
     # Load the data for this object out of a XML-Node

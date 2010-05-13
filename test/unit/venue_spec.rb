@@ -2,9 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper.rb'
 
 describe Scrobbler::Venue do
   before do
-    f = File.open(File.dirname(__FILE__) + '/../fixtures/xml/venue/venue.xml')
+    f = File.read(File.dirname(__FILE__) + '/../fixtures/xml/venue/venue.xml')
     doc = Nokogiri::XML(f)
-    f.close
     @venue = Scrobbler::Venue.new_from_xml(doc.root)
     @event_ids = [875740, 950267, 1082373, 1059277]
     @event_titles =  ["Kilians", "Convention of the Universe - International Depeche Mode Fan Event", "The Get Up Kids", "Philipp Poisel"]

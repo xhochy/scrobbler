@@ -1,9 +1,9 @@
 # encoding: utf-8
 
-require File.expand_path('basexml.rb', File.dirname(__FILE__))
+require File.expand_path('basexmlinfo.rb', File.dirname(__FILE__))
 
 module Scrobbler
-  class Playlist < BaseXml
+  class Playlist < BaseXmlInfo
     # Load Helper modules
     include ImageObjectFuncs
     include Scrobbler::StreamableObjectFuncs
@@ -26,11 +26,6 @@ module Scrobbler
     def initialize(data={})
       raise ArgumentError unless data.kind_of?(Hash)
       super(data)
-      data = {:include_info => false}.merge(data)
-      # Load data given as method-parameter
-      load_info() if data.delete(:include_info)
-      populate_data(data) 
-      
       raise ArgumentError, "Url is required" if @url.empty?
     end
     

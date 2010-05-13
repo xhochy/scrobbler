@@ -1,5 +1,8 @@
 # encoding: utf-8
-%w{uri rubygems time}.each { |x| require x }
+
+require 'rubygems'
+require 'uri'
+require 'time'
 
 $: << File.expand_path(File.dirname(__FILE__))
 
@@ -27,7 +30,6 @@ require 'scrobbler/playlist'
 require 'scrobbler/radio'
 
 require 'scrobbler/simpleauth'
-require 'scrobbler/scrobble'
 require 'scrobbler/playing'
 
 require 'scrobbler/rest'

@@ -1,10 +1,10 @@
 # encoding: utf-8
 
-require File.expand_path('basexml.rb', File.dirname(__FILE__))
+require File.expand_path('basexmlinfo.rb', File.dirname(__FILE__))
 
 module Scrobbler
   # @todo Add missing functions that require authentication
-  class Album < BaseXml
+  class Album < BaseXmlInfo
     include Scrobbler::ImageObjectFuncs
     
     attr_reader :artist, :artist_mbid, :name, :mbid, :playcount, :rank, :url
@@ -28,16 +28,10 @@ module Scrobbler
     # If the additional parameter :include_info is set to true, additional 
     # information is loaded
     #
-    # @todo Albums should be able to be created via a MusicBrainz id too
-    #
     # @param [Hash] data The options to initialize the class
     def initialize(data={})
       raise ArgumentError unless data.kind_of?(Hash)
       super(data)
-      data = {:include_info => false}.merge(data)
-      # Load data given as method-parameter
-      load_info() if data.delete(:include_info)
-      populate_data(data)      
       
       raise ArgumentError, "Artist or mbid is required" if @artist.nil? && @mbid.nil?
       raise ArgumentError, "Name is required" if @name.empty?

@@ -12,6 +12,7 @@ module Scrobbler
         load_from_xml(data[:xml])
         data.delete(:xml)
       end
+      populate_data(data)
     end
   end
 end

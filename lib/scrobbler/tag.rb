@@ -21,8 +21,6 @@ module Scrobbler
     def initialize(data = {})
       raise ArgumentError unless data.kind_of?(Hash)
       super(data)
-      # Load data given as method-parameter
-      populate_data(data)
       raise ArgumentError, "Name is required" if @name.nil? || @name.strip.empty?
     end
     
