@@ -1,0 +1,16 @@
+<div id="mainMenu">
+    <ul class="floatRight">
+      <li><a href="index.html" title="Introduction" 
+        {% if page.title == "Home" %}
+            class="here"
+        {% endif %}
+        >Home</a></li>
+      <li><a href="install.html" title="How to install scrobbler-ng"
+        {% if page.title == "Install" %}
+            class="here"
+        {% endif %}
+        >Install</a></li>
+      <li><a href="http://yardoc.org/docs/xhochy-scrobbler" title="View the API of the Ruby library">Library API</a></li>
+
+    </ul>
+  </div>

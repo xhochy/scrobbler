@@ -62,75 +62,19 @@
         This sidebar can be used to jump to sections within the page, or other sub pages of the active tab.
       </p>
 
-      <p>
-        Using this approach, you shouldn't need breadcrumbs since you've provided your visitor with a <b>visual cue</b> to where they are in the site.
-      </p>
-
-      <p>
-        To <b>learn more</b> about how to use this template, follow the <a href="help.html" title="View help">help</a> link.  You can also see the styled <a href="tags.html" title="View tags">tags</a> and the <a href="print.html" title="View print layout">print</a> layout version.
-      </p>
-
     </div>
-
-
-
 
     <!-- 75 percent width column, aligned to the right -->
     <div class="width75 floatRight">
 
-
       <!-- Gives the gradient block -->
       <div class="gradient">
-
         <a name="fluidity"></a>
-
-        <h1>Dynamic Template</h1>
-        <h2>Taken from the book of <a href="http://openwebdesign.org/viewdesign.phtml?id=2514" title="View template">fluidity</a>, this template is exceptionally easy to customize using re-useable CSS classes.</h2>
-
+        <h1>{{ page.title }}</h1>
+        <h2>{{ page.date }} {{ site.time }}</h2>
         <p>
           {{ content }}
         </p>
-
-      </div>
-
-      <div class="gradient">
-
-        <a name="coding"></a>
-
-        <h1>Coding</h1>
-        <h2>Image Alignment and The Header</h2>
-
-        <p>
-          <a href="http://www.mozilla.com/firefox/" title="Get Firefox"><img src="images/firefox.jpg" alt="pic" class="floatLeft"/></a>
-          Images are fully supported using the <i>floatLeft</i> and <i>floatRight</i> classes.  Just apply one of them to the image you want to position.  Images that have link tags around them will also have a nifty rollover effect, as long as you're using a standards complients browser.  If you're not, well then no rollover effect for you.
-        </p>
-
-        <p>
-          The site header images are <a href="images/bg/header_left.jpg" title="View slice one">two</a> <a href="images/bg/header_right.jpg" title="View slice two">slices</a> and a repeated background.  Using the same approach, and a little bit of photoshop, you should be able to easily replace them.  However, since they were created by me, you're welcome to use them in any projects you might like.
-        </p>
-
-        <h2>The Footer</h2>
-        <p>
-          A variation on the <a href="http://www.themaninblue.com/experiment/footerStickAlt/" title="View footerStickAlt code">footerStickAlt</a> technique is used to force the site footer to the bottom of the page if there isn't enough content to push it down.  This means your template will always look tidy and you won't have to worry about a lonely footer, hanging out halfway up your page.
-        </p>
-
-        <a name="expressions"></a>
-
-        <h2>Readability using Maximum Width</h2>
-        <p>
-          To improve readability of this template (since it is fluid), the width is capped at 1000 pixels.  This seems like a pretty reasonable thing to do and that's why CSS has thoughtfully included the max-width property.  Unfortunately, IE decided it didn't need no stinkin' max-width, so a CSS expression was needed.
-        </p>
-
-        <blockquote class="exclamation">
-          <p>
-            A CSS expression is like a snippet of javascript code that runs in your style sheet.  It's invalid CSS, but only IE pays any attention to it.
-          </p>
-        </blockquote>
-
-        <p>
-          If you're concerned about having valid CSS, take out the expression.  It won't ruin the template in IE, it just means that the content will expand to 100% of the screen width.  All other browsers will behave.
-        </p>
-
       </div>
 
     </div>
@@ -146,11 +90,13 @@
   <div id="width"> <span class="floatLeft"> design <a href="http://fullahead.org" title="Goto Fullahead">Fullahead</a> 
     <span class="grey">|</span> valid <a href="http://validator.w3.org/check?uri=referer" title="Validate XHTML">XHTML</a> 
     <span class="grey">|</span> should be valid <a href="http://jigsaw.w3.org/css-validator" title="Validate CSS">CSS</a> 
-    </span> <span class="floatRight"> <a href="index.html" title="Introduction">intro</a> 
+    </span> 
+    <span class="floatRight"> 
+<!-- <a href="index.html" title="Introduction">intro</a> 
     <span class="grey">|</span> <a href="help.html" title="Learn how to use the template">help</a> 
     <span class="grey">|</span> <a href="tags.html" title="View the styled tags">tags</a> 
     <span class="grey">|</span> <a href="print.html" title="View the print layout">print</a> 
-    <span class="grey">|</span> <a href="http://fullahead.org/contact.html" title="Get in touch">mail</a> 
+    <span class="grey">|</span> <a href="http://fullahead.org/contact.html" title="Get in touch">mail</a> -->
 	<span class="grey">|</span> 
    <!--This theme is free for distriubtion,  so long as  link to openwebdesing.org and www.best10webhosting.net  stay on the theme-->
 Courtesy of <a href="http://www.openwebdesign.org" target="_blank">Open Web Design</a> &amp; <a href="http://www.swackie.com" target="_blank">Swackie - Advantage Through Innovation</a>
