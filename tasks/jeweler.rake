@@ -12,6 +12,8 @@ begin
     s.add_development_dependency "yard", ">= 0"
     s.add_development_dependency "fakeweb", ">= 0"
     s.add_dependency 'nokogiri'
+
+    s.files.exclude 'test/**/*'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
