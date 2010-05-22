@@ -24,12 +24,8 @@ require 'scrobbler/session'
 require 'scrobbler/tag'
 require 'scrobbler/track'
 
-require 'scrobbler/auth'
 require 'scrobbler/library'
 require 'scrobbler/playlist'
 require 'scrobbler/radio'
-
-require 'scrobbler/simpleauth'
-require 'scrobbler/playing'
 
 require 'scrobbler/rest'

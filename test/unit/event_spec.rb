@@ -3,8 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper.rb'
 describe Scrobbler::Event do
 
   before(:all) do
-    @auth = Scrobbler::Auth.new('user')
-    @session = @auth.session('test123token')
     @event = Scrobbler::Event.new(:id => 328799)
   end
   
@@ -20,9 +18,7 @@ describe Scrobbler::Event do
     end
   end
   
-  it 'should set user\'s status for attendace' do
-    @event.attend(@session,1)
-  end
+  it 'should set user\'s status for attendance'
 
   describe 'events attendees' do
     before do
