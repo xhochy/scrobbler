@@ -1,3 +1,4 @@
+require 'cgi'
 require 'digest/md5'
 
 module Scrobbler
@@ -46,8 +47,17 @@ module Scrobbler
       end
     end
     
-    def session_url(tokenStr)
-      'http://www.last.fm/api/auth/?api_key=' + @@api_key + '&token=' + tokenStr 
+    def webservice_session_url(callback=nil)
+      if not callback.nil? then
+        cb = "&cb=" + CGI::escape(callback)
+      else
+        cb = ''
+      end
+      'http://www.last.fm/api/auth/?api_key=' + @@api_key + cb 
+    end
+    
+    def desktop_session_url(tokenStr)
+      webservice_session_url + '&token=' + tokenStr 
     end
   end
 end
