@@ -112,3 +112,11 @@ register_fw('user=jnunemaker&api_key=foo123&method=user.getlovedtracks',
 # Album
 register_fw('artist=Carrie%20Underwood&album=Some%20Hearts&api_key=foo123&method=album.getinfo',
   'album', 'info.xml')
+
+# Authentication
+register_fw('api_key=foo123&authToken=3cf8871e1ce17fbfad72d49007ec2aad&method=auth.getMobileSession&username=john&api_sig=6b9c4b9732a6bb0339bcbbc9ecbcd4dd', 
+  'auth', 'mobile.xml')
+register_fw('api_key=foo123&method=auth.getToken&api_sig=1cc6b6f01a027f166a21ca8fe0c693b3',
+  'auth', 'token.xml')
+register_fw('api_key=foo123&method=auth.getSession&token=0e6af5cd2fff6b314994af5b0c58ecc1&api_sig=2f8e52b15b36e8ca1356e7337364b84b',
+  'auth', 'session.xml')

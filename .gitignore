@@ -12,3 +12,4 @@ catalog.xml
 scrobbler-ng.gemspec
 tmp
 .project
+.loadpath
