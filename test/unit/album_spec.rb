@@ -4,6 +4,7 @@ describe Scrobbler::Album do
 
   before(:each) do 
     @album = Scrobbler::Album.new(:name => 'Some Hearts', :artist => 'Carrie Underwood')
+    @session = Scrobbler::Session.new(:name => 'john', :subscriber => false, :key => 'd580d57f32848f5dcf574d1ce18d78b2')
   end
   
   it 'should know the artist' do
@@ -16,13 +17,18 @@ describe Scrobbler::Album do
   
   it "should implement all methods from the Last.fm 2.0 API" do
      @album.should respond_to(:add_tags)
+     @album.should respond_to(:buylinks)
      @album.should respond_to(:load_info)
      @album.should respond_to(:tags)
+     @album.should respond_to(:top_tags)
      @album.should respond_to(:remove_tag)
      @album.should respond_to(:search)
+     @album.should respond_to(:share)
   end
   
-  it 'should be able to add tags'
+  it 'should be able to add tags' do
+    @album.add_tags(@session, ['tag1', 'tag2'])
+  end
   
   it 'should be able to load album info' do
     @album.load_info

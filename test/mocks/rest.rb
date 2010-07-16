@@ -112,6 +112,8 @@ register_fw('user=jnunemaker&api_key=foo123&method=user.getlovedtracks',
 # Album
 register_fw('artist=Carrie%20Underwood&album=Some%20Hearts&api_key=foo123&method=album.getinfo',
   'album', 'info.xml')
+FakeWeb.register_uri(:post, WEB_BASE + 'api_key=foo123&method=album.addTags&sk=d580d57f32848f5dcf574d1ce18d78b2&tags=tag1%2Ctag2&api_sig=ab00d1e2baf1c820f889f604ca86535d',
+  :body => File.join([FIXTURES_BASE, 'album', 'addtags.xml']))
 
 # Authentication
 register_fw('api_key=foo123&authToken=3cf8871e1ce17fbfad72d49007ec2aad&method=auth.getMobileSession&username=john&api_sig=6b9c4b9732a6bb0339bcbbc9ecbcd4dd', 
