@@ -137,5 +137,15 @@ module Scrobbler
         # This function require authentication, but SimpleAuth is not yet 2.0
         raise NotImplementedError
     end
+    
+    # Get the links to buy this album
+    def buylinks()
+      raise NotImplementedError
+    end
+    
+    # Share this album with a friend
+    def share()
+      raise NotImplementedError
+    end
   end
 end

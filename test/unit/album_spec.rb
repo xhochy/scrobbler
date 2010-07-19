@@ -54,4 +54,8 @@ describe Scrobbler::Album do
   it 'should be able to remove tags'
   
   it 'should be able to search for albums'
+  
+  it 'should be able to get the links to buy this album'
+  
+  it 'should be able to share a album with a friend'
 end
