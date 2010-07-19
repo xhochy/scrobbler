@@ -71,6 +71,8 @@ register_fw('artist=Cher&track=Before%20He%20Cheats&api_key=foo123&method=track.
   'track', 'fans.xml')
 register_fw('artist=Cher&track=Before%20He%20Cheats&api_key=foo123&method=track.gettoptags',
   'track', 'toptags.xml')
+register_fw('fingerprintid=1234&api_key=foo123&method=track.getFingerprintMetadata',
+  'track', 'fingerprintmetadata.xml')
 
 ## Geo
 FakeWeb.register_uri(:get, WEB_BASE + 'location=Manchester&api_key=foo123&method=geo.getevents', :body => File.join([FIXTURES_BASE, 'geo', 'events-p1.xml']))

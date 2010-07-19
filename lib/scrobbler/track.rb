@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require File.expand_path('basexmlinfo.rb', File.dirname(__FILE__))
+
 module Scrobbler
   class Track < Base
     # Load Helper modules
@@ -9,6 +11,10 @@ module Scrobbler
     attr_reader :artist, :name, :mbid, :playcount, :rank, :url, :id, :count
     attr_reader :streamable, :album, :date, :now_playing, :tagcount
     attr_reader :duration, :listeners
+    
+    def self.fingerprint_metadata(fpid)
+      Base.get('track.getFingerprintMetadata', :tracks, Track, {:fingerprintid => fpid})
+    end
     
     def self.new_from_libxml(xml)
       data = {}
