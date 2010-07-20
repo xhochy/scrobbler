@@ -109,7 +109,7 @@ describe Scrobbler::Artist do
     @artist.top_tracks.should be_kind_of(Array)
     @artist.top_tracks.should have(4).items
     @artist.top_tracks.first.should be_kind_of(Scrobbler::Track)
-    @artist.top_tracks.first.rank.should eql(1)
+    @artist.top_tracks.first.rank.should eql(1.0)
     @artist.top_tracks.first.name.should eql('Nothing Else Matters')
     @artist.top_tracks.first.playcount.should eql(537704)
     @artist.top_tracks.first.mbid.should eql('')

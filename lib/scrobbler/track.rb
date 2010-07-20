@@ -38,7 +38,7 @@ module Scrobbler
       end
       
       
-      data[:rank] = xml['rank'].to_i if xml['rank']
+      data[:rank] = xml['rank'].to_f if xml['rank']
       data[:now_playing] = true if xml['nowplaying'] && xml['nowplaying'] == 'true'
       
       data[:now_playing] = false if data[:now_playing].nil?

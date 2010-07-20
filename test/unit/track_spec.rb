@@ -96,7 +96,7 @@ describe Scrobbler::Track do
     @metadata = Scrobbler::Track.fingerprint_metadata('1234')
     @metadata.should have(5).items
     @track = @metadata[0]
-    @track.rank.should eql 1
+    @track.rank.should eql 1.0
     @track.name.should eql 'Merlin\'s Will'
     @track.artist.name.should eql 'Ayreon'
   end
