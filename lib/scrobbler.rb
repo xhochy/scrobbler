@@ -29,5 +29,4 @@ require 'scrobbler/library'
 require 'scrobbler/playlist'
 require 'scrobbler/radio'
 
-require 'scrobbler/rest'
 require 'scrobbler/authentication'
