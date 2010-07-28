@@ -9,7 +9,6 @@ coverage
 spec.html
 catalog.xml
 .yardoc
-scrobbler-ng.gemspec
 tmp
 .project
 .loadpath
