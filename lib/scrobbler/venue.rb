@@ -45,8 +45,8 @@ module Scrobbler
         url[url.rindex('/')+1,url.length].to_i
       end
 
-      def search(venue, force=false)
-        get_response('venue.search', :venuematches, 'venuematches', 'venue', {'venue'=>venue}, force)
+      def search(venue)
+        call('venue.search', :venuematches, Venue, {:venue => venue})
       end
     end
 
@@ -56,12 +56,12 @@ module Scrobbler
       populate_data(data)
     end
 
-    def events(force=false)
-      get_response('venue.getevents', :events, 'events', 'event', {'venue'=>@id}, force)
+    def events
+      call('venue.getevents', :events, Event, {:venue => @id})
     end
 
-    def past_events(force=false)
-      get_response('venue.getpastevents', :events, 'events', 'event', {'venue'=>@id}, force)
+    def past_events
+      call('venue.getpastevents', :events, Event, {:venue => @id})
     end
   end
 end

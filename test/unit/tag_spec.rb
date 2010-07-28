@@ -1,9 +1,11 @@
+# encoding: utf-8
+
 require File.dirname(__FILE__) + '/../spec_helper.rb'
 
 describe Scrobbler::Tag do
 
   before(:all) do 
-    @tag = Scrobbler::Tag.new('rock')
+    @tag = Scrobbler::Tag.new(:name => 'rock')
   end
   
   it 'should know its name' do
@@ -40,7 +42,7 @@ describe Scrobbler::Tag do
     @tag.top_albums.first.mbid.should eql('')
     @tag.top_albums.first.url.should eql('http://www.last.fm/music/R%C3%B3is%C3%ADn+Murphy/Overpowered')
     @tag.top_albums.first.artist.should be_kind_of(Scrobbler::Artist)
-    @tag.top_albums.first.artist.name.should eql('Róisín Murphy')
+    @tag.top_albums.first.artist.name.should == 'Róisín Murphy'
     @tag.top_albums.first.artist.mbid.should eql('4c56405d-ba8e-4283-99c3-1dc95bdd50e7')
     @tag.top_albums.first.artist.url.should eql('http://www.last.fm/music/R%C3%B3is%C3%ADn+Murphy')
     @tag.top_albums.first.image(:small).should eql('http://userserve-ak.last.fm/serve/34s/26856969.png')
@@ -76,7 +78,7 @@ describe Scrobbler::Tag do
     @tag.top_tracks.should be_kind_of(Array)
     @tag.top_tracks.should have(50).items
     @tag.top_tracks.first.should be_kind_of(Scrobbler::Track)
-    @tag.top_tracks.first.rank.should eql(1)
+    @tag.top_tracks.first.rank.should eql(1.0)
     @tag.top_tracks.first.name.should eql('Stayin\' Alive')
     @tag.top_tracks.first.tagcount.should eql(422)
     @tag.top_tracks.first.mbid.should eql('')

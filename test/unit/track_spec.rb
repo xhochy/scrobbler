@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper.rb'
 describe Scrobbler::Track do
 
   before(:all) do 
-    @track = Scrobbler::Track.new(Scrobbler::Artist.new('Carrie Underwood'), 'Before He Cheats')
+    @track = Scrobbler::Track.new(Scrobbler::Artist.new(:name => 'Carrie Underwood'), 'Before He Cheats')
   end
   
   it 'should know the artist' do
@@ -27,6 +27,7 @@ describe Scrobbler::Track do
     @track.should respond_to(:remove_tag)
     @track.should respond_to(:search)
     @track.should respond_to(:share)
+    Scrobbler::Track.should respond_to(:fingerprint_metadata)
   end
   
   it 'should be able to add tags'
@@ -90,6 +91,15 @@ describe Scrobbler::Track do
   it 'should be able to search for a track'
   
   it 'should be able to share a track'
+  
+  it 'should be able to fetch the metadata that matches a certain finderprint' do
+    @metadata = Scrobbler::Track.fingerprint_metadata('1234')
+    @metadata.should have(5).items
+    @track = @metadata[0]
+    @track.rank.should eql 1.0
+    @track.name.should eql 'Merlin\'s Will'
+    @track.artist.name.should eql 'Ayreon'
+  end
   
 end
 

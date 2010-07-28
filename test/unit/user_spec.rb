@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper.rb'
 describe Scrobbler::User do
 
   before(:all) do 
-    @user = Scrobbler::User.new('jnunemaker')
+    @user = Scrobbler::User.new(:name => 'jnunemaker')
   end
   
   it 'should know its name' do
@@ -206,7 +206,7 @@ describe Scrobbler::User do
     first.name.should eql 'Learning to Live'
     first.mbid.should eql ''
     first.playcount.should eql 51
-    first.rank.should eql 1
+    first.rank.should eql 1.0
     first.url.should eql 'http://www.last.fm/music/Dream+Theater/_/Learning+to+Live'
     first.image(:small).should eql 'http://userserve-ak.last.fm/serve/34s/12620339.jpg'
     first.image(:medium).should eql 'http://userserve-ak.last.fm/serve/64s/12620339.jpg'
@@ -255,7 +255,7 @@ describe Scrobbler::User do
     first.artist.mbid.should eql 'bc641be9-ca36-4c61-9394-5230433f6646'
     first.mbid.should eql ''
     first.playcount.should eql 5
-    first.rank.should eql 1
+    first.rank.should eql 1.0
     first.url.should eql 'www.last.fm/music/Liquid+Tension+Experiment/_/Three+Minute+Warning'
   end
   

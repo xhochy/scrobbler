@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper.rb'
 describe Scrobbler::Playlist do
 
   before(:all) do 
-    @playlist = Scrobbler::Playlist.new('lastfm://playlist/album/2026126')
+    @playlist = Scrobbler::Playlist.new(:url => 'lastfm://playlist/album/2026126')
   end
   
   it 'should know its url' do
