@@ -1,7 +1,9 @@
 # encoding: utf-8
 
 require 'digest/md5'
+require 'net/https'
 require 'nokogiri'
+require 'uri'
 
 # Only set KCODE in Ruby 1.8.X, not in 1.9.X as it is deprecated
 if RUBY_VERSION =~ /1\.8\.[0-9]/ then
@@ -14,6 +16,14 @@ module Scrobbler
   API_URL     = 'http://ws.audioscrobbler.com/'
   
   class Base
+    
+    # By default, there is no cache
+    @@cache = []
+    
+    def Base.add_cache(cache)
+      @@cache << cache
+    end
+    
     # Set the default API key.
     #
     # This key will be used by all Scrobbler classes and objects.
@@ -86,6 +96,7 @@ module Scrobbler
       parameters = {:signed => false}.merge(parameters)
       parameters['api_key'] = @@api_key
       parameters['method'] = api_method.to_s
+      check_cache = false
       paramlist = []
       # Check if we want a signed call and pop :signed
       if parameters.delete :signed
@@ -102,30 +113,56 @@ module Scrobbler
           paramlist << "#{sanitize(a.at(0))}=#{sanitize(a.at(1))}"
         end
       else
+        if request_method == 'get' then
+          check_cache = true
+        end
         parameters.each do |key, value|
           paramlist << "#{sanitize(key)}=#{sanitize(value)}"
         end
       end
       
-      # TODO Caching!
-      
-      url = URI.join(API_URL, "/2.0/?#{paramlist.join('&')}")
-
-      # Fetch the http answer
-      case request_method
-        when "get"
-          req = Net::HTTP::Get.new(url.request_uri)
-        when "post"
-          req = Net::HTTP::Post.new(url.request_uri)
+      # Check if we could read from cache
+      xml = nil
+      if check_cache then
+        @@cache.each do |cache|
+          if cache.has?(parameters)
+            xml = cache.get(parameters)
+            break
+          end
+        end
       end
-      http = Net::HTTP.new(url.host, url.port)
-      http.use_ssl = (url.port == 443)
+      
+      # Fetch the http answer if cache was empty
+      if xml.nil? then
+        url = URI.join(API_URL, "/2.0/?#{paramlist.join('&')}")
+        case request_method
+          when "get"
+            req = Net::HTTP::Get.new(url.request_uri)
+          when "post"
+            req = Net::HTTP::Post.new(url.request_uri)
+        end
+        http = Net::HTTP.new(url.host, url.port)
+        http.use_ssl = (url.port == 443)
+        xml = http.start() do |conn| 
+          conn.request(req)
+        end
+        xml = xml.body
+      end
       
       # Process it
-      res = http.start() { |conn| conn.request(req) }
-      doc = Nokogiri::XML(res.body) do |config|
+      doc = Nokogiri::XML(xml) do |config|
         config.noent.noblanks.nonet
       end
+      
+      # Write to cache
+      if check_cache then
+        @@cache.each do |cache|
+          if cache.writable? then
+            cache.set(xml, parameters)
+          end
+        end
+      end
+            
       doc
     end
     

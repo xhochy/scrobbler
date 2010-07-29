@@ -68,8 +68,31 @@ module Scrobbler
     end
 
     # Get a list of the user's friends on Last.fm.    
-    def friends(page=1, limit=50)
-      call('user.getfriends', :friends, User, {:user => @name, :page => page, :limit => limit})
+    def friends(opts={})
+      result = []
+      if opts.delete :all
+        params = {:page => 1, :limit => 50, :user => @name}.merge(opts)
+        doc = Base.request('user.getfriends', params)
+        root = nil
+        doc.root.children.each do |child|
+          next unless child.name == 'friends'
+          root = child
+        end
+        total_pages = root['totalPages'].to_i
+        root.children.each do |child|
+          next unless child.name == 'user'
+          result << Scrobbler::User.new_from_libxml(child)
+        end
+        puts total_pages
+        (2..total_pages).each do |i|
+          params[:page] = i
+          result.concat call('user.getfriends', :friends, User, params)
+        end
+      else
+        params = {:page => 1, :limit => 50, :user => @name}.merge(opts)
+        result = call('user.getfriends', :friends, User, params)
+      end
+      result
     end
     
     # Get information about a user profile.
