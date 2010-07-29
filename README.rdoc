@@ -10,95 +10,18 @@ all functions is available at http://rdoc.info/projects/xhochy/scrobbler
 == Initialization
 
   Scrobbler::Base.api_key = 'foo123'
-
-== Users
-
-  user = Scrobbler::User.new('jnunemaker')
-
-  puts "#{user.username}'s Recent Tracks"
-  puts "=" * (user.username.length + 16)
-  user.recent_tracks.each { |t| puts t.name }
-
-  puts
-  puts
-
-  puts "#{user.username}'s Top Tracks"
-  puts "=" * (user.username.length + 13)
-  user.top_tracks.each { |t| puts "(#{t.playcount}) #{t.name}" }
-	
-== Albums
-	
-  album = Scrobbler::Album.new('Some Hearts', :artist => 'Carrie Underwood', :include_info => true)
-
-  puts "Album: #{album.name}"
-  puts "Artist: #{album.artist}"
-  puts "Playcount: #{album.playcount}"
-  puts "URL: #{album.url}"
-  puts "Release Date: #{album.release_date.strftime('%m/%d/%Y')}"
-	
-==Artists
-	
-  artist = Scrobbler::Artist.new('Carrie Underwood')  
   
-  puts 'Top Tracks'
-  puts "=" * 10
-  artist.top_tracks.each { |t| puts "(#{t.playcount}) #{t.name}" }
+== Usage
 
-  puts
-
-  puts 'Similar Artists'
-  puts "=" * 15
-  artist.similar.each { |a| puts "(#{a.match}%) #{a.name}" }
-
-==Geo
-
-  geo = Scrobbler::Geo.new()
-
-  puts 'Events'
-  puts "=" * 10
-  geo.events(:location => 'Manchester').each { |e| puts "(#{e.id}) #{e.title}" }
-
-  puts
-
-  puts 'Top Artists'
-  puts "=" * 10
-  geo.top_artists(:location => 'Manchester').each { |a| puts "(#{a.name}) #{a.playcount}" }
-
-  puts
-
-  puts 'Top Tracks'
-  puts "=" * 10
-  geo.top_tracks(:location => 'Manchester').each { |t| puts "(#{a.name}) #{a.playcount}" }
-
-	
-==Tags	
-	
-  tag = Scrobbler::Tag.new('country')
-
-  puts 'Top Albums'
-  tag.top_albums.each { |a| puts "(#{a.count}) #{a.name} by #{a.artist}" }
-
-  puts
-
-  puts 'Top Tracks'
-  tag.top_tracks.each { |t| puts "(#{t.count}) #{t.name} by #{t.artist}" }
-	
-==Tracks
-	
-  track = Scrobbler::Track.new('Carrie Underwood', 'Before He Cheats')
-  puts 'Fans'
-  puts "=" * 4
-  track.top_fans.each { |u| puts "(#{u.weight}) #{u.username}" }
-	
-== Simple Authentication (for Scrobbling)
-
-  work in progress...
-    
-== Scrobbling
-
-  work in progress...
-
-== Now Playing Submission
-
-  work in progress...
+  coming soon ...
+  
+== Note on Patches/Pull Requests
+ 
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a
+  future version unintentionally.
+* Commit, do not mess with rakefile, version, or history.
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
 
