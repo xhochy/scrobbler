@@ -81,6 +81,32 @@ module Scrobbler
     def Base.post_request(api_method, parameters = {})
       Base.request(api_method, parameters, 'post')
     end
+    
+    # Load a request from cache if possible
+    #
+    # @param [Hash] parameters The parameters passed as URL params.
+    # @return [String,nil]
+    def Base.load_from_cache(parameters)
+      @@cache.each do |cache|
+        if cache.has?(parameters)
+          return cache.get(parameters)
+        end
+      end
+      nil
+    end
+    
+    # Save a request answer to all caches that would store it.
+    #
+    # @param [String] xml The answer from the Last.fm API
+    # @param [Hash] parameters The parameters passed as URL params.
+    # @return [nil]
+    def Base.save_to_cache(xml, parameters)
+      @@cache.each do |cache|
+        if cache.writable? then
+          cache.set(xml, parameters)
+        end
+      end 
+    end
   
     # Execute a request to the Audioscrobbler webservice
     #
@@ -121,14 +147,10 @@ module Scrobbler
       end
       
       # Check if we could read from cache
-      xml = nil
       if check_cache then
-        @@cache.each do |cache|
-          if cache.has?(parameters)
-            xml = cache.get(parameters)
-            break
-          end
-        end
+        xml = load_from_cache(parameters)
+      else 
+        xml = nil
       end
       
       # Fetch the http answer if cache was empty
@@ -154,13 +176,7 @@ module Scrobbler
       end
       
       # Write to cache
-      if check_cache then
-        @@cache.each do |cache|
-          if cache.writable? then
-            cache.set(xml, parameters)
-          end
-        end
-      end
+      save_to_cache(xml, parameters) if check_cache
             
       doc
     end
