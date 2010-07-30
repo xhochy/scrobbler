@@ -10,10 +10,9 @@ if RUBY_VERSION =~ /1\.8\.[0-9]/ then
   $KCODE = 'u' 
 end
 
-
 module Scrobbler
  
-  API_URL     = 'http://ws.audioscrobbler.com/'
+  API_URL  = 'http://ws.audioscrobbler.com/' unless defined? API_URL
   
   class Base
     
