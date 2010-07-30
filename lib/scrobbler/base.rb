@@ -107,6 +107,27 @@ module Scrobbler
         end
       end 
     end
+    
+    # Fetch a http answer for the given request
+    #
+    # @param [String] request_method The HTTP verb for the request type
+    # @param [Array<String>] paramlist The URL(-query) parameters
+    # @return [String] The plain response from the Last.fm API
+    def Base.fetch_http(request_method, paramlist)
+      url = URI.join(API_URL, "/2.0/?#{paramlist.join('&')}")
+      case request_method.downcase
+        when "get"
+          req = Net::HTTP::Get.new(url.request_uri)
+        when "post"
+          req = Net::HTTP::Post.new(url.request_uri)
+      end
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = (url.port == 443)
+      xml = http.start() do |conn| 
+        conn.request(req)
+      end
+      xml.body
+    end
   
     # Execute a request to the Audioscrobbler webservice
     #
@@ -146,38 +167,17 @@ module Scrobbler
         end
       end
       
+      xml = nil
       # Check if we could read from cache
-      if check_cache then
-        xml = load_from_cache(parameters)
-      else 
-        xml = nil
-      end
-      
+      xml = load_from_cache(parameters) if check_cache
       # Fetch the http answer if cache was empty
-      if xml.nil? then
-        url = URI.join(API_URL, "/2.0/?#{paramlist.join('&')}")
-        case request_method
-          when "get"
-            req = Net::HTTP::Get.new(url.request_uri)
-          when "post"
-            req = Net::HTTP::Post.new(url.request_uri)
-        end
-        http = Net::HTTP.new(url.host, url.port)
-        http.use_ssl = (url.port == 443)
-        xml = http.start() do |conn| 
-          conn.request(req)
-        end
-        xml = xml.body
-      end
-      
+      xml = fetch_http(request_method, paramlist) if xml.nil?
       # Process it
-      doc = Nokogiri::XML(xml) do |config|
-        config.noent.noblanks.nonet
-      end
-      
+      doc = Nokogiri::XML(xml) { |config| config.noent.noblanks.nonet }
       # Write to cache
       save_to_cache(xml, parameters) if check_cache
-            
+      
+      # Return the parsed result      
       doc
     end
     
