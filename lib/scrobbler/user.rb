@@ -83,7 +83,6 @@ module Scrobbler
           next unless child.name == 'user'
           result << Scrobbler::User.new_from_libxml(child)
         end
-        puts total_pages
         (2..total_pages).each do |i|
           params[:page] = i
           result.concat call('user.getfriends', :friends, User, params)
