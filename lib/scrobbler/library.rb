@@ -40,8 +40,10 @@ module Scrobbler
     
     # A list of all the albums in a user's library, with play counts and tag 
     # counts. 
+    # @param [Hash<Symbol>] options The options to configure this API call.
+    # @return [Array<Scrobbler::Tracks>] The artists included in this library.
     def albums(options={})
-      request_library('library.getalbums', :albums, Album, options)
+      call_pageable('library.getalbums', :albums, Album, {:user => @user.name}.merge(options))
     end
 
     # A list of all the artists in a user's library, with play counts and tag
@@ -50,47 +52,17 @@ module Scrobbler
     # @param [Hash<Symbol>] options The options to configure this API call.
     # @return [Array<Scrobbler::Artist>] The artists included in this library.
     def artists(options={})
-      request_library('library.getartists', :artists, Artist, options)
+      call_pageable('library.getartists', :artists, Artist, {:user => @user.name}.merge(options))
     end
     
     # A list of all the tracks in a user's library, with play counts and tag
     # counts. 
+    # @param [Hash<Symbol>] options The options to configure this API call.
+    # @return [Array<Scrobbler::Track>] The tracks included in this library.
     def tracks(options={})
-        request_library('library.gettracks', :tracks, Track, options)
+      call_pageable('library.gettracks', :tracks, Track, {:user => @user.name}.merge(options))
     end
     
-    # Generic request method for the most Library funtions
-    #
-    # @param [String,Symbol] api_method The method which shall be called.
-    # @param [Hash] options The parameters passed as URL params.
-    # @param [String,Symbol] parent the parent XML node to look for.
-    # @param [Class] element The xml node name which shall be converted
-    #   into an object.
-    # @return [Array]
-    def request_library(method, parent, element, options={})
-      options = {:all => true, :user => @user.name}.merge options
-      result = []
-      if options.delete(:all)
-        doc = Base.request(method, options)
-        root = nil
-        doc.root.children.each do |child|
-          next unless child.name == parent.to_s
-          root = child
-        end
-        total_pages = root['totalPages'].to_i
-        root.children.each do |child|
-          next unless child.name == element.to_s.sub("Scrobbler::","").downcase
-          result << element.new_from_libxml(child)
-        end
-        (2..total_pages).each do |i|
-          options[:page] = i
-          result.concat call(method, parent, element, options)
-        end
-      else
-        result = call(method, parent, element, options)
-      end
-      result
-    end
     
   end
 end

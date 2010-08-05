@@ -12,3 +12,5 @@ catalog.xml
 tmp
 .project
 .loadpath
+view*.sh
+.chomrium/

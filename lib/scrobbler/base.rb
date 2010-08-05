@@ -19,6 +19,10 @@ module Scrobbler
     # By default, there is no cache
     @@cache = []
     
+    # Add a cache provider to the caching system
+    #
+    # @param [CacheProvider] cache A instance of a cache provider.
+    # @return [void]
     def Base.add_cache(cache)
       @@cache << cache
     end
@@ -28,7 +32,7 @@ module Scrobbler
     # This key will be used by all Scrobbler classes and objects.
     #
     # @param [String] api_key The default API key.
-    # @return [nil]
+    # @return [void]
     def Base.api_key=(api_key) 
       @@api_key = api_key
     end
@@ -38,7 +42,7 @@ module Scrobbler
     # This secret will be used by all Scrobbler classes and objects.
     #
     # @param [String] secret The default API secret.
-    # @return [nil]
+    # @return [void]
     def Base.secret=(secret)
       @@secret = secret
     end
@@ -85,7 +89,7 @@ module Scrobbler
     # Load a request from cache if possible
     #
     # @param [Hash] parameters The parameters passed as URL params.
-    # @return [String,nil]
+    # @return [String]
     def Base.load_from_cache(parameters)
       @@cache.each do |cache|
         if cache.has?(parameters)
@@ -99,7 +103,7 @@ module Scrobbler
     #
     # @param [String] xml The answer from the Last.fm API
     # @param [Hash] parameters The parameters passed as URL params.
-    # @return [nil]
+    # @return [void]
     def Base.save_to_cache(xml, parameters)
       @@cache.each do |cache|
         if cache.writable? then
@@ -184,7 +188,7 @@ module Scrobbler
     # Load information into instance variables.
     #
     # @param [Hash<String,Symbol>] data Each entry will be stored as a variable.
-    # @return [nil]
+    # @return [void]
     def populate_data(data = {})
       data.each do |key, value|
         instance_variable_set("@#{key.to_s}", value)
@@ -199,6 +203,40 @@ module Scrobbler
     def request(api_method, parameters = {}, request_method = 'get')
       Base.request(api_method, parameters, request_method)
     end
+    
+    # Generic request method for the most Library funtions
+    #
+    # @param [String,Symbol] api_method The method which shall be called.
+    # @param [Hash] options The parameters passed as URL params.
+    # @param [String,Symbol] parent the parent XML node to look for.
+    # @param [Class] element The xml node name which shall be converted
+    #   into an object.
+    # @return [Array]
+    def call_pageable(method, parent, element, options={})
+      options = {:all => true}.merge options
+      result = []
+      if options.delete(:all)
+        doc = Base.request(method, options)
+        root = nil
+        doc.root.children.each do |child|
+          next unless child.name == parent.to_s
+          root = child
+        end
+        total_pages = root['totalPages'].to_i
+        root.children.each do |child|
+          next unless child.name == element.to_s.sub("Scrobbler::","").downcase
+          result << element.new_from_libxml(child)
+        end
+        (2..total_pages).each do |i|
+          options[:page] = i
+          result.concat call(method, parent, element, options)
+        end
+      else
+        result = call(method, parent, element, options)
+      end
+      result
+    end
+
   
     # Call a API method
     #

@@ -103,7 +103,7 @@ register_fw('user=jnunemaker&period=overall&api_key=foo123&method=user.gettopalb
   'user', 'topalbums.xml')
 register_fw('user=jnunemaker&api_key=foo123&method=user.getneighbours',
   'user', 'neighbours.xml')
-register_fw('user=jnunemaker&page=1&limit=50&api_key=foo123&method=user.getfriends',
+register_fw('user=jnunemaker&api_key=foo123&method=user.getfriends',
   'user', 'friends.xml')
 register_fw('user=jnunemaker&api_key=foo123&method=user.getrecenttracks',
   'user', 'recenttracks.xml')
