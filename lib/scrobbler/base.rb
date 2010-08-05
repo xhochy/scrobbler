@@ -91,12 +91,14 @@ module Scrobbler
     # @param [Hash] parameters The parameters passed as URL params.
     # @return [String]
     def Base.load_from_cache(parameters)
+      found = nil
       @@cache.each do |cache|
         if cache.has?(parameters)
-          return cache.get(parameters)
+          found = cache.get(parameters)
+          break
         end
       end
-      nil
+      found
     end
     
     # Save a request answer to all caches that would store it.
