@@ -78,7 +78,7 @@ describe Scrobbler::Tag do
     @tag.top_tracks.should be_kind_of(Array)
     @tag.top_tracks.should have(50).items
     @tag.top_tracks.first.should be_kind_of(Scrobbler::Track)
-    @tag.top_tracks.first.rank.should eql(1)
+    @tag.top_tracks.first.rank.should eql(1.0)
     @tag.top_tracks.first.name.should eql('Stayin\' Alive')
     @tag.top_tracks.first.tagcount.should eql(422)
     @tag.top_tracks.first.mbid.should eql('')

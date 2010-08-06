@@ -1,7 +1,13 @@
+# encoding: utf-8
+
 require 'digest/md5'
 require 'nokogiri'
 
-$KCODE = 'u'
+# Only set KCODE in Ruby 1.8.X, not in 1.9.X as it is deprecated
+if RUBY_VERSION =~ /1\.8\.[0-9]/ then
+  $KCODE = 'u' 
+end
+
 
 module Scrobbler
  
@@ -28,13 +34,6 @@ module Scrobbler
       @@secret = secret
     end
   
-    # Get a HTTP/REST connection to the webservice.
-    #
-    # @return [REST::Connection]
-    def Base.connection
-      @connection ||= REST::Connection.new(API_URL)
-    end
-    
     # Clean up a URL parameter.
     #
     # @param [String, Symbol] param The parameter which needs cleanup.
@@ -107,9 +106,24 @@ module Scrobbler
           paramlist << "#{sanitize(key)}=#{sanitize(value)}"
         end
       end
-      url = "/2.0/?#{paramlist.join('&')}"
-      xml = self.connection.send(request_method, url)
-      doc = Nokogiri::XML(xml) do |config|
+      
+      # TODO Caching!
+      
+      url = URI.join(API_URL, "/2.0/?#{paramlist.join('&')}")
+
+      # Fetch the http answer
+      case request_method
+        when "get"
+          req = Net::HTTP::Get.new(url.request_uri)
+        when "post"
+          req = Net::HTTP::Post.new(url.request_uri)
+      end
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = (url.port == 443)
+      
+      # Process it
+      res = http.start() { |conn| conn.request(req) }
+      doc = Nokogiri::XML(res.body) do |config|
         config.noent.noblanks.nonet
       end
       doc

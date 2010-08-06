@@ -3,7 +3,8 @@
 require File.expand_path('basexmlinfo.rb', File.dirname(__FILE__))
 
 module Scrobbler
-  # @todo Add missing functions that require authentication
+  # Class for handling album.* requests to the Last.fm API and reading Album data
+  # provided in return.
   class Album < BaseXmlInfo
     include Scrobbler::ImageObjectFuncs
     
@@ -116,10 +117,13 @@ module Scrobbler
       end
     end
     
-    # Tag an album using a list of user supplied tags. 
-    def add_tags(tags)
-        # This function require authentication, but SimpleAuth is not yet 2.0
-        raise NotImplementedError
+    # Tag an album using a list of user supplied tags.
+    #
+    # @param [Scrobbler::Session] session A valid session to authenticate access
+    # @param [Array<String>] tags Tags to add to this album
+    # @return [nil] 
+    def add_tags(session, tags)
+      Base.post_request('album.addTags', {:sk => session.key, :signed => true, :tags => tags.join(',')})
     end
 
     # Get the tags applied by an individual user to an album on Last.fm.
@@ -132,6 +136,16 @@ module Scrobbler
     def remove_tag()
         # This function require authentication, but SimpleAuth is not yet 2.0
         raise NotImplementedError
+    end
+    
+    # Get the links to buy this album
+    def buylinks()
+      raise NotImplementedError
+    end
+    
+    # Share this album with a friend
+    def share()
+      raise NotImplementedError
     end
   end
 end

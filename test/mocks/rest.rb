@@ -2,7 +2,6 @@
 
 require 'rubygems'
 require 'fakeweb'
-require File.expand_path('../../lib/scrobbler/rest', File.dirname(__FILE__))
 
 FIXTURES_BASE = File.join([File.dirname(__FILE__), '..', 'fixtures', 'xml'])
 WEB_BASE = 'http://ws.audioscrobbler.com:80/2.0/?'
@@ -71,6 +70,8 @@ register_fw('artist=Cher&track=Before%20He%20Cheats&api_key=foo123&method=track.
   'track', 'fans.xml')
 register_fw('artist=Cher&track=Before%20He%20Cheats&api_key=foo123&method=track.gettoptags',
   'track', 'toptags.xml')
+register_fw('fingerprintid=1234&api_key=foo123&method=track.getFingerprintMetadata',
+  'track', 'fingerprintmetadata.xml')
 
 ## Geo
 FakeWeb.register_uri(:get, WEB_BASE + 'location=Manchester&api_key=foo123&method=geo.getevents', :body => File.join([FIXTURES_BASE, 'geo', 'events-p1.xml']))
@@ -112,3 +113,13 @@ register_fw('user=jnunemaker&api_key=foo123&method=user.getlovedtracks',
 # Album
 register_fw('artist=Carrie%20Underwood&album=Some%20Hearts&api_key=foo123&method=album.getinfo',
   'album', 'info.xml')
+FakeWeb.register_uri(:post, WEB_BASE + 'api_key=foo123&method=album.addTags&sk=d580d57f32848f5dcf574d1ce18d78b2&tags=tag1%2Ctag2&api_sig=ab00d1e2baf1c820f889f604ca86535d',
+  :body => File.join([FIXTURES_BASE, 'album', 'addtags.xml']))
+
+# Authentication
+register_fw('api_key=foo123&authToken=3cf8871e1ce17fbfad72d49007ec2aad&method=auth.getMobileSession&username=john&api_sig=6b9c4b9732a6bb0339bcbbc9ecbcd4dd', 
+  'auth', 'mobile.xml')
+register_fw('api_key=foo123&method=auth.getToken&api_sig=1cc6b6f01a027f166a21ca8fe0c693b3',
+  'auth', 'token.xml')
+register_fw('api_key=foo123&method=auth.getSession&token=0e6af5cd2fff6b314994af5b0c58ecc1&api_sig=2f8e52b15b36e8ca1356e7337364b84b',
+  'auth', 'session.xml')
