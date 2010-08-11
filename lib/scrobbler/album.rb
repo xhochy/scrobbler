@@ -34,6 +34,10 @@ module Scrobbler
       raise ArgumentError unless data.kind_of?(Hash)
       super(data)
       
+      if @artist.is_a?(String) then
+        @artist = Artist.new(:name => @artist)
+      end
+      
       raise ArgumentError, "Artist or mbid is required" if @artist.nil? && @mbid.nil?
       raise ArgumentError, "Name is required" if @name.empty?
     end
@@ -74,8 +78,7 @@ module Scrobbler
               next unless tag.name == 'tag'
               @top_tags << Tag.new_from_libxml(tag)
             end
-          when 'wiki'
-            # @todo Handle wiki entries
+          when 'wiki'            # @todo Handle wiki entries
           when 'text'
             # ignore, these are only blanks
           when '#text'
@@ -107,7 +110,7 @@ module Scrobbler
     # @todo Add language code for wiki translation
     def load_info
       return nil if @info_loaded
-      xml = Base.request('album.getinfo', {:artist => @artist, :album => @name})
+      xml = Base.request('album.getinfo', {:artist => @artist.name, :album => @name})
       unless xml.root['status'] == 'failed'
         xml.root.children.each do |childL1|
           next unless childL1.name == 'album'

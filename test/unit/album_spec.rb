@@ -8,7 +8,7 @@ describe Scrobbler::Album do
   end
   
   it 'should know the artist' do
-    @album.artist.should eql('Carrie Underwood')
+    @album.artist.name.should eql('Carrie Underwood')
   end
   
   it "should know it's name" do
