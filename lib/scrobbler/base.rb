@@ -71,7 +71,12 @@ module Scrobbler
           next unless child.name == parent.to_s
           child.children.each do |child2|
               next unless child2.name == element
-              elements << scrobbler_class.new_from_libxml(child2)
+              begin
+                elements << scrobbler_class.new_from_libxml(child2)
+              rescue
+                # Sadly last.fm does not always return valid Elements
+                # @todo Try to make the best out of it
+              end
           end
       end
       elements
