@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Jonathan Rudenberg", "Uwe L. Korn"]
-  s.date = %q{2010-08-11}
+  s.date = %q{2010-08-10}
   s.description = %q{A ruby library for accessing the Last.fm 2.0 API. It is higly optimized so that it uses less memory and parses XML (through Nokogiri) than other implementations.}
   s.email = %q{uwelk@xhochy.org}
   s.extra_rdoc_files = [
