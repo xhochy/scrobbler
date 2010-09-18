@@ -78,7 +78,7 @@ module Scrobbler
                 # @todo Try to make the best out of it
               end
           end
-      end
+      end unless doc.root.nil? || doc.root.children.nil?
       elements
     end
 
@@ -223,12 +223,17 @@ module Scrobbler
       options = {:all => true}.merge options
       result = []
       if options.delete(:all)
-        doc = Base.request(method, options)
+        doc = Base.request(method, options.merge(:page => 1))
         root = nil
         doc.root.children.each do |child|
           next unless child.name == parent.to_s
           root = child
         end
+        if root.nil? then
+          # Sometimes Last.fm returns an empty file if we query for sth not known
+          return []
+        end
+        #return nil if root.nil? # Sometimes Last.fm returns an empty XML file if there were no artists
         total_pages = root['totalPages'].to_i
         root.children.each do |child|
           next unless child.name == element.to_s.sub("Scrobbler::","").downcase

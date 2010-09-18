@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["John Nunemaker", "Jonathan Rudenberg", "Uwe L. Korn"]
-  s.date = %q{2010-08-11}
+  s.date = %q{2010-08-25}
   s.description = %q{A ruby library for accessing the Last.fm 2.0 API. It is higly optimized so that it uses less memory and parses XML (through Nokogiri) than other implementations.}
   s.email = %q{uwelk@xhochy.org}
   s.extra_rdoc_files = [
@@ -59,30 +59,30 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{A ruby library for accessing the last.fm v2 webservices}
   s.test_files = [
-    "test/unit/tag_spec.rb",
-     "test/unit/playlist_spec.rb",
-     "test/unit/album_spec.rb",
-     "test/unit/radio_spec.rb",
-     "test/unit/event_spec.rb",
-     "test/unit/venue_spec.rb",
+    "test/spec_helper.rb",
      "test/unit/user_spec.rb",
-     "test/unit/artist_spec.rb",
-     "test/unit/playing_test.rb",
-     "test/unit/simpleauth_test.rb",
+     "test/unit/radio_spec.rb",
+     "test/unit/tag_spec.rb",
      "test/unit/geo_spec.rb",
-     "test/unit/library_spec.rb",
+     "test/unit/venue_spec.rb",
+     "test/unit/simpleauth_test.rb",
+     "test/unit/playlist_spec.rb",
      "test/unit/track_spec.rb",
+     "test/unit/artist_spec.rb",
+     "test/unit/event_spec.rb",
+     "test/unit/album_spec.rb",
      "test/unit/authentication_spec.rb",
-     "test/spec_helper.rb",
-     "test/test_helper.rb",
-     "test/mocks/library.rb",
+     "test/unit/playing_test.rb",
+     "test/unit/library_spec.rb",
      "test/mocks/rest.rb",
-     "examples/tag.rb",
+     "test/mocks/library.rb",
+     "test/test_helper.rb",
      "examples/track.rb",
-     "examples/user.rb",
+     "examples/album.rb",
      "examples/artist.rb",
-     "examples/scrobble.rb",
-     "examples/album.rb"
+     "examples/tag.rb",
+     "examples/user.rb",
+     "examples/scrobble.rb"
   ]
 
   if s.respond_to? :specification_version then
