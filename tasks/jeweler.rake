@@ -13,7 +13,7 @@ begin
     s.add_development_dependency "fakeweb", ">= 0"
     s.add_dependency 'nokogiri', ">= 1.4.2"
 
-    s.files.exclude 'test/**/*'
+    s.files.exclude 'test/**/*', '.gitignore'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
