@@ -59,7 +59,7 @@ module Scrobbler
               @listeners = childL2.content.to_i if childL2.name == 'listeners'
               @playcount = childL2.content.to_i if childL2.name == 'playcount'
               @playcount = childL2.content.to_i if childL2.name == 'plays'
-            end
+            end if not child.children.nil?
           when 'similar'
             # Ignore them for the moment, they are not stored.
           when 'bio'
@@ -145,7 +145,7 @@ module Scrobbler
       doc.root.children.each do |childL1|
         next unless childL1.name == 'artist'
         load_from_xml(childL1)
-      end
+      end if (not doc.root.nil?) && (not doc.root.children.nil?)
       @info_loaded = true
     end # load_info
 
