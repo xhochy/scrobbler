@@ -7,7 +7,7 @@
 }.each do |url, file|
   register_fw('method=library.getartists&' + url, 'library', file)
 end
-(2..7).each do |n|
+(1..7).each do |n|
   register_fw('method=library.getartists&page=' + n.to_s +
     '&api_key=foo123&user=xhochy', 'library', "artists-p#{n}.xml")
 end
@@ -19,7 +19,7 @@ end
 }.each do |url, file|
   register_fw('method=library.gettracks&' + url, 'library', file)
 end
-(2..34).each do |n|
+(1..34).each do |n|
   register_fw("user=xhochy&page=#{n}&api_key=foo123&method=library.gettracks", 
     'library', "tracks-p#{n}.xml")
 end
@@ -27,7 +27,7 @@ end
 ## ## library.getalbums
 FakeWeb.register_uri(:get, WEB_BASE + 'limit=30&user=xhochy&api_key=foo123&method=library.getalbums', :body => File.join([FIXTURES_BASE, 'library', 'albums-f30.xml']))
 FakeWeb.register_uri(:get, WEB_BASE + 'user=xhochy&api_key=foo123&method=library.getalbums', :body => File.join([FIXTURES_BASE, 'library', 'albums-p1.xml']))
-(2..8).each do |n|
+(1..8).each do |n|
   FakeWeb.register_uri(:get, WEB_BASE + 'method=library.getalbums&page=' + 
     n.to_s + '&api_key=foo123&user=xhochy', 
     :body => File.join([FIXTURES_BASE, 'library', 'albums-p' +

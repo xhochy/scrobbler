@@ -105,6 +105,8 @@ register_fw('user=jnunemaker&api_key=foo123&method=user.getneighbours',
   'user', 'neighbours.xml')
 register_fw('user=jnunemaker&api_key=foo123&method=user.getfriends',
   'user', 'friends.xml')
+register_fw('user=jnunemaker&api_key=foo123&method=user.getfriends&page=1',
+  'user', 'friends.xml')
 register_fw('user=jnunemaker&api_key=foo123&method=user.getrecenttracks',
   'user', 'recenttracks.xml')
 register_fw('user=jnunemaker&api_key=foo123&method=user.getlovedtracks',

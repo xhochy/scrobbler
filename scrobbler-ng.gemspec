@@ -58,30 +58,30 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{A ruby library for accessing the last.fm v2 webservices}
   s.test_files = [
-    "test/spec_helper.rb",
-     "test/unit/user_spec.rb",
-     "test/unit/radio_spec.rb",
-     "test/unit/tag_spec.rb",
-     "test/unit/geo_spec.rb",
-     "test/unit/venue_spec.rb",
-     "test/unit/simpleauth_test.rb",
+    "test/unit/tag_spec.rb",
      "test/unit/playlist_spec.rb",
-     "test/unit/track_spec.rb",
-     "test/unit/artist_spec.rb",
-     "test/unit/event_spec.rb",
      "test/unit/album_spec.rb",
-     "test/unit/authentication_spec.rb",
+     "test/unit/radio_spec.rb",
+     "test/unit/event_spec.rb",
+     "test/unit/venue_spec.rb",
+     "test/unit/user_spec.rb",
+     "test/unit/artist_spec.rb",
      "test/unit/playing_test.rb",
+     "test/unit/simpleauth_test.rb",
+     "test/unit/geo_spec.rb",
      "test/unit/library_spec.rb",
-     "test/mocks/rest.rb",
-     "test/mocks/library.rb",
+     "test/unit/track_spec.rb",
+     "test/unit/authentication_spec.rb",
+     "test/spec_helper.rb",
      "test/test_helper.rb",
-     "examples/track.rb",
-     "examples/album.rb",
-     "examples/artist.rb",
+     "test/mocks/library.rb",
+     "test/mocks/rest.rb",
      "examples/tag.rb",
+     "examples/track.rb",
      "examples/user.rb",
-     "examples/scrobble.rb"
+     "examples/artist.rb",
+     "examples/scrobble.rb",
+     "examples/album.rb"
   ]
 
   if s.respond_to? :specification_version then
