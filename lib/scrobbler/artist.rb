@@ -10,7 +10,7 @@ module Scrobbler
     include Scrobbler::StreamableObjectFuncs
     
     attr_reader :name, :mbid, :playcount, :rank, :url, :count, :listeners
-    attr_reader :chartposition, :streamable, :match, :tagcount
+    attr_reader :chartposition, :streamable, :match, :tagcount, :bio
     
     # Alias for Artist.new(:xml => xml)
     #
@@ -58,6 +58,7 @@ module Scrobbler
             child.children.each do |childL2|
               @listeners = childL2.content.to_i if childL2.name == 'listeners'
               @playcount = childL2.content.to_i if childL2.name == 'playcount'
+              @playcount = childL2.content.to_i if childL2.name == 'plays'
             end
           when 'similar'
             # Ignore them for the moment, they are not stored.
@@ -65,6 +66,9 @@ module Scrobbler
             child.children.each do |childL2|
               @bio = childL2.content if childL2.name == 'content'
             end
+          when 'tags'
+            # Ignore them at the moment, inlude them later
+            # TODO Include a interface for these tags
           when 'text'
             # ignore, these are only blanks
           when '#text'
