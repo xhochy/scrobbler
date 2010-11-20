@@ -228,7 +228,7 @@ module Scrobbler
         doc.root.children.each do |child|
           next unless child.name == parent.to_s
           root = child
-        end
+        end unless doc.nil? || doc.root.nil?
         if root.nil? then
           # Sometimes Last.fm returns an empty file if we query for sth not known
           return []
