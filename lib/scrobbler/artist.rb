@@ -141,7 +141,12 @@ module Scrobbler
     #
     # @return [nil]
     def load_info
-      doc = request('artist.getinfo', {:artist => @name})
+     if @mbid.nil?
+        req_args = {:artist => @name}
+      else
+        req_args = {:mbid => @mbid}
+      end
+      doc = request('artist.getinfo', req_args)
       doc.root.children.each do |childL1|
         next unless childL1.name == 'artist'
         load_from_xml(childL1)
