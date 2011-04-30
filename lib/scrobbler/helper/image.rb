@@ -66,7 +66,7 @@ module Scrobbler
       raise ArgumentError unless ['small', 'medium', 'large', 'extralarge',
         'mega'].include?(which)      
       img_url = instance_variable_get("@image_#{which}")
-      if img_url.nil? && responds_to?(:load_info) 
+      if img_url.nil? && respond_to?(:load_info) 
         load_info 
         img_url = instance_variable_get("@image_#{which}")
       end
