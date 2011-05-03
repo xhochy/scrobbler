@@ -8,6 +8,7 @@ module Scrobbler
     include ImageObjectFuncs
     
     attr_reader :url, :weight, :match, :realname, :name
+    attr_reader :id, :country, :age, :gender, :subscriber, :playcount, :playlistcount, :registered
     
     # Alias for User.new(:xml => xml)
     #
@@ -43,6 +44,24 @@ module Scrobbler
             @realname = child.content
           when 'image'
             check_image_node(child)
+          when 'id'
+            @id = child.content.to_i
+          when 'country'
+            @country = child.content
+          when 'age'
+            @age = child.content.to_i
+          when 'gender'
+            @gender = child.content
+          when 'subscriber'
+            @subscriber = child.content == '1'
+          when 'playcount'
+            @playcount = child.content.to_i
+          when 'playlists'
+            @playlistcount = child.content.to_i
+          when 'registered'
+            @registered = Time.parse child.content
+          when 'bootstrap'
+            # TODO Guess meaning of 'bootstrap' field
           when 'text'
             # ignore, these are only blanks
           when '#text'
@@ -78,10 +97,18 @@ module Scrobbler
       call_pageable('user.getfriends', :friends, User, {:user => @name}.merge(opts))
     end
     
+    # Indicates if the info was already loaded
+    @info_loaded = false
+
     # Get information about a user profile.
     def load_info
-        # This function requires authentication, but SimpleAuth is not yet 2.0
-        raise NotImplementedError
+      unless @info_loaded
+        xml = Base.request 'user.getinfo', :user => @name
+        if xml.root['status'] == 'ok' and xml.root.children.first.name == 'user'
+          load_from_xml xml.root.children.first
+          @info_loaded = true
+        end
+      end
     end
     
     # Get the last 50 tracks loved by a user.

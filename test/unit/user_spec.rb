@@ -71,7 +71,25 @@ describe Scrobbler::User do
     @user.friends.first.url.should eql('http://www.last.fm/user/lobsterclaw')
   end
   
-  it 'should be able to load additional information'
+  it 'should be able to load additional information' do
+    @user.load_info
+
+    @user.name.should eql 'jnunemaker'
+    @user.realname.should eql 'John Nunemaker'
+    @user.image(:small).should eql 'http://userserve-ak.last.fm/serve/34/4994806.jpg'
+    @user.image(:medium).should eql 'http://userserve-ak.last.fm/serve/64/4994806.jpg'
+    @user.image(:large).should eql 'http://userserve-ak.last.fm/serve/126/4994806.jpg'
+    @user.image(:extralarge).should eql 'http://userserve-ak.last.fm/serve/252/4994806.jpg'
+    @user.url.should eql 'http://www.last.fm/user/jnunemaker'
+    @user.id.should eql 3017870
+    @user.country.should eql 'US'
+    @user.age.should eql 29
+    @user.gender.should eql 'm'
+    @user.subscriber.should be_false
+    @user.playcount.should be 41720
+    @user.playlistcount.should be 0
+    @user.registered.should eql Time.mktime(2005, 12, 8, 13, 58)
+  end
   
   it 'should be able to get its loved tracks' do
     @user.loved_tracks.should be_kind_of(Array)

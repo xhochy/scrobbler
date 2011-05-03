@@ -111,6 +111,8 @@ register_fw('user=jnunemaker&api_key=foo123&method=user.getrecenttracks',
   'user', 'recenttracks.xml')
 register_fw('user=jnunemaker&api_key=foo123&method=user.getlovedtracks',
   'user', 'lovedtracks.xml')
+register_fw('user=jnunemaker&api_key=foo123&method=user.getinfo',
+  'user', 'info.xml')
   
 # Album
 register_fw('artist=Carrie%20Underwood&album=Some%20Hearts&api_key=foo123&method=album.getinfo',
