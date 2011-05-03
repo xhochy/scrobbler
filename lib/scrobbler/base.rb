@@ -13,6 +13,8 @@ end
 module Scrobbler
  
   API_URL  = 'http://ws.audioscrobbler.com/' unless defined? API_URL
+
+  class ApiError < StandardError; end
   
   class Base
     
@@ -185,11 +187,24 @@ module Scrobbler
       xml = fetch_http(request_method, paramlist) if xml.nil?
       # Process it
       doc = Nokogiri::XML(xml) { |config| config.noent.noblanks.nonet }
+      # Validate it
+      validate_response_document doc
       # Write to cache
       save_to_cache(xml, parameters) if check_cache
       
       # Return the parsed result      
       doc
+    end
+
+    # Check response status, raise ApiError if request failed.
+    #
+    # @param [Nokogiri::XML::Document] document Response XML document.
+    # @return [void]
+    def Base.validate_response_document(document)
+      unless document.root and document.root['status'] == 'ok'
+        error_message = (document.content if document.root.child.name == 'error') rescue nil
+        raise ApiError, error_message
+      end
     end
     
     # Load information into instance variables.

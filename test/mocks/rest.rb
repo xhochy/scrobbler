@@ -15,6 +15,10 @@ end
 ## Library
 require File.expand_path('library.rb', File.dirname(__FILE__))
 
+## Base
+register_fw('user=invalid_api_key&api_key=foo123&method=user.getinfo',
+  'base', 'invalid_api_key.xml')
+
 ## Event
 register_fw('method=event.getattendees&event=328799&api_key=foo123',
   'event', 'attendees.xml')
@@ -113,7 +117,7 @@ register_fw('user=jnunemaker&api_key=foo123&method=user.getlovedtracks',
   'user', 'lovedtracks.xml')
 register_fw('user=jnunemaker&api_key=foo123&method=user.getinfo',
   'user', 'info.xml')
-  
+
 # Album
 register_fw('artist=Carrie%20Underwood&album=Some%20Hearts&api_key=foo123&method=album.getinfo',
   'album', 'info.xml')
