@@ -60,6 +60,10 @@ module Scrobbler
             @playlistcount = child.content.to_i
           when 'registered'
             @registered = Time.parse child.content
+          when 'id'
+            @id = child.content.to_i
+          when 'type'
+            @type = child.content.to_i
           when 'bootstrap'
             # TODO Guess meaning of 'bootstrap' field
           when 'text'
