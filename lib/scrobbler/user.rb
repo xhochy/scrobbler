@@ -83,7 +83,7 @@ module Scrobbler
       raise ArgumentError unless data.kind_of?(Hash)
       super(data)
       
-      raise ArgumentError, "Name is required" if @name.empty?
+      raise ArgumentError, "Name is required" if @name.nil? or @name.empty?
     end
     
     # Get a list of upcoming events that this user is attending. 
