@@ -202,7 +202,7 @@ module Scrobbler
     # @return [void]
     def Base.validate_response_document(document)
       unless document.root and document.root['status'] == 'ok'
-        error_message = (document.content if document.root.child.name == 'error') rescue nil
+        error_message = (document.content if document.root.child.name == 'error') rescue "Erroneous documents received"
         raise ApiError, error_message
       end
     end
