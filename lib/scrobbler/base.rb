@@ -7,20 +7,20 @@ require 'uri'
 
 # Only set KCODE in Ruby 1.8.X, not in 1.9.X as it is deprecated
 if RUBY_VERSION =~ /1\.8\.[0-9]/ then
-  $KCODE = 'u' 
+  $KCODE = 'u'
 end
 
 module Scrobbler
- 
+
   API_URL  = 'http://ws.audioscrobbler.com/' unless defined? API_URL
 
   class ApiError < StandardError; end
-  
+
   class Base
-    
+
     # By default, there is no cache
     @@cache = []
-    
+
     # Add a cache provider to the caching system
     #
     # @param [CacheProvider] cache A instance of a cache provider.
@@ -28,17 +28,17 @@ module Scrobbler
     def Base.add_cache(cache)
       @@cache << cache
     end
-    
+
     # Set the default API key.
     #
     # This key will be used by all Scrobbler classes and objects.
     #
     # @param [String] api_key The default API key.
     # @return [void]
-    def Base.api_key=(api_key) 
+    def Base.api_key=(api_key)
       @@api_key = api_key
     end
-  
+
     # Set the default API secret.
     #
     # This secret will be used by all Scrobbler classes and objects.
@@ -48,7 +48,7 @@ module Scrobbler
     def Base.secret=(secret)
       @@secret = secret
     end
-  
+
     # Clean up a URL parameter.
     #
     # @param [String, Symbol] param The parameter which needs cleanup.
@@ -56,7 +56,7 @@ module Scrobbler
     def Base.sanitize(param)
       URI.escape(param.to_s, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
     end
-  
+
     # Initiate a API and parse it.
     #
     # @param [String,Symbol] api_method The API method to call.
@@ -92,7 +92,7 @@ module Scrobbler
     def Base.post_request(api_method, parameters = {})
       Base.request(api_method, parameters, 'post')
     end
-    
+
     # Load a request from cache if possible
     #
     # @param [Hash] parameters The parameters passed as URL params.
@@ -107,7 +107,7 @@ module Scrobbler
       end
       found
     end
-    
+
     # Save a request answer to all caches that would store it.
     #
     # @param [String] xml The answer from the Last.fm API
@@ -118,9 +118,9 @@ module Scrobbler
         if cache.writable? then
           cache.set(xml, parameters)
         end
-      end 
+      end
     end
-    
+
     # Fetch a http answer for the given request
     #
     # @param [String] request_method The HTTP verb for the request type
@@ -136,12 +136,12 @@ module Scrobbler
       end
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = (url.port == 443)
-      xml = http.start() do |conn| 
+      xml = http.start() do |conn|
         conn.request(req)
       end
       xml.body
     end
-  
+
     # Execute a request to the Audioscrobbler webservice
     #
     # @param [String,Symbol] api_method The method which shall be called.
@@ -151,7 +151,7 @@ module Scrobbler
     def Base.request(api_method, parameters = {}, request_method = 'get')
       raise ArgumentError unless [String, Symbol].member?(api_method.class)
       raise ArgumentError unless parameters.kind_of?(Hash)
-  
+
       parameters = {:signed => false}.merge(parameters)
       parameters['api_key'] = @@api_key
       parameters['method'] = api_method.to_s
@@ -179,7 +179,7 @@ module Scrobbler
           paramlist << "#{sanitize(key)}=#{sanitize(value)}"
         end
       end
-      
+
       xml = nil
       # Check if we could read from cache
       xml = load_from_cache(parameters) if check_cache
@@ -191,8 +191,8 @@ module Scrobbler
       validate_response_document doc
       # Write to cache
       save_to_cache(xml, parameters) if check_cache
-      
-      # Return the parsed result      
+
+      # Return the parsed result
       doc
     end
 
@@ -206,7 +206,7 @@ module Scrobbler
         raise ApiError, error_message
       end
     end
-    
+
     # Load information into instance variables.
     #
     # @param [Hash<String,Symbol>] data Each entry will be stored as a variable.
@@ -216,7 +216,7 @@ module Scrobbler
         instance_variable_set("@#{key.to_s}", value)
       end
     end
-  
+
     # Execute a request to the Audioscrobbler webservice
     #
     # @param [String,Symbol] api_method The method which shall be called.
@@ -225,7 +225,7 @@ module Scrobbler
     def request(api_method, parameters = {}, request_method = 'get')
       Base.request(api_method, parameters, request_method)
     end
-    
+
     # Generic request method for the most Library funtions
     #
     # @param [String,Symbol] api_method The method which shall be called.
@@ -264,7 +264,7 @@ module Scrobbler
       result
     end
 
-  
+
     # Call a API method
     #
     # @param [String,Symbol] api_method The method which shall be called.
